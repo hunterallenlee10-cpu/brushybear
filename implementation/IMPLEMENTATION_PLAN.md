@@ -58,7 +58,7 @@ You said "use your recs for all 10." Items marked * didn't have a clear pick in 
 | next | 16.4 (App Router, Turbopack) | Framework, server-rendered pages |
 | react / react-dom | 19.3 | UI |
 | typescript | latest 5.x | Types (strict mode) |
-| tailwindcss + @tailwindcss/postcss | 4.3 | Styling. Version 4 keeps the design tokens in `globals.css` under `@theme` instead of a config file. |
+| tailwindcss + @tailwindcss/turbopack | 4.3 | Styling, through the Turbopack loader that create-next-app 16.4 sets up. Version 4 keeps the design tokens in `globals.css` under `@theme` instead of a config file. |
 | motion | 14.x | Only where CSS can't do it (accordion height, slider drag). Most motion is plain CSS. |
 | zod | 4.x | One validation schema shared by the form and the API route |
 | @vercel/blob | 2.8 | Direct photo uploads from the browser |
@@ -68,6 +68,13 @@ You said "use your recs for all 10." Items marked * didn't have a clear pick in 
 | vitest, @playwright/test, @axe-core/playwright, @lhci/cli | dev only | Unit tests, end-to-end tests, accessibility, Lighthouse |
 
 The browser for Playwright is already installed in this environment.
+
+**Next.js 16 rules this project follows** (from the docs bundled with the installed version):
+- `cacheComponents` is on: pages are static by default. Nothing reads the clock (`new Date()`) during a build; dates come from the data.
+- `dynamicParams` is not allowed. Unknown slugs call `notFound()` instead.
+- Images use `preload` (not the deprecated `priority`). `images.qualities` is set.
+- Linting runs through ESLint directly (`npm run lint`); `next lint` no longer exists.
+- `npm run typecheck` runs `next typegen` first, so the generated route types exist.
 
 **Environment variables** (`.env.example` gets committed; real values never are):
 
@@ -88,25 +95,26 @@ The browser for Playwright is already installed in this environment.
 Every phase ends with the same steps: typecheck, lint, unit tests and a production build pass; push; Vercel preview; update `CONTENT_TODO.md`; tick this plan; stop.
 
 ### Phase 1: Foundation, brand files and first preview
-- [ ] Set up Next.js 16 + TypeScript (strict) + Tailwind 4 + ESLint. Add `.env.example`.
-- [ ] `src/config/site.ts`: `SITE` holds name, region name, owners, phone/email/domain/hours/L&I/UBI/warranty placeholders, social profiles, `LAST_UPDATED`, season. Include an `isSet()` helper so unfilled placeholders can be detected.
-- [ ] `src/config/env.ts`: read and check environment variables (server-only values never reach the browser).
-- [ ] `src/config/pages.ts`: a single list of every route with its indexable flag and last-modified date. The sitemap, navigation and the noindex logic all read from it.
-- [ ] Brand files: run `scripts/brand/process-logo.py` on the master logo.
-  - Cut it out of the white background along the sticker edge. Pixels inside the sticker are not touched.
-  - Export: the full logo, the wordmark crop (for the header), the bear crop and the bear-head crop (for icons).
-  - Also cut out the two other "Keep-this-exact" poses (roller held up, roller on the shoulder) as free extra mascot poses.
-  - Output WebP/AVIF/PNG to `/public/brand/`. Generate `app/icon.png` and `app/apple-icon.png` from the bear head.
-  - I'll check the cut-out edges by eye against cream and green backgrounds.
-- [ ] Design tokens in `globals.css` (section 8), the two fonts, base styles, and visible focus outlines.
-- [ ] Layout parts:
-  - Header: logo, menu, "Get a Free Estimate" button that stays visible on desktop.
-  - Mobile bottom bar: Call / Text / Estimate. It reserves its own space so it never shifts the page.
-  - Footer: name/phone/email/service area/hours/L&I/UBI, links to every service and city page, "Last updated".
-  - Skip link, a basic 404 page, and a `JsonLd` component.
-- [ ] `lib/seo.ts` (builds metadata for each page), `app/robots.ts` and `app/sitemap.ts`, both gated by `SITE_INDEXABLE`.
-- [ ] `/styleguide` page for reviewing colors, type, buttons and stickers. It's noindex, left out of the sitemap, and returns a 404 in Production.
-- [ ] Doc templates: `CONTENT_TODO.md` (generated from the data by `scripts/content-todo.ts`), `AI_ASSETS.md`, `LAUNCH_CHECKLIST.md`.
+- [x] Set up Next.js 16.4 + TypeScript (strict) + Tailwind 4 + ESLint. Add `.env.example`.
+- [x] `src/config/site.ts`: `SITE` holds name, region name, owners, phone/email/domain/hours/L&I/UBI/warranty placeholders, social profiles, `lastUpdated`, season. `isSet()` (in `src/lib/placeholders.ts`) detects unfilled placeholders.
+- [x] `src/config/env.ts`: site URL, the indexing switch and the production-deploy check, all read at build time. (Server-only secrets get their own module in Phase 3.)
+- [x] `src/config/pages.ts`: a single list of every route with its `live` and `indexable` flags and last-modified date. The sitemap, navigation and footer all read from it, so unbuilt pages are never linked.
+- [x] Brand files (`scripts/brand/process-logo.py`):
+  - The sticker border is white on a white background, so it couldn't be traced by color. The script finds the artwork's outline and rebuilds the border at its measured width (37 px); artwork pixels are unchanged.
+  - Exports: full logo (`public/brand/logo-full.png`), wordmark, and the bear alone in all 3 "Keep-this-exact" poses (`src/assets/brand/`).
+  - Icons from the bear head on a forest tile (`scripts/brand/make-icons.py`): `favicon.ico`, `icon.png`, `apple-icon.png`.
+  - Interim social-sharing image from the logo files (`scripts/brand/make-og.py`).
+  - Checked by eye on cream and forest backgrounds.
+- [x] Design tokens in `globals.css` (section 8), the two fonts, paper grain, base styles, and visible focus outlines. A unit test checks contrast straight from `globals.css` (16 checks pass).
+- [x] Layout parts:
+  - Header: logo, menu (when there are pages to list), and a "Get a Free Estimate" button that stays visible from tablet width up.
+  - Mobile bottom bar: Call / Text / Estimate. The page reserves its height so it never covers content.
+  - Footer: name/phone/email/service area/hours/L&I/UBI, links to every service and city page (plain text until those pages exist), "Last updated".
+  - Skip link, a preview banner, a basic 404 page with the bear, and a `JsonLd` component (business structured data on every page).
+- [x] `lib/seo.ts` (builds metadata for each page), `lib/schema.ts`, `app/robots.ts` and `app/sitemap.ts`, gated by `SITE_INDEXABLE`.
+- [x] `/styleguide` page for reviewing logo, bear poses, colors, contrast, type, buttons, stickers and placeholders. It's noindex, left out of the sitemap, and returns a 404 on the production deployment.
+- [x] Doc templates: `CONTENT_TODO.md` (generated by `npm run content-todo`), `AI_ASSETS.md`, `LAUNCH_CHECKLIST.md` (draft).
+- [x] Launch guard (`scripts/check-placeholders.ts`, runs before every build): fails a build with `SITE_INDEXABLE=true` while any required fact is missing. Tested both ways.
 - [ ] Create the Vercel project, link it to the GitHub repo, set preview environment variables, and get the first preview link.
 
 ### Phase 2: Design system and homepage (placeholder hero)
@@ -211,7 +219,7 @@ Every phase ends with the same steps: typecheck, lint, unit tests and a producti
 │  ├─ check-placeholders.ts        # fails a production build if placeholders would show
 │  └─ check-duplicate-content.ts   # flags city pages that are too similar
 ├─ public/
-│  ├─ brand/          # logo-full, logo-wordmark, bear-*, bear-head (avif/webp/png)
+│  ├─ brand/          # logo-full.png (fixed URL for structured data)
 │  ├─ placeholders/   # labeled SVG blocks: 16x9, 4x3, 1x1, 3x4
 │  ├─ media/          # Phase 7: hero/, scenes/, mascot/, textures/
 │  └─ og-image.png    # 1200x630
@@ -226,6 +234,7 @@ Every phase ends with the same steps: typecheck, lint, unit tests and a producti
    │  ├─ articles/page.tsx  articles/[slug]/page.tsx
    │  ├─ styleguide/page.tsx      # preview only
    │  └─ api/estimate/route.ts  api/upload/route.ts
+   ├─ assets/brand/  # logo-wordmark, bear-* (imported, so sizes are known)
    ├─ config/   site.ts  env.ts  pages.ts
    ├─ data/     services.ts  cities.ts  faq.ts  articles.ts  gallery.ts  reviews.ts
    │            promises.ts  process.ts  navigation.ts
@@ -320,14 +329,13 @@ A unit test recalculates these ratios from the tokens, so a color change can't q
 
 ## 9. Brand file processing
 
-The master logo has a white background with a white sticker border, so a normal background remover would eat the border. `process-logo.py`:
-1. Fills the outside background from the corners, using a tight color tolerance plus the sticker's soft gray shadow edge to find where the border ends.
-2. Smooths only the outermost edge (1–2 px). **Pixels inside the sticker are never changed.**
-3. Exports the full logo; the wordmark crop (bottom section, for the header); the bear crop (top section); and the bear-head crop (for icons). Each comes as PNG for the originals and AVIF/WebP at 1x/2x.
+The logo files are the artwork on a white background, wrapped in a white sticker border with a soft gray shadow. The border is white on white, so in most places it can't be told apart from the background by color. `process-logo.py`:
+1. Finds the artwork: everything inside its black outline.
+2. Rebuilds the sticker as the artwork grown outward by the measured border width (37 px on the 2048 px files, measured wherever the shadow shows the edge). The border is flat white in the original, so the rebuilt one matches it.
+3. Paints the border pure white, which drops the gray shadow (the site adds its own with CSS), and smooths only the outer edge.
+4. With `--part bear` or `--part wordmark`, keeps only that part and rebuilds the border around it, so a crop never slices through the border.
 
-I'll show you the cut-outs on cream and forest backgrounds in the Phase 1 review. If any edge looks off, the fallback is Higgsfield's or Adobe's background remover, which still won't redraw anything.
-
----
+**Artwork pixels are never changed.** If an edge ever looks off, the fallback is Higgsfield's or Adobe's background remover, which still won't redraw anything.
 
 ## 10. Estimate form and API
 

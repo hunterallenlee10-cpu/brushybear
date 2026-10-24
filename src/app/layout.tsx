@@ -51,7 +51,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <MobileActionBar />
         <JsonLd items={[businessSchema()]} />
         <AnalyticsListener />
-        <Analytics />
+        {/* Turn on in Vercel (Analytics tab), then set NEXT_PUBLIC_VERCEL_ANALYTICS=on. */}
+        {process.env.NEXT_PUBLIC_VERCEL_ANALYTICS === "on" && <Analytics />}
         <Ga4 />
       </body>
     </html>

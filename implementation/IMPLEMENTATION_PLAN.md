@@ -119,90 +119,56 @@ Every phase ends with the same steps: typecheck, lint, unit tests and a producti
   - Vercel project `brushybear` in the "leu" team. The repo's default branch is this working branch, so every push deploys to **https://brushybear.vercel.app** (search blocked: robots.txt disallows all, every page is noindex).
   - `SITE_INDEXABLE=false` and `LEADS_DRY_RUN=true` set for Production, Preview and Development.
 
-### Phase 2: Design system and homepage (placeholder hero)
-- [ ] Brand components: `Sticker` (white die-cut border, charcoal outline, slight tilt), `Brushstroke` (SVG brush swipes and dividers), `BearMascot` (the available poses), `PlaceholderImage` (labeled blocks in the right aspect ratios).
-- [ ] Hero:
-  - Two-part `<h1>` with the brushstroke painting in behind the words (400 ms, CSS only, turned off for reduced motion).
-  - Seasonal supporting line, the estimate button and a call link.
-  - Trust line that appears only when L&I is set.
-  - `HeroMedia` slot that will hold the video later. For now, an illustrated CSS/SVG Northwest scene: sky, evergreen outlines and paper texture.
-- [ ] All 10 homepage sections in the prompt's order, written in our own voice:
-  1. Hero
-  2. Problem
-  3. Why the other options fail
-  4. Our promises (sticker badges) + the slider spot (hidden until real photos)
-  5. Services (4 cards, with add-ons mentioned)
-  6. How it works (4 steps)
-  7. Reviews (switches on only when `reviews.ts` has entries)
-  8. Service area: a stylized SVG map of the two lakes with 5 linked city pins (no embedded map)
-  9. FAQ accordion (the 6 questions marked "featured")
-  10. Final call-to-action + a form slot (the real form arrives in Phase 3)
-- [ ] Data: `promises.ts`, `process.ts`, the first version of `faq.ts` (all 10 questions, answer-first, "confirm with Erik" flags on anything unverified).
-- [ ] Homepage structured data: `HousePainter` (business), `WebSite`, `WebPage` (with `dateModified`) and `FAQPage`.
-- [ ] Check at 375 px wide first, then tablet and desktop.
+### Phase 2: Design system and homepage
+- [x] Brand components: `Sticker`, `PaintSwipe` and `BrushEdge` (SVG brushstrokes), `BearMascot` (3 poses), `PlaceholderImage`, plus `ServiceArt`: drawn illustrations for the 4 services so cards don't sit empty before the Higgsfield scenes.
+- [x] Hero: two-part H1 with a gold paint swipe behind "rain." (CSS, 400 ms, off for reduced motion); seasonal line; estimate button; call link and the licensed line appear once their facts exist. `HeroMedia` shows a hand-drawn Northwest scene where soft rain falls for about two seconds and stops as warm light comes up. Rain and light are GPU-animated overlay layers (moving them off SVG cut main-thread work from 3.0 s to 1.3 s).
+- [x] All 10 homepage sections in order. The reviews section and the before/after slider stay hidden until real reviews and real job photos exist.
+- [x] Data: `promises.ts` (6), `process.ts` (4 steps), `faq.ts` (10 questions, 6 featured), `home.ts`.
+- [x] Homepage structured data: `HousePainter` (every page), `WebSite`, `WebPage` with `dateModified`, `FAQPage`.
+- [x] Checked at 375 px, tablet and desktop. No sideways scrolling at any width.
 
 ### Phase 3: Estimate form, API and tracking
-- [ ] `EstimateForm` in 2 steps (section 10): inline errors, a hidden spam-trap field and a minimum fill time. It works as a full-page `/estimate` and as an embedded block.
-- [ ] `/api/upload` (Vercel Blob uploads straight from the browser) and `/api/estimate` (check the data, then forward to n8n with retries, or log it in dry-run mode).
-- [ ] Success screen with what happens next, plus the bear. If sending fails, a fallback screen asks them to call or text.
-- [ ] Tracking: Vercel Analytics events + a GA4-ready data layer (section 12). GA4 loads only when its ID is set.
-- [ ] `/privacy` page: what the form collects, photo storage, the texting section (how to stop texts, "message and data rates may apply"), analytics.
-- [ ] Playwright tests: the full form on mobile size, validation errors, the spam trap, dry-run success, and the Call/Text links.
-- [ ] Offer the Brushy Bear n8n speed-to-lead workflow as a separate task, with its own accounts and nothing shared with EA Pro.
+- [x] `EstimateForm`: step 1 contact details (required), step 2 photos, timeline, home age, notes and texting consent (all optional). Inline errors, focus moves to the first error, hidden spam field and a 3-second minimum fill time. Used on `/estimate` and at the end of every key page (service pages pre-select their service).
+- [x] `/api/upload` (Vercel Blob uploads straight from the browser, images only, 10 MB each, same-site only) and `/api/estimate` (zod check, then n8n with a secret header, 5 s timeout and 2 retries; dry-run mode logs a masked copy).
+- [x] Success screen with the bear and what happens next; a failure message points people to call or text.
+- [x] Tracking: events go to a GA4-ready `dataLayer` and Vercel Analytics. Vercel Analytics loads only once it's enabled in the dashboard (`NEXT_PUBLIC_VERCEL_ANALYTICS=on`), so it never logs a 404. GA4 loads at idle, only if its ID is set.
+- [x] `/privacy` with the texting section carriers require.
+- [x] Playwright tests: errors and focus, the full two-step send (dry run), service pre-select.
+- [x] Vercel Blob store `brushybear-estimate-photos` (Portland region) created and linked.
+- [ ] Brushy Bear n8n speed-to-lead workflow: separate task, not built (`LEADS_DRY_RUN=true` until it exists). Never point the site at EA Pro's `STL-EAPRO-DEMO`.
 
 ### Phase 4: Services, FAQ, About, Gallery
-- [ ] `services.ts`: the 4 launch services with unique copy, what's included, add-ons, cost factors (no prices) and 3–4 FAQs each. Phase 2 services exist in the data with `published: false`, so no pages get built for them.
-- [ ] `/services` (hub) and `/services/[slug]` (built at deploy from the data; unknown addresses return a 404).
-- [ ] Breadcrumbs (visible + structured data), `Service` structured data with the business as provider and the 5 cities as service area.
-- [ ] Each service page links to all 5 city pages. These links show the city name until Phase 5 publishes those pages.
-- [ ] `/faq` with all 10 questions and `FAQPage` structured data matching the visible text word for word.
-- [ ] `/about`: Erik and Hunter's story, how we work, photo placeholders (no AI people).
-- [ ] `/gallery`: filter by service and city, driven by `gallery.ts`. With 0 items it shows the bear and "First projects coming this winter" and stays out of the sitemap. The data type only accepts entries marked as real jobs.
-- [ ] Final 404: the sleeping bear (Phase 7) or the existing pose for now, with links to the estimate and services.
+- [x] `src/data/service-pages/`: 4 pages, about 1,300 words each, with what's included, cost factors (no prices), add-ons, 4–5 FAQs, and 2–4 internal links. Phase 2 services exist in the data with `published: false`.
+- [x] `/services` and `/services/[slug]`, breadcrumbs, `Service` + `FAQPage` + `BreadcrumbList` data, links to all 5 city pages, form with the service pre-selected.
+- [x] `/faq`: all 10 questions, `FAQPage` data built from the same text.
+- [x] `/about`: owners and how we work, photo placeholders (no AI people). Kept out of search until the story is confirmed.
+- [x] `/gallery`: service and city filters ready; real jobs only (the data type enforces it). Empty state with the bear; out of search until 6+ jobs.
+- [x] 404 with the bear. Unknown service, city and article URLs return a real 404 (`ensureStatic = "navigation"` on the root layout keeps every page static).
 
-### Phase 5: City pages (after the lane decision)
-- [ ] `cities.ts`: 5 Phase 1 entries. Each gets at least 600 words written for that city:
-  - what homes there are like (age, common siding, pre-1978 lead-safe work)
-  - climate notes that matter for paint (rain, moss, evergreen shade, the dry season)
-  - neighborhoods we serve, marked "(confirm)"
-  - HOA and permit notes, marked "(confirm)"
-  - services with links, 3–4 city FAQs, and the call-to-action with the form
-  - Phase 2 and 3 cities exist in the data, unpublished, with no copy.
-- [ ] `/painters/[city]` using the slugs `bellevue-wa`, `kirkland-wa`, and so on.
-- [ ] Each city page links to all 4 service pages and to its neighboring cities.
-- [ ] `scripts/check-duplicate-content.ts`: compares the city pages to each other and fails if any two overlap too much (the threshold is set in the script).
-- [ ] Facts I can't verify are flagged and go to `CONTENT_TODO.md`. Nothing claims jobs, reviews or years in a city.
+### Phase 5: City pages (written before the lane decision, flagged)
+- [x] `src/data/city-pages/`: 5 cities, about 1,120–1,390 words each, built from census housing data (sources in code comments), with neighborhoods, HOA/permit notes, climate, 4 FAQs and nearby-city links. Every unverified fact has a `confirm` note.
+- [x] `/painters/[city]` with a drawn map, a neighborhoods grid, links to all 4 services, FAQ and form.
+- [x] Duplicate-content test: every pair of city pages shares under 10% of 6-word phrases.
+- [ ] If the lane decision changes the cities: edit `published` in `cities.ts` and rewrite the copy file. Pages, links, sitemap and structured data follow automatically.
 
 ### Phase 6: Articles and crawl controls
-- [ ] `articles.ts`: the 3 launch articles, 1,000–1,500 words each, with "Published" and "Updated" dates:
-  1. When is the best time to paint a house exterior on the Eastside?
-  2. How Pacific Northwest rain and moss affect exterior paint, and how to make it last
-  3. Painting vs. refacing kitchen cabinets: what Eastside homeowners should know
-- [ ] `/articles` and `/articles/[slug]`, with `Article` structured data (author: a confirmed person, see `CONTENT_TODO.md`).
-- [ ] Each article links to the related services and the estimate page.
-- [ ] `app/llms.txt/route.ts`: a plain-text summary built from the same data, so it can't drift out of date.
-- [ ] Final `robots.ts` (when indexable: allow all, including GPTBot, OAI-SearchBot, PerplexityBot, Google-Extended and Bingbot; block `/api/`) and `sitemap.ts` (indexable pages only, with real last-modified dates).
+- [x] `src/data/articles/`: 3 articles, about 1,480 words each, with "Published" and "Updated" dates, a short-answer box first, 4 FAQs each, and a sticky table of contents on desktop.
+- [x] `/articles` and `/articles/[slug]` with `Article` data. Credited to the company until Erik confirms a byline.
+- [x] `/llms.txt` built from the same data.
+- [x] `robots.ts` (when indexable: allow all, including AI crawlers; block `/api/`) and `sitemap.ts` (indexable pages only, real dates).
 
-### Phase 7: Higgsfield visuals (needs: name locked + your yes on each batch's cost)
-- [ ] Use `models_explore` to see current models, then send you the full list of assets, models and the credit cost from `get_cost`. **Wait for your "yes".**
-- [ ] Generate in batches (section 11). If a job times out, check its status before resubmitting so nothing is paid for twice.
-- [ ] Originals go to `/assets-src/` (git-ignored). Optimize with `scripts/optimize-media.sh`: H.264 MP4 + WebM for video; AVIF and WebP at each screen size for images.
-- [ ] Wire up `HeroMedia`:
-  - Poster = the sunlit last frame.
-  - The video loads after the page has loaded, and only when the visitor hasn't asked for reduced motion, isn't in data-saver mode and isn't on 2G/3G.
-  - Play the intro once, then switch to the loop.
-- [ ] Bear poses go into the 404, the form's success screen, empty states and About. Section images go into the service page heroes. Textures and the social-sharing image (checked by eye) go in too.
-- [ ] `AI_ASSETS.md`: file name, Higgsfield job ID, model, prompt and where each asset is used.
+### Phase 7: Higgsfield visuals (ready; waiting on the name and your "yes")
+- [x] Models checked (`models_explore`) and the batch quoted with `get_cost`: **about 57 credits** of 510.98. Full asset list, prompts and steps are in `AI_ASSETS.md`.
+- [x] Code ready: `src/config/hero.ts` + `HeroVideo` (the still loads first; the video only after page load and never with reduced motion, data saver or 2G/3G; intro once, then the loop). `SceneImage` takes scene images and labels them "Illustration". `scripts/optimize-media.sh` compresses everything.
+- [ ] Generate, optimize, wire in, log in `AI_ASSETS.md`. **Not done: no credits spent**, per the brief's rule to get your "yes" on the cost first.
 
 ### Phase 8: QA, speed and launch docs
-- [ ] Lighthouse on mobile: 95+ on all four scores for the home page, one service page, one city page, the estimate page and one article.
-- [ ] Core Web Vitals: main content loads in under 2.5 s, nothing shifts (under 0.1), taps respond in under 200 ms.
-- [ ] Accessibility check (axe) on every page, a keyboard-only pass, and a contrast check on the design tokens.
-- [ ] Structured data passes Google's Rich Results Test. Check every page title and description for length and duplicates, and check for broken links.
-- [ ] Final `LAUNCH_CHECKLIST.md`, `CONTENT_TODO.md` and `AI_ASSETS.md`, plus this plan fully ticked.
-- [ ] Final summary: what was built and anything I couldn't do.
-
----
+- [x] Lighthouse mobile (local production build): Performance **97–99**, Accessibility **100**, Best Practices **100** on the homepage, a service page, a city page, the estimate page and an article. SEO is **100** in public mode (it reads 69 on previews only because they're deliberately hidden from search).
+- [x] Core Web Vitals in the lab: no layout shift (0), total blocking time 30–50 ms, main content shown in 2.3–2.7 s on Lighthouse's throttled phone.
+- [x] Accessibility (axe, WCAG 2.2 AA) on 11 pages at phone and desktop sizes: no serious issues. Contrast test on the tokens.
+- [x] Structured data: 0 errors on the schema.org validator for the homepage, a service page, a city page and an article.
+- [x] Unit tests (99): internal links, banned words, prices, word counts, title/description lengths, unique FAQ ids, duplicate city content, contrast. Browser tests (35): form, pages, 404s, layout, accessibility.
+- [x] `LAUNCH_CHECKLIST.md`, `CONTENT_TODO.md` (generated), `AI_ASSETS.md`, `COPY_GUIDE.md`, README.
 
 ## 5. File tree (planned)
 
@@ -423,11 +389,11 @@ Art direction for every prompt: warm, cinematic and Pacific Northwest (rain, eve
 ## 15. Master checklist
 
 - [x] Phase 1: Foundation, brand files, first preview
-- [ ] Phase 2: Design system and homepage
-- [ ] Phase 3: Estimate form, API, tracking, privacy
-- [ ] Phase 4: Services, FAQ, About, Gallery, 404
-- [ ] Phase 5: City pages (after the lane decision)
-- [ ] Phase 6: Articles, llms.txt, robots, sitemap
-- [ ] Phase 7: Higgsfield visuals (name locked + cost approved)
-- [ ] Phase 8: QA, speed, launch docs, final summary
-- [ ] Deliverables: Vercel preview with `SITE_INDEXABLE=false` · this plan fully ticked · `LAUNCH_CHECKLIST.md` · `CONTENT_TODO.md` · `AI_ASSETS.md` · final summary
+- [x] Phase 2: Design system and homepage
+- [x] Phase 3: Estimate form, API, tracking, privacy
+- [x] Phase 4: Services, FAQ, About, Gallery, 404
+- [x] Phase 5: City pages (written ahead of the lane decision, every unverified fact flagged)
+- [x] Phase 6: Articles, llms.txt, robots, sitemap
+- [ ] Phase 7: Higgsfield visuals: code, prompts and quote ready; generation waits for the name and your "yes"
+- [x] Phase 8: QA, speed, launch docs, final summary
+- [x] Deliverables: Vercel preview with `SITE_INDEXABLE=false` · this plan ticked except Phase 7 generation and the n8n workflow · `LAUNCH_CHECKLIST.md` · `CONTENT_TODO.md` · `AI_ASSETS.md` · final summary

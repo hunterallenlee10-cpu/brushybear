@@ -28,6 +28,8 @@ export function SceneImage({ scene, ratio = "3/2", sizes = "(min-width: 1024px) 
   return (
     <div className="relative overflow-hidden rounded-[var(--radius-sticker)]" style={{ aspectRatio: ratio }}>
       <Image src={img.src} alt={img.alt} fill sizes={sizes} className="object-cover" preload={preload} />
+      {/* Honesty: AI scenes are labeled, so nobody mistakes them for our jobs. */}
+      <span className="absolute right-2 bottom-2 rounded-full bg-charcoal/75 px-2.5 py-0.5 text-xs font-bold text-cream">Illustration</span>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 /**
  * Illustrated hero scene (inline SVG, no download): a freshly painted
- * craftsman house under evergreens. Soft rain falls for ~2 seconds, then
- * stops as warm light breaks through. Reduced-motion visitors see the sunny
- * end state. Replaced by the Higgsfield video when it exists (Phase 7).
+ * craftsman house under evergreens. The rain and the warm light are separate
+ * layers (see HeroMedia). Replaced by the Higgsfield video when it exists
+ * (Phase 7).
  */
 
 const C = {
@@ -37,6 +37,23 @@ function Evergreen({ x, base, h, fill }: { x: number; base: number; h: number; f
 const BACK_ROW = Array.from({ length: 16 }, (_, i) => ({ x: 10 + i * 42 + ((i * 37) % 17), h: 90 + ((i * 53) % 50) }));
 const RAIN = Array.from({ length: 70 }, (_, i) => ({ x: (i * 97) % 660 - 10, y: (i * 61) % 470, len: 14 + ((i * 7) % 12) }));
 
+/**
+ * Rain as one static drawing. HeroMedia slides two copies of it down as a
+ * single layer, which the browser animates on the GPU (no per-frame
+ * repainting of the scene).
+ */
+export function RainLayer() {
+  return (
+    <svg viewBox="0 0 640 520" preserveAspectRatio="none" className="block h-1/2 w-full" aria-hidden="true">
+      <g stroke="#eef2f1" strokeWidth="2" strokeLinecap="round" opacity="0.6">
+        {RAIN.map((r, i) => (
+          <line key={i} x1={r.x} y1={r.y} x2={r.x - 5} y2={r.y + r.len} />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
 export function HeroScene() {
   return (
     <svg viewBox="0 0 640 520" role="img" aria-label="Illustration: a freshly painted craftsman house under tall evergreens as the rain clears" className="block h-auto w-full">
@@ -46,11 +63,6 @@ export function HeroScene() {
           <stop offset="0.55" stopColor="#d9d8c8" />
           <stop offset="1" stopColor="#efe2c6" />
         </linearGradient>
-        <radialGradient id="hs-sun" cx="0.82" cy="0.16" r="0.75">
-          <stop offset="0" stopColor="#f6cf7a" stopOpacity="0.95" />
-          <stop offset="0.35" stopColor="#f2c46b" stopOpacity="0.45" />
-          <stop offset="1" stopColor="#f2c46b" stopOpacity="0" />
-        </radialGradient>
         <linearGradient id="hs-lawn" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#5b8a6d" />
           <stop offset="1" stopColor="#3f6b53" />
@@ -58,7 +70,6 @@ export function HeroScene() {
       </defs>
 
       <rect width="640" height="520" fill="url(#hs-sky)" />
-      <rect className="hero-glow" width="640" height="520" fill="url(#hs-sun)" />
 
       {/* Cascade foothills */}
       <path d="M0 300 L70 248 L128 270 L214 196 L286 254 L352 214 L430 262 L512 200 L640 266 V380 H0Z" fill="#aebfb5" />
@@ -115,12 +126,6 @@ export function HeroScene() {
       <Evergreen x={566} base={476} h={320} fill={C.forest} />
       <Evergreen x={618} base={490} h={240} fill={C.forestDeep} />
 
-      {/* Rain that stops */}
-      <g className="hero-rain" stroke="#eef2f1" strokeWidth="2" strokeLinecap="round" opacity="0.6">
-        {RAIN.map((r, i) => (
-          <line key={i} x1={r.x} y1={r.y} x2={r.x - 5} y2={r.y + r.len} />
-        ))}
-      </g>
     </svg>
   );
 }

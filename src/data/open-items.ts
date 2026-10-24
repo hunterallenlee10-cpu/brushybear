@@ -60,7 +60,7 @@ export const DECISIONS: OpenItem[] = [
   },
   {
     topic: "n8n workflow",
-    question: "Build the Brushy Bear speed-to-lead workflow (separate from EA Pro's) so the form can send real leads.",
+    question: "Connect Brushy Bear-only email, Twilio and (optional) Vapi accounts to the speed-to-lead workflow, fill its Settings, then publish it (see N8N_WORKFLOW.md).",
     owner: "Hunter",
     blocks: "Live form submissions (the form runs in test mode until then).",
   },

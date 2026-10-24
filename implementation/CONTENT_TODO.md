@@ -28,7 +28,7 @@ Set these in `src/config/site.ts`. A launch build fails while any required one i
 | Quote promise | Confirm the promise wording: "Written estimate within 24 hours of the walkthrough." | Erik |  |
 | Start-date promise | Confirm: "We start on the scheduled date or take $250 off. Rain delays don't count, and those reschedule first." | Erik |  |
 | Warranty | How many years is the workmanship warranty, and what does it cover? (Hidden until set.) | Both |  |
-| n8n workflow | Build the Brushy Bear speed-to-lead workflow (separate from EA Pro's) so the form can send real leads. | Hunter | Live form submissions (the form runs in test mode until then). |
+| n8n workflow | Connect Brushy Bear-only email, Twilio and (optional) Vapi accounts to the speed-to-lead workflow, fill its Settings, then publish it (see N8N_WORKFLOW.md). | Hunter | Live form submissions (the form runs in test mode until then). |
 
 ## 3. Photos, reviews and profiles
 

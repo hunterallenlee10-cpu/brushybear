@@ -25,8 +25,10 @@ Work top to bottom. Nothing goes public until the company is licensed, bonded an
 - [ ] Check the Drive folder one last time for anything new
 
 ## 4. Leads
-- [ ] Brushy Bear n8n speed-to-lead workflow live (separate from EA Pro's; never point the site at `STL-EAPRO-DEMO`)
-- [ ] `N8N_WEBHOOK_URL` and `N8N_WEBHOOK_SECRET` set in Vercel Production; the workflow checks the `x-brushybear-secret` header
+- [x] Brushy Bear n8n speed-to-lead workflow built and tested (`N8N_WORKFLOW.md`; separate from EA Pro's, never point the site at `STL-EAPRO-DEMO`)
+- [x] `N8N_WEBHOOK_URL` and `N8N_WEBHOOK_SECRET` set in Vercel Production; the workflow checks the `x-brushybear-secret` header
+- [ ] Brushy Bear-only SMTP, Twilio (A2P 10DLC approved) and optional Vapi credentials attached; `PASTE_` values filled in Settings; `sendsEnabled` on
+- [ ] Workflow published in n8n
 - [ ] `LEADS_DRY_RUN` set to `false` (or removed) in Production
 - [x] Vercel Blob store connected for photo uploads (`brushybear-estimate-photos`, Portland region)
 - [ ] Send a test lead from a phone, with a photo; confirm the text arrives within a minute and the photo link opens

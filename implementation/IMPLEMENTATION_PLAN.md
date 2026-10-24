@@ -135,7 +135,7 @@ Every phase ends with the same steps: typecheck, lint, unit tests and a producti
 - [x] `/privacy` with the texting section carriers require.
 - [x] Playwright tests: errors and focus, the full two-step send (dry run), service pre-select.
 - [x] Vercel Blob store `brushybear-estimate-photos` (Portland region) created and linked.
-- [ ] Brushy Bear n8n speed-to-lead workflow: separate task, not built (`LEADS_DRY_RUN=true` until it exists). Never point the site at EA Pro's `STL-EAPRO-DEMO`.
+- [x] Brushy Bear n8n speed-to-lead workflow built and tested, not yet published; sends off until Brushy Bear accounts exist (`N8N_WORKFLOW.md`). `N8N_WEBHOOK_URL` and `N8N_WEBHOOK_SECRET` set in Vercel Production; `LEADS_DRY_RUN=true` until go-live. Never point the site at EA Pro's `STL-EAPRO-DEMO`.
 
 ### Phase 4: Services, FAQ, About, Gallery
 - [x] `src/data/service-pages/`: 4 pages, about 1,300 words each, with what's included, cost factors (no prices), add-ons, 4–5 FAQs, and 2–4 internal links. Phase 2 services exist in the data with `published: false`.
@@ -379,7 +379,7 @@ Art direction for every prompt: warm, cinematic and Pacific Northwest (rain, eve
 |---|---|---|
 | The lane versus EA Pro isn't decided | City list and "Eastside" use could change | Both are driven by data and constants; city copy is scheduled after Nov 6 |
 | The name isn't locked | Visuals, logo and domain depend on it | Text uses `SITE.name`; no Higgsfield spend until it's locked |
-| No Brushy Bear n8n webhook yet | The form can't send real leads | Dry-run on previews; offer to build the workflow as a separate task |
+| Brushy Bear n8n workflow not published yet | The form can't send real leads | Workflow built and tested; dry-run until accounts are connected (`N8N_WORKFLOW.md`) |
 | A failed webhook could lose a lead | A missed job | Retries, a call/text fallback screen and logged errors. n8n's execution log is the record. |
 | Should About mention Erik's other company? | Honesty versus keeping the businesses separate | **A question for you and Erik** (in `CONTENT_TODO.md`). The site never stages the two as rivals. |
 | Article author | Bylines help with Google's trust signals | Erik's byline (with last name) once he agrees; the company name until then |
@@ -397,4 +397,4 @@ Art direction for every prompt: warm, cinematic and Pacific Northwest (rain, eve
 - [x] Phase 6: Articles, llms.txt, robots, sitemap
 - [x] Phase 7: Higgsfield visuals
 - [x] Phase 8: QA, speed, launch docs, final summary
-- [x] Deliverables: Vercel preview with `SITE_INDEXABLE=false` · this plan ticked except the n8n workflow · `LAUNCH_CHECKLIST.md` · `CONTENT_TODO.md` · `AI_ASSETS.md` · final summary
+- [x] Deliverables: Vercel preview with `SITE_INDEXABLE=false` · this plan ticked · `LAUNCH_CHECKLIST.md` · `CONTENT_TODO.md` · `AI_ASSETS.md` · final summary

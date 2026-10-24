@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import brushGreen from "@/assets/media/brush-green.png";
 import { BearMascot } from "@/components/brand/BearMascot";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { estimateHref, PAGES } from "@/config/pages";
@@ -13,8 +15,9 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <section className="mx-auto grid max-w-5xl items-center gap-10 px-4 py-16 md:grid-cols-[1fr_1.2fr] md:px-8 md:py-24">
-      <div className="mx-auto w-56 md:w-full md:max-w-xs">
-        <BearMascot pose="roller-shoulder" sizes="(min-width: 768px) 320px, 224px" className="h-auto w-full" />
+      <div className="relative isolate mx-auto w-56 md:w-full md:max-w-xs">
+        <Image src={brushGreen} alt="" sizes="360px" className="absolute top-1/2 left-1/2 -z-10 w-[125%] max-w-none -translate-x-1/2 -translate-y-1/3 -rotate-6 opacity-90" />
+        <BearMascot pose="sleeping" sizes="(min-width: 768px) 320px, 224px" className="h-auto w-full" />
       </div>
       <div>
         <p className="text-sm font-extrabold uppercase tracking-[0.14em] text-forest">Error 404</p>

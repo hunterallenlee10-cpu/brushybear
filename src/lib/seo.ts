@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { INDEXABLE } from "@/config/env";
 import { SITE } from "@/config/site";
 
-/** Interim share image; replaced by the Higgsfield version in build Phase 7. */
+/** Share image: the hero still with the real logo (scripts/brand/make-og.py). */
 export const OG_IMAGE = {
-  url: "/og-image.png",
+  url: "/og-image.jpg",
   width: 1200,
   height: 630,
   alt: `${SITE.name}: house painting on the ${SITE.regionName}`,

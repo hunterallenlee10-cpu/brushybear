@@ -19,16 +19,18 @@ export function HeroMedia() {
     <div className="sticker relative -rotate-1 [--sticker-pad:0.5rem] md:[--sticker-pad:0.625rem]">
       <div className="sticker-inner relative overflow-hidden">
         {HERO_ASSETS ? (
-          <div className="relative aspect-[16/11]">
+          <div className="relative aspect-video">
             <Image
               src={HERO_ASSETS.still}
               alt={HERO_ASSETS.alt}
               fill
               preload
-              sizes="(min-width: 1024px) 600px, 100vw"
+              quality={60}
+              sizes="(min-width: 1280px) 600px, (min-width: 1024px) 46vw, (min-width: 640px) 576px, calc(100vw - 2.5rem)"
               className="object-cover"
             />
             <HeroVideo intro={HERO_ASSETS.intro} loop={HERO_ASSETS.loop} />
+            <span className="absolute right-2 bottom-2 rounded-full bg-charcoal/75 px-2.5 py-0.5 text-xs font-bold text-cream">Illustration</span>
           </div>
         ) : (
           <>

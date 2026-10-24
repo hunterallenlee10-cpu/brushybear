@@ -44,8 +44,9 @@
 
   body {
     background-color: var(--color-cream);
-    /* Faint paper grain, drawn by the browser (no image download). */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.15 0 0 0 0 0.11 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    /* Cream paper texture (Higgsfield, recentred on the brand cream; 512 px tile). */
+    background-image: url("/media/paper.webp");
+    background-size: 512px 512px;
     color: var(--color-charcoal);
     font-family: var(--font-sans);
     font-size: 1.0625rem;
@@ -124,20 +125,15 @@
   }
 }
 
-/* Headline paint swipe: paints in once, 400 ms (instant with reduced motion). */
-.paint-swipe path {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+/* Headline paint swipe: paints in left to right once, 400 ms. */
+.paint-swipe-img {
+  clip-path: inset(0 100% 0 0);
   animation: paint-in 400ms var(--ease-paint) 250ms forwards;
-}
-
-.paint-swipe path + path {
-  animation-delay: 380ms;
 }
 
 @keyframes paint-in {
   to {
-    stroke-dashoffset: 0;
+    clip-path: inset(0 0 0 0);
   }
 }
 

@@ -42,7 +42,7 @@ export default function GalleryPage() {
           />
         ) : (
           <div className="grid items-center gap-8 rounded-[var(--radius-sticker)] bg-cream-50 p-8 md:grid-cols-[12rem_1fr] md:p-12">
-            <BearMascot pose="roller-shoulder" sizes="192px" className="mx-auto h-auto w-40 md:w-48" />
+            <BearMascot pose="ladder" sizes="192px" className="mx-auto h-auto w-40 md:w-48" />
             <div>
               <h2 className="font-display text-display-md text-forest">First projects coming this winter.</h2>
               <p className="mt-3 max-w-xl text-lg">

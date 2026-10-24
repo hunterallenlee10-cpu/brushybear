@@ -50,7 +50,7 @@ export function Hero() {
         <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
           <HeroMedia />
           <div className="absolute -bottom-8 -left-3 w-28 rotate-[-6deg] md:-left-8 md:w-40">
-            <BearMascot pose="roller-up" sizes="(min-width: 768px) 160px, 112px" className="h-auto w-full drop-shadow-[0_14px_18px_rgb(43_43_43/0.3)]" />
+            <BearMascot pose="wave" sizes="(min-width: 768px) 160px, 112px" className="h-auto w-full drop-shadow-[0_14px_18px_rgb(43_43_43/0.3)]" />
           </div>
         </div>
       </div>

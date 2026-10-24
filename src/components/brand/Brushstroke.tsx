@@ -1,29 +1,20 @@
 import type { ReactNode } from "react";
+// A small WebP of the gold brushstroke (public/media), so it loads instantly.
+const brushGoldSmall = "/media/brush-gold-swipe.webp";
 
 /**
- * A gold paint swipe that paints in behind a few words of a headline.
- * The text is visible from the first frame; only the swipe animates
- * (CSS, 400 ms, off for reduced motion).
+ * A gold paint swipe (a real brushstroke texture) that paints in behind a
+ * few words of a headline. The text is visible from the first frame; only
+ * the swipe animates (CSS clip, 400 ms, instant for reduced motion).
  */
-export function PaintSwipe({ children, color = "var(--color-gold)" }: { children: ReactNode; color?: string }) {
+export function PaintSwipe({ children }: { children: ReactNode }) {
   return (
     <span className="relative isolate inline-block whitespace-nowrap">
-      <svg
+      <span
         aria-hidden="true"
-        viewBox="0 0 300 60"
-        preserveAspectRatio="none"
-        className="paint-swipe pointer-events-none absolute -inset-x-[4%] bottom-[0.02em] -z-10 h-[0.62em] w-[108%]"
-      >
-        <path
-          d="M6 38 C 50 24, 96 30, 140 27 S 230 20, 294 30"
-          fill="none"
-          stroke={color}
-          strokeWidth="34"
-          strokeLinecap="round"
-          pathLength={1}
-        />
-        <path d="M18 47 C 70 40, 140 44, 210 39 S 270 37, 288 41" fill="none" stroke={color} strokeWidth="6" strokeLinecap="round" opacity="0.55" pathLength={1} />
-      </svg>
+        className="paint-swipe-img pointer-events-none absolute -inset-x-[8%] bottom-[0.02em] -z-10 h-[0.7em] bg-[length:100%_100%] bg-no-repeat"
+        style={{ backgroundImage: `url(${brushGoldSmall})` }}
+      />
       <span className="relative">{children}</span>
     </span>
   );

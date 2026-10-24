@@ -11,23 +11,22 @@ Every image or video made with Higgsfield goes in the log at the bottom: file na
 
 ## Status
 
-**Ready to generate, waiting on approval.** Nothing has been generated or spent. The site already has the code to display every asset (`src/config/hero.ts`, `HeroVideo`, `SceneImage`, `BearMascot`), so each one drops in without layout changes.
+**Generated October 24, 2026 and live on the site.** Hunter approved the batch. This session spent **56.5 credits**, matching the quote line for line (13 images + 2 videos). The balance went 510.98 → 404.48 over the same window, but the other ~50 credits were other Higgsfield activity on the account (Kling 4.0, Nano Banana Pro and GPT Image jobs between 03:22 and 03:49 UTC) that didn't come from this build.
 
-- Balance checked October 24, 2026: **510.98 credits** (Plus plan).
-- **Quoted batch: about 57 credits.** Allow about 80 credits with a few re-rolls.
-- Quotes came from Higgsfield's cost preflight (`get_cost`). Models were checked with `models_explore` the same day.
+Two departures from the plan:
+- The hero still on the site is the **video loop's first frame**, not image #1. That keeps the still and the video pixel-aligned when the video fades in. Image #1 was still used as the video's end frame and for the share image.
+- The social-sharing image is built in code from image #1 plus the real logo and the waving bear (no AI text).
 
 | # | Asset | Model and settings | Credits | Goes on |
 |---|---|---|---|---|
-| 1 | Hero still, sunny | GPT Image 2.5, 16:9, high, 2K | 2.75 | Hero main image, poster, reduced-motion view |
-| 2 | Hero still, rainy | GPT Image 2.5 edit of #1, 16:9, high, 2K | 2.75 | Start frame for the video |
-| 3 | Hero intro video, 6 s | Kling 3.0 pro, start #2, end #1, no sound | 10.5 | Plays once: the rain stops |
-| 4 | Hero loop, 4 s | Kling 3.0 pro, start and end #1, no sound | 7.0 | Loops after the intro |
-| 5–9 | Bear poses ×5 | GPT Image 2.5, the real bear as reference, 1:1, transparent, high, 2K | 13.75 | 404, form success, empty states, About, social |
-| 10–14 | Scenes ×5 | GPT Image 2.5, 3:2, high, 2K | 13.75 | 4 service cards and page heroes, plus the "problem" section |
-| 15–16 | Brushstroke overlays ×2 | GPT Image 2.5, 16:9, transparent, high, 2K | 5.5 | Section dividers and the headline swipe texture |
-| 17 | Paper texture | GPT Image 2.5, 1:1, medium, 1K | 0.5 | Page background tile |
-| — | Social-sharing image | Built in code from #1 and the real logo, no AI text | 0 | Every page's link preview |
+| 1 | Hero still, sunny | GPT Image 2.5, 16:9, high, 2K | 2.75 | Video end frame, share image |
+| 2 | Hero still, rainy | GPT Image 2.5 edit of #1, 16:9, high, 2K | 2.75 | Video start frame |
+| 3 | Hero intro video, 6 s | Kling 3.0 pro, start #2, end #1, no sound | 10.5 | Plays once on the homepage: the rain stops |
+| 4 | Hero loop, 4 s | Kling 3.0 pro, start and end #1, no sound | 7.0 | Loops after the intro; its first frame is the hero still |
+| 5–9 | Bear poses ×5 | GPT Image 2.5, the real bear as reference, 1:1, transparent, high, 2K | 13.75 | Hero, form success, About, gallery, estimate page, promises, 404 |
+| 10–14 | Scenes ×5 | GPT Image 2.5, 3:2, high, 2K | 13.75 | Service cards and page heroes; the "problem" section |
+| 15–16 | Brushstroke overlays ×2 | GPT Image 2.5, 16:9, transparent, high, 2K | 5.5 | Gold: the headline paint swipe. Green: behind the 404 bear |
+| 17 | Paper texture | GPT Image 2.5, 1:1, medium, 1K | 0.5 | Page background tile, recentered on the brand cream (12 KB) |
 | | **Total** | | **56.5** | |
 
 ## Prompts
@@ -53,19 +52,38 @@ Every image or video made with Higgsfield goes in the log at the bottom: file na
 15–16. **Brushstrokes:** One wide horizontal paint brushstroke in deep forest green (#1F4D3A) [and a second in golden yellow (#E9A93B)], thick paint with visible bristle texture and dry-brush edges, on a transparent background, no text.
 17. **Paper texture:** A seamless, tileable warm cream paper texture (#F4EDE1) with subtle fibers and fine grain, very low contrast, flat even lighting, no shadows, no text.
 
-## After generating
+## How they were processed
 
-1. Download the originals to `assets-src/` (git-ignored).
-2. Hero: `scripts/optimize-media.sh hero <intro.mp4> <loop.mp4> <still.png>` keeps both videos under 2.5 MB total. Then fill in `src/config/hero.ts`.
-3. Images: `scripts/optimize-media.sh image <in.png> <name>`. Then add each scene to `SCENES` in `src/components/media/SceneImage.tsx` and each bear pose to `POSES` in `BearMascot.tsx`.
-4. Rebuild the social-sharing image from #1 and the real logo (`scripts/brand/make-og.py`).
-5. Re-run Lighthouse (mobile 95+), then log every asset below.
+1. Originals downloaded to `assets-src/higgsfield/` (git-ignored).
+2. Hero: `scripts/optimize-media.sh hero` → `public/media/hero/intro|loop.mp4|webm` (WebM pair 0.8 MB, MP4 pair 0.9 MB; a browser loads one format) and `src/assets/hero/still.jpg`. Wired in `src/config/hero.ts`. The video loads only after the page has loaded, and never for reduced motion, data saver or 2G/3G.
+3. Scenes → `src/assets/media/scene-*.jpg` (2000 px max). Bears → `src/assets/brand/bear-*.png` (trimmed, 1100 px max). The gold brushstroke had a faint white halo, which was removed; a 480 px WebP copy drives the headline swipe.
+4. Every scene and the hero carry a small **"Illustration"** tag on the page.
 
 ## Generation log
 
-| File | Higgsfield job ID | Model | Prompt (#) | Used on | Date |
-|---|---|---|---|---|---|
-| _none yet_ | | | | | |
+All jobs ran October 24, 2026 on Higgsfield (no project folder). Prompts are the numbered ones above.
+
+| File(s) on the site | Higgsfield job ID | Model | Prompt # |
+|---|---|---|---|
+| (video end frame), `public/og-image.jpg` | 6812b2db-f5f9-4ec9-9dd1-7cd6c10240bf | GPT Image 2.5 | 1 |
+| (video start frame) | 2899508f-bbcc-4c3e-a29a-eb4f0c64a0d2 | GPT Image 2.5 (edit of #1) | 2 |
+| `public/media/hero/intro.mp4`, `intro.webm` | 383460f9-03e1-456a-8101-b3ef4ed665ed | Kling 3.0 pro | 3 |
+| `public/media/hero/loop.mp4`, `loop.webm`, `src/assets/hero/still.jpg` | 7c9ddb81-390f-4e84-a5a4-daea5653d96e | Kling 3.0 pro | 4 |
+| `src/assets/brand/bear-wave.png` | 51234b0c-0112-4d11-ad63-905692526312 | GPT Image 2.5 (reference: bear-brush) | 5 |
+| `src/assets/brand/bear-thumbs-up.png` | 2a6f5375-ccd8-429c-9a97-873e01074a2c | GPT Image 2.5 (reference: bear-brush) | 6 |
+| `src/assets/brand/bear-ladder.png` | db5a94b5-a3d7-4ceb-9c9f-c5f1d24d4164 | GPT Image 2.5 (reference: bear-brush) | 7 |
+| `src/assets/brand/bear-umbrella.png` | 4b9c9d40-8d78-4e08-a7b3-f854141b8a72 | GPT Image 2.5 (reference: bear-brush) | 8 |
+| `src/assets/brand/bear-sleeping.png` | 4613a7d1-a6f4-44dc-848f-e1e080f944bc | GPT Image 2.5 (reference: bear-brush) | 9 |
+| `src/assets/media/scene-interior.jpg` | 98be4a7e-f0a6-43ff-a7db-a874262e4da0 | GPT Image 2.5 | 10 |
+| `src/assets/media/scene-exterior.jpg` | ca925d89-76ac-4b0d-bb2c-ad65d637be3d | GPT Image 2.5 | 11 |
+| `src/assets/media/scene-cabinets.jpg` | c06caef7-7bee-4a23-b61e-47f84de58733 | GPT Image 2.5 | 12 |
+| `src/assets/media/scene-deck.jpg` | 27c42b4d-cac9-4b96-8b25-58ba3767fb99 | GPT Image 2.5 | 13 |
+| `src/assets/media/scene-rainy-street.jpg` | 43fc5b33-c600-4025-94ea-d395872645e0 | GPT Image 2.5 | 14 |
+| `src/assets/media/brush-green.png` | 04230d9f-58ad-4cba-ae33-fca83747e81a | GPT Image 2.5 | 15 |
+| `src/assets/media/brush-gold.png`, `public/media/brush-gold-swipe.webp` | c2b1522b-818b-494e-91ed-18f9e4c32313 | GPT Image 2.5 | 16 |
+| `public/media/paper.webp` | b1c447e2-c46a-4053-a5ed-c1c04fc83562 | GPT Image 2.5 | 17 |
+
+The bear reference upload (Higgsfield media 5d131ac1-2bfa-4add-9d90-aca0fc8da95c) is the `bear-brush` cut-out from the logo file.
 
 ## Brand files that are not AI-generated by us
 
@@ -81,4 +99,4 @@ These come from the Brushy Bear Painters Drive folder and were only cut out and 
 | `src/app/icon.png`, `apple-icon.png`, `favicon.ico` | same as logo-full | Bear head on a forest-green tile (`scripts/brand/make-icons.py`) |
 | `public/og-image.png` | logo files | Interim share image (`scripts/brand/make-og.py`) |
 
-The hero scene and service illustrations are hand-coded SVG in brand colors, not AI images.
+The hand-drawn hero scene (`HeroScene`) and service illustrations (`ServiceArt`) are coded SVG, kept as the fallback if `HERO_ASSETS` is set to null or a scene is removed.

@@ -1,3 +1,4 @@
+import { BearMascot } from "@/components/brand/BearMascot";
 import { Sticker } from "@/components/brand/Sticker";
 import { BeforeAfterSlider } from "@/components/media/BeforeAfterSlider";
 import { SectionHeading } from "@/components/sections/SectionHeading";
@@ -13,7 +14,12 @@ export function Promises() {
   const featured = GALLERY[0];
   return (
     <section aria-labelledby="promises-title" className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
-      <SectionHeading id="promises-title" eyebrow={SOLUTION.eyebrow} title={SOLUTION.title} intro={<p>{SOLUTION.intro}</p>} />
+      <div className="flex items-end justify-between gap-8">
+        <SectionHeading id="promises-title" eyebrow={SOLUTION.eyebrow} title={SOLUTION.title} intro={<p>{SOLUTION.intro}</p>} />
+        <div className="hidden w-44 shrink-0 rotate-3 lg:block">
+          <BearMascot pose="umbrella" sizes="176px" className="h-auto w-full drop-shadow-[0_14px_18px_rgb(43_43_43/0.25)]" />
+        </div>
+      </div>
       <ul className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {PROMISES.map((p, i) => (
           <Sticker key={p.id} as="li" tilt={TILTS[i % TILTS.length]} innerClassName="h-full bg-cream-50 px-6 py-7">

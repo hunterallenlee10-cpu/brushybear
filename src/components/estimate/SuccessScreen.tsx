@@ -1,5 +1,5 @@
 import Image from "next/image";
-import bearBrush from "@/assets/brand/bear-brush.png";
+import bearThumbsUp from "@/assets/brand/bear-thumbs-up.png";
 
 /** What happens next, after a request is sent. A little bear humor is fine here. */
 export function SuccessScreen({ firstName }: { firstName: string }) {
@@ -23,7 +23,7 @@ export function SuccessScreen({ firstName }: { firstName: string }) {
           ))}
         </ol>
       </div>
-      <Image src={bearBrush} alt="" sizes="128px" className="mx-auto hidden h-auto w-32 sm:block" />
+      <Image src={bearThumbsUp} alt="" sizes="128px" className="mx-auto hidden h-auto w-32 sm:block" />
     </div>
   );
 }

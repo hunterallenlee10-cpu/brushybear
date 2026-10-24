@@ -116,7 +116,7 @@ export function articleSchema(opts: {
     mainEntityOfPage: abs(opts.path),
     datePublished: opts.datePublished,
     dateModified: opts.dateModified,
-    image: `${SITE_URL}/og-image.png`,
+    image: `${SITE_URL}/og-image.jpg`,
     author: opts.authorName ? { "@type": "Person", name: opts.authorName } : { "@id": BUSINESS_ID },
     publisher: { "@id": BUSINESS_ID },
   };

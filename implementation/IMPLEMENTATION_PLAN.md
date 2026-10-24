@@ -157,10 +157,11 @@ Every phase ends with the same steps: typecheck, lint, unit tests and a producti
 - [x] `/llms.txt` built from the same data.
 - [x] `robots.ts` (when indexable: allow all, including AI crawlers; block `/api/`) and `sitemap.ts` (indexable pages only, real dates).
 
-### Phase 7: Higgsfield visuals (ready; waiting on the name and your "yes")
+### Phase 7: Higgsfield visuals (generated after your "yes")
 - [x] Models checked (`models_explore`) and the batch quoted with `get_cost`: **about 57 credits** of 510.98. Full asset list, prompts and steps are in `AI_ASSETS.md`.
 - [x] Code ready: `src/config/hero.ts` + `HeroVideo` (the still loads first; the video only after page load and never with reduced motion, data saver or 2G/3G; intro once, then the loop). `SceneImage` takes scene images and labels them "Illustration". `scripts/optimize-media.sh` compresses everything.
-- [ ] Generate, optimize, wire in, log in `AI_ASSETS.md`. **Not done: no credits spent**, per the brief's rule to get your "yes" on the cost first.
+- [x] Generated (56.5 credits, matching the quote), optimized and wired in: hero rain-to-sun video + loop, 5 bear poses, 5 scenes, 2 brushstrokes, paper texture, and a new share image from the hero plus the real logo. Every asset and job ID is logged in `AI_ASSETS.md`.
+- [x] Kept the site fast with the photo hero: the bottom-of-page estimate form now loads its code only when the visitor scrolls near it.
 
 ### Phase 8: QA, speed and launch docs
 - [x] Lighthouse mobile (local production build): Performance **97–99**, Accessibility **100**, Best Practices **100** on the homepage, a service page, a city page, the estimate page and an article. SEO is **100** in public mode (it reads 69 on previews only because they're deliberately hidden from search).
@@ -289,7 +290,7 @@ A unit test recalculates these ratios from the tokens, so a color change can't q
 
 **Sticker system.** A white border (6–10 px), a 2 px charcoal outline inside it, a soft shadow and a −2° to 2° tilt. Used for promise badges, the "Get a Free Estimate" button, the bear and the city map pins. Used sparingly so it stays special.
 
-**Texture and dividers.** A faint cream paper grain (CSS until the Phase 7 texture arrives) and SVG brush-edge section dividers in forest and gold. One strong idea per section, generous white space, an editorial grid (12 columns on desktop, 4 on mobile).
+**Texture and dividers.** A faint cream paper texture (Higgsfield tile, 12 KB) and SVG brush-edge section dividers in forest and gold. One strong idea per section, generous white space, an editorial grid (12 columns on desktop, 4 on mobile).
 
 **Motion.** CSS first. Every transition is under 400 ms and starts within one frame of the user's action. Nothing blocks reading or the estimate button. `prefers-reduced-motion` turns every animation off and shows the finished state.
 
@@ -320,7 +321,7 @@ The logo files are the artwork on a white background, wrapped in a white sticker
   - On failure the visitor sees "Please call or text us at [PHONE]" and the error is logged.
 - **Success screen:** "Thanks! We'll text you within a few minutes during business hours," the bear, and the 3 next steps.
 
-## 11. Higgsfield assets (Phase 7, gated)
+## 11. Higgsfield assets (Phase 7, generated; actuals in AI_ASSETS.md)
 
 | Asset | Plan | Size budget |
 |---|---|---|
@@ -394,6 +395,6 @@ Art direction for every prompt: warm, cinematic and Pacific Northwest (rain, eve
 - [x] Phase 4: Services, FAQ, About, Gallery, 404
 - [x] Phase 5: City pages (written ahead of the lane decision, every unverified fact flagged)
 - [x] Phase 6: Articles, llms.txt, robots, sitemap
-- [ ] Phase 7: Higgsfield visuals: code, prompts and quote ready; generation waits for the name and your "yes"
+- [x] Phase 7: Higgsfield visuals
 - [x] Phase 8: QA, speed, launch docs, final summary
-- [x] Deliverables: Vercel preview with `SITE_INDEXABLE=false` · this plan ticked except Phase 7 generation and the n8n workflow · `LAUNCH_CHECKLIST.md` · `CONTENT_TODO.md` · `AI_ASSETS.md` · final summary
+- [x] Deliverables: Vercel preview with `SITE_INDEXABLE=false` · this plan ticked except the n8n workflow · `LAUNCH_CHECKLIST.md` · `CONTENT_TODO.md` · `AI_ASSETS.md` · final summary

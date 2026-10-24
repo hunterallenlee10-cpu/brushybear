@@ -32,7 +32,7 @@ export default function AboutPage() {
         intro={ABOUT.intro}
         aside={
           <div className="mx-auto hidden w-56 lg:block">
-            <BearMascot pose="roller-up" sizes="224px" className="h-auto w-full" />
+            <BearMascot pose="ladder" sizes="224px" className="h-auto w-full" />
           </div>
         }
       />

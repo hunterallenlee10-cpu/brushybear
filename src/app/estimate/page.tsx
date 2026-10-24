@@ -58,7 +58,7 @@ export default function EstimatePage() {
               ))}
             </ol>
             <div className="mt-10 hidden w-40 lg:block">
-              <BearMascot pose="brush" sizes="160px" className="h-auto w-full" />
+              <BearMascot pose="wave" sizes="160px" className="h-auto w-full" />
             </div>
           </div>
           <div className="on-dark rounded-[calc(var(--radius-sticker)+0.5rem)] bg-forest p-4 md:p-8">

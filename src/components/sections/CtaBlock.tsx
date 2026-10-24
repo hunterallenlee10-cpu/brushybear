@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { BearMascot } from "@/components/brand/BearMascot";
 import { BrushEdge } from "@/components/brand/Brushstroke";
-import { EstimateForm } from "@/components/estimate/EstimateForm";
+import { LazyEstimateForm } from "@/components/estimate/LazyEstimateForm";
 import { phoneHref, SITE } from "@/config/site";
 import { FINAL_CTA } from "@/data/home";
 import { isSet } from "@/lib/placeholders";
@@ -42,10 +42,10 @@ export function CtaBlock({ title = FINAL_CTA.title, intro = FINAL_CTA.intro, sou
               </p>
             )}
             <div className="mt-10 hidden w-48 lg:block">
-              <BearMascot pose="roller-shoulder" sizes="192px" className="h-auto w-full" />
+              <BearMascot pose="thumbs-up" sizes="192px" className="h-auto w-full" />
             </div>
           </div>
-          <EstimateForm source={source} preselect={preselect} fallbackPhone={isSet(SITE.phone) ? SITE.phone : undefined} />
+          <LazyEstimateForm source={source} preselect={preselect} fallbackPhone={isSet(SITE.phone) ? SITE.phone : undefined} />
         </div>
       </div>
     </section>

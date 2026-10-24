@@ -21,7 +21,7 @@ Work top to bottom. Nothing goes public until the company is licensed, bonded an
 - [ ] Real team photos on About (no AI people)
 - [ ] Real reviews in `src/data/reviews.ts`, with permission (the section and review data switch on by themselves)
 - [ ] Social profile URLs in `SITE.social`
-- [ ] Higgsfield batch approved and generated (`AI_ASSETS.md`), or launch with the drawn illustrations
+- [x] Higgsfield batch generated and live (`AI_ASSETS.md`)
 - [ ] Check the Drive folder one last time for anything new
 
 ## 4. Leads

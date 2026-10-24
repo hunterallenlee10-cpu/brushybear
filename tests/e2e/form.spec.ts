@@ -34,6 +34,15 @@ test.describe("estimate form", () => {
   test("service pages pre-select their service", async ({ page }) => {
     await page.goto("/services/cabinet-painting");
     const form = page.locator("#estimate");
+    await form.scrollIntoViewIfNeeded(); // the form's code loads when it nears the screen
     await expect(form.getByRole("checkbox", { name: "Cabinets" })).toBeChecked();
+  });
+
+  test("bottom-of-page form loads lazily and works after a tap", async ({ page }) => {
+    await page.goto("/");
+    // Before scrolling, only the lightweight shell is on the page.
+    await expect(page.locator("#estimate").getByRole("button", { name: "Start your free estimate" })).toBeAttached();
+    await page.locator("#estimate").scrollIntoViewIfNeeded();
+    await expect(page.locator("#estimate").getByLabel("Your name")).toBeVisible();
   });
 });

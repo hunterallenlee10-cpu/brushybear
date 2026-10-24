@@ -21,7 +21,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     formats: ["image/avif", "image/webp"],
-    qualities: [75, 85],
+    qualities: [60, 75, 85],
   },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];

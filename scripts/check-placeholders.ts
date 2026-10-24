@@ -2,9 +2,11 @@
  * Launch guard, run before every build (npm "prebuild").
  *
  * When SITE_INDEXABLE is "true", the build fails if a required business fact
- * is still a placeholder or the site URL is still the placeholder domain.
+ * is still a placeholder, any copy is still marked "confirm", or the site URL
+ * is still the placeholder domain.
  * Otherwise (previews) it only prints what's missing.
  */
+import { confirmItems } from "./confirm-items";
 import { missingFacts } from "./launch-facts";
 
 const indexable = process.env.SITE_INDEXABLE === "true" && process.env.VERCEL_ENV !== "preview";
@@ -12,6 +14,11 @@ const problems: string[] = [];
 
 for (const f of missingFacts()) {
   if (f.requiredForLaunch) problems.push(`${f.label} is still [${f.key}] (shows in: ${f.shows})`);
+}
+
+const unconfirmed = confirmItems();
+if (unconfirmed.length > 0) {
+  problems.push(`${unconfirmed.length} copy item(s) still marked "confirm" (see implementation/CONTENT_TODO.md section 4)`);
 }
 
 const url = process.env.NEXT_PUBLIC_SITE_URL ?? "";

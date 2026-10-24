@@ -25,7 +25,7 @@ export function MobileActionBar() {
               Call
             </a>
           ) : (
-            <span className={`${ITEM} text-cream/60`} title="Phone number not set yet">
+            <span className={`${ITEM} text-cream/85`} title="Phone number not set yet" aria-disabled="true">
               <PhoneIcon />
               Call
             </span>
@@ -38,7 +38,7 @@ export function MobileActionBar() {
               Text
             </a>
           ) : (
-            <span className={`${ITEM} text-cream/60`} title="Phone number not set yet">
+            <span className={`${ITEM} text-cream/85`} title="Phone number not set yet" aria-disabled="true">
               <TextIcon />
               Text
             </span>

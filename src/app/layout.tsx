@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Lilita_One, Manrope } from "next/font/google";
+import { AnalyticsListener } from "@/components/layout/AnalyticsListener";
 import { Footer } from "@/components/layout/Footer";
+import { Ga4 } from "@/components/layout/Ga4";
 import { Header } from "@/components/layout/Header";
 import { MobileActionBar } from "@/components/layout/MobileActionBar";
 import { PreviewBanner } from "@/components/layout/PreviewBanner";
@@ -19,7 +22,15 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: SITE.name, template: `%s | ${SITE.name}` },
   applicationName: SITE.name,
+  formatDetection: { telephone: false },
 };
+
+/**
+ * Every page is fully static (built at deploy time). The build fails if a
+ * page ever needs per-request rendering, and unknown service/city/article
+ * slugs return a real 404 instead of a soft one.
+ */
+export const ensureStatic = "navigation";
 
 export const viewport: Viewport = {
   themeColor: "#1f4d3a",
@@ -39,6 +50,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <MobileActionBar />
         <JsonLd items={[businessSchema()]} />
+        <AnalyticsListener />
+        <Analytics />
+        <Ga4 />
       </body>
     </html>
   );

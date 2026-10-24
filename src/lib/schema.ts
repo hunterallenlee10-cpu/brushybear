@@ -1,4 +1,5 @@
-import type { BreadcrumbList, HousePainter, WebPage, WebSite } from "schema-dts";
+import type { Article as ArticleSchema, BreadcrumbList, FAQPage, HousePainter, Service, WebPage, WebSite } from "schema-dts";
+import { plainText } from "@/lib/text";
 import { SITE_URL } from "@/config/env";
 import { SITE } from "@/config/site";
 import { publishedCities } from "@/data/cities";
@@ -69,5 +70,54 @@ export function breadcrumbSchema(items: { name: string; path: string }[]): Bread
       name: item.name,
       item: abs(item.path),
     })),
+  };
+}
+
+/** FAQPage from the same data the page shows, word for word (links stripped). */
+export function faqSchema(faqs: { question: string; answer: string[] }[]): FAQPage {
+  return {
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer.map(plainText).join(" ") },
+    })),
+  };
+}
+
+/** A service page: what we offer, who provides it, and where. */
+export function serviceSchema(opts: { path: string; name: string; description: string }): Service {
+  return {
+    "@type": "Service",
+    "@id": `${abs(opts.path)}#service`,
+    name: opts.name,
+    serviceType: opts.name,
+    description: opts.description,
+    url: abs(opts.path),
+    provider: { "@id": BUSINESS_ID },
+    areaServed: publishedCities().map((c) => ({ "@type": "City" as const, name: `${c.name}, ${SITE.stateName}`, sameAs: c.wikipediaUrl })),
+  };
+}
+
+export function articleSchema(opts: {
+  path: string;
+  headline: string;
+  description: string;
+  datePublished: string;
+  dateModified: string;
+  authorName?: string;
+}): ArticleSchema {
+  return {
+    "@type": "Article",
+    "@id": `${abs(opts.path)}#article`,
+    headline: opts.headline,
+    description: opts.description,
+    url: abs(opts.path),
+    mainEntityOfPage: abs(opts.path),
+    datePublished: opts.datePublished,
+    dateModified: opts.dateModified,
+    image: `${SITE_URL}/og-image.png`,
+    author: opts.authorName ? { "@type": "Person", name: opts.authorName } : { "@id": BUSINESS_ID },
+    publisher: { "@id": BUSINESS_ID },
   };
 }

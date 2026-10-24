@@ -6,6 +6,7 @@ import { writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { SITE } from "@/config/site";
 import { ASSETS_NEEDED, DECISIONS, type OpenItem } from "@/data/open-items";
+import { confirmItems } from "./confirm-items";
 import { FACTS } from "./launch-facts";
 import { isSet } from "@/lib/placeholders";
 
@@ -41,9 +42,22 @@ line("## 3. Photos, reviews and profiles");
 line();
 table(ASSETS_NEEDED);
 line();
-line("## 4. Content marked \"(confirm)\"");
+line("## 4. Copy marked \"confirm\"");
 line();
-line("None yet. Service, city, FAQ and promise copy arrives in build Phases 2–6; every unverified fact in it is listed here automatically.");
+line("Each item is marked in the site's data with a `confirm` note and shows a striped **confirm** tag on the preview site. Check it, fix the copy if needed, then delete the note. A public build fails while any remain.");
+line();
+const items = confirmItems();
+const byPage = new Map<string, typeof items>();
+for (const i of items) byPage.set(i.page, [...(byPage.get(i.page) ?? []), i]);
+line(`**${items.length} items on ${byPage.size} pages.**`);
+for (const [page, list] of byPage) {
+  line();
+  line(`### ${page} (${list.length})`);
+  line();
+  line("| Item | What to check |");
+  line("|---|---|");
+  for (const i of list) line(`| ${i.where.replace(/\|/g, "/")} | ${i.note.replace(/\|/g, "/")} |`);
+}
 line();
 
 const file = join(__dirname, "../implementation/CONTENT_TODO.md");

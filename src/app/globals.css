@@ -124,6 +124,69 @@
   }
 }
 
+/* Headline paint swipe: paints in once, 400 ms (instant with reduced motion). */
+.paint-swipe path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: paint-in 400ms var(--ease-paint) 250ms forwards;
+}
+
+.paint-swipe path + path {
+  animation-delay: 380ms;
+}
+
+@keyframes paint-in {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Hero scene: rain falls briefly, stops, and warm light comes up. */
+.hero-rain {
+  animation: rain-stop 700ms ease-out 2.2s forwards;
+}
+
+.hero-rain line {
+  animation: rain-fall 700ms linear 4;
+}
+
+.hero-glow {
+  opacity: 0.12;
+  animation: glow-in 900ms ease-out 2.4s forwards;
+}
+
+@keyframes rain-fall {
+  from {
+    transform: translate(4px, -26px);
+  }
+  to {
+    transform: translate(-4px, 26px);
+  }
+}
+
+@keyframes rain-stop {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes glow-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rain {
+    display: none;
+  }
+
+  .hero-glow {
+    opacity: 1;
+    animation: none;
+  }
+}
+
 /* Reserve room for the fixed mobile action bar so nothing is hidden behind it. */
 @utility pb-action-bar {
   padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));

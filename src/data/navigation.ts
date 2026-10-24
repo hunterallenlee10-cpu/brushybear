@@ -4,7 +4,7 @@ export type NavItem = { label: string; href: string };
 
 /** Homepage sections that menu links can jump to (built in Phase 2). */
 export const HOME_SECTIONS_LIVE = {
-  serviceArea: false,
+  serviceArea: true,
 };
 
 /** Main menu, in order. Only items whose page exists in this build show up. */

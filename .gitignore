@@ -1,0 +1,15 @@
+# Original brand files from Google Drive (large; only optimized copies get committed)
+/brand-source/
+/assets-src/
+
+# Dependencies and builds
+node_modules/
+.next/
+out/
+.vercel/
+
+# Env files
+.env*
+!.env.example
+
+.DS_Store

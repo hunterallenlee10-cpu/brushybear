@@ -12,9 +12,6 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || FALLBACK_URL).repla
 /** "production" | "preview" | "development" on Vercel; undefined locally. */
 export const VERCEL_ENV = process.env.VERCEL_ENV;
 
-/** A Vercel production deployment (not a preview, not a local build). */
-export const IS_PRODUCTION_DEPLOY = VERCEL_ENV === "production";
-
 /**
  * Search engines may index the site only when SITE_INDEXABLE is "true" and
  * this isn't a preview deployment. Defaults to off.

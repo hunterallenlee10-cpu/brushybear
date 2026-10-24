@@ -6,7 +6,7 @@ import { BEAR_POSES, BearMascot } from "@/components/brand/BearMascot";
 import { Sticker } from "@/components/brand/Sticker";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Fill } from "@/components/ui/Fill";
-import { IS_PRODUCTION_DEPLOY } from "@/config/env";
+import { INDEXABLE } from "@/config/env";
 import { SITE } from "@/config/site";
 import { contrastRatio } from "@/lib/contrast";
 
@@ -48,16 +48,16 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-/** Design review page for previews. Returns 404 on the production deployment. */
+/** Design review page. Returns 404 once the site is public (SITE_INDEXABLE on). */
 export default function StyleguidePage() {
-  if (IS_PRODUCTION_DEPLOY) notFound();
+  if (INDEXABLE) notFound();
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 md:px-8">
       <p className="text-sm font-extrabold uppercase tracking-[0.14em] text-forest">Preview only</p>
       <h1 className="mt-2 font-display text-display-lg text-forest">Brushy Bear style guide</h1>
       <p className="mt-3 mb-10 max-w-2xl text-charcoal-soft">
-        Colors, type, buttons, stickers and brand files. Hidden from search and removed on the production site.
+        Colors, type, buttons, stickers and brand files. Hidden from search, and removed once the site goes public.
       </p>
 
       <Section title="Logo">

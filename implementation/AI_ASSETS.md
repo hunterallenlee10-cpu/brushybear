@@ -100,3 +100,20 @@ These come from the Brushy Bear Painters Drive folder and were only cut out and 
 | `public/og-image.png` | logo files | Interim share image (`scripts/brand/make-og.py`) |
 
 The hand-drawn hero scene (`HeroScene`) and service illustrations (`ServiceArt`) are coded SVG, kept as the fallback if `HERO_ASSETS` is set to null or a scene is removed.
+
+## Scroll hero (upgrade/panda-style, October 25, 2026)
+
+Four beats of one house with a locked-off camera, for the painting scroll on the home page. Model `gpt_image_2_5` (2k, high), 2.75 credits each, 22 credits total. Beat 1 was made first; every other frame used it as the reference image so the house never changes. No people, text, signs or house numbers. Shown on the site labeled "Illustration".
+
+| File (`public/hero/keyframes/`) | Beat | Job ID | References |
+|---|---|---|---|
+| `beat1-rain-worn-16x9.jpg` | Rain-worn | 043ba68f-bcf5-436e-bb26-0a0e045aa378 | none |
+| `beat2-prepped-right-16x9.jpg` | Prepped right | f6197553-c416-4a32-9826-203d7d530bd8 | beat 1 |
+| `beat3-first-stroke-16x9.jpg` | The first stroke | 037a5560-8295-45b5-976d-f81210a38961 | beat 1 |
+| `beat4-painted-to-last-16x9.jpg` | Painted to last | bb1c2f6e-c70a-46ca-9197-afc7e50542c0 | beat 1 |
+| `beat1-rain-worn-9x16.jpg` | Rain-worn (phone) | ca4d17ef-a446-4053-8554-d8526d2c067a | beat 1 |
+| `beat2-prepped-right-9x16.jpg` | Prepped right (phone) | 3041b1a4-af6f-49b7-925f-2667d508df17 | phone beat 1 + beat 2 |
+| `beat3-first-stroke-9x16.jpg` | The first stroke (phone) | f52e8b21-e8e5-46dc-b3d1-cfd11a2fd3a9 | phone beat 1 + beat 3 |
+| `beat4-painted-to-last-9x16.jpg` | Painted to last (phone) | 4f057b51-33c6-4132-90ae-a0285eaeaff4 | phone beat 1 + beat 4 |
+
+Originals are 2688x1520 / 1520x2688 PNGs (re-downloadable by job ID); the committed copies are 1920 / 1080 wide JPEGs.

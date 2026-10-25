@@ -40,3 +40,21 @@ All six keep their current wording. Erik confirms each one, plus the fine print 
 ## Service-area ZIPs (`src/data/service-zips.ts`)
 
 The form says "in our area" for these ZIPs. Erik confirms whether to include 98053 (much of it is unincorporated King County) and the PO-box ZIPs (98009, 98015, 98073, 98083).
+
+## Ballpark prices (`src/config/pricing.ts`)
+
+Every rate is a starting guess marked `// TODO: Erik confirm`. The estimator labels its result "Ballpark only, not a quote."
+
+| Item | Current guess |
+|---|---|
+| Interior | $650-$1,050 per average room (walls + trim), minimum $1,200-$1,800 |
+| Exterior | $3.60-$5.80 per sq ft of home, minimum $4,500-$6,500 |
+| Cabinets | $140-$220 per door or drawer, minimum $3,000-$4,200 |
+| Deck | $3.25-$5.50 per sq ft, minimum $1,200-$1,700 |
+| Fence | $9-$15 per linear ft (6 ft, both sides), minimum $900-$1,300 |
+| Stories (exterior) | 1 story x0.9, 2 stories x1.0, 3+ x1.25 |
+| Condition | Good x1.0, some peeling x1.15, rough x1.35 |
+
+## Color preview (`src/data/palettes.ts`)
+
+Eight palettes named by color, not by paint brand. If Erik wants real brand colors named, swap the names and hex values once he confirms which paint line we use.

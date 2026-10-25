@@ -10,6 +10,7 @@ import { Reviews } from "@/components/sections/Reviews";
 import { ServiceArea } from "@/components/sections/ServiceArea";
 import { SectionHeading } from "@/components/sections/SectionHeading";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
+import { ColorPreviewSection, EstimatorSection } from "@/components/sections/ToolSections";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { PAGES } from "@/config/pages";
 import { SITE } from "@/config/site";
@@ -33,6 +34,8 @@ export default function HomePage() {
       <Problem />
       <PromiseStack />
       <ServicesGrid />
+      <EstimatorSection />
+      <ColorPreviewSection />
       <HowItWorks />
       <Reviews />
       <ServiceArea />

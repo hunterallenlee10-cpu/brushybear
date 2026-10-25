@@ -2,6 +2,7 @@ import { BearMascot } from "@/components/brand/BearMascot";
 import { LeadFormCard } from "@/components/lead/LeadFormCard";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ColorPreviewSection, EstimatorSection } from "@/components/sections/ToolSections";
 import { ConfirmBadge } from "@/components/ui/ConfirmBadge";
 import { PAGES } from "@/config/pages";
 import { phoneHref, SITE } from "@/config/site";
@@ -66,6 +67,8 @@ export default function EstimatePage() {
           </div>
         </div>
       </div>
+      <EstimatorSection title="Want a number first? Here's a ballpark." />
+      <ColorPreviewSection />
       <JsonLd items={[breadcrumbSchema(crumbs)]} />
     </>
   );

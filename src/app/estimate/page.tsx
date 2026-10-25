@@ -1,5 +1,5 @@
 import { BearMascot } from "@/components/brand/BearMascot";
-import { EstimateForm } from "@/components/estimate/EstimateForm";
+import { LeadFormCard } from "@/components/lead/LeadFormCard";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ConfirmBadge } from "@/components/ui/ConfirmBadge";
@@ -62,7 +62,7 @@ export default function EstimatePage() {
             </div>
           </div>
           <div className="on-dark rounded-[calc(var(--radius-sticker)+0.5rem)] bg-forest p-4 md:p-8">
-            <EstimateForm source="estimate-page" fallbackPhone={isSet(SITE.phone) ? SITE.phone : undefined} />
+            <LeadFormCard source="estimate-page" />
           </div>
         </div>
       </div>

@@ -4,12 +4,12 @@ import { FaqAccordion } from "@/components/sections/FaqAccordion";
 import { Hero } from "@/components/sections/Hero";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Problem } from "@/components/sections/Problem";
-import { Promises } from "@/components/sections/Promises";
+import { PromiseStack } from "@/components/sections/PromiseStack";
+import { TrustStrip } from "@/components/sections/TrustStrip";
 import { Reviews } from "@/components/sections/Reviews";
 import { ServiceArea } from "@/components/sections/ServiceArea";
 import { SectionHeading } from "@/components/sections/SectionHeading";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
-import { WhyOthersFail } from "@/components/sections/WhyOthersFail";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { PAGES } from "@/config/pages";
 import { SITE } from "@/config/site";
@@ -29,9 +29,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <TrustStrip />
       <Problem />
-      <WhyOthersFail />
-      <Promises />
+      <PromiseStack />
       <ServicesGrid />
       <HowItWorks />
       <Reviews />

@@ -25,7 +25,7 @@ export const PAGES = {
   services: { path: "/services", label: "Services", live: true, indexable: true, lastModified: SITE.lastUpdated },
   serviceAreas: { path: "/service-areas", label: "Service Areas", live: true, indexable: true, lastModified: SITE.lastUpdated },
   estimate: { path: "/estimate", label: "Free Estimate", live: true, indexable: true, lastModified: SITE.lastUpdated },
-  ourPromise: { path: "/our-promise", label: "Our Promise", live: false, indexable: true, lastModified: SITE.lastUpdated },
+  ourPromise: { path: "/our-promise", label: "Our Promise", live: true, indexable: true, lastModified: SITE.lastUpdated },
   // Indexed once there are real reviews to show.
   reviews: { path: "/reviews", label: "Reviews", live: false, indexable: REVIEWS.length > 0, lastModified: SITE.lastUpdated },
   // Indexed once there are enough real jobs to be worth a search visit.

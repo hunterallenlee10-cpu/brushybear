@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { BearMascot } from "@/components/brand/BearMascot";
 import { BrushEdge } from "@/components/brand/Brushstroke";
-import { LazyEstimateForm } from "@/components/estimate/LazyEstimateForm";
+import { LeadFormCard } from "@/components/lead/LeadFormCard";
 import { phoneHref, SITE } from "@/config/site";
 import { FINAL_CTA } from "@/data/home";
 import { isSet } from "@/lib/placeholders";
@@ -45,7 +45,7 @@ export function CtaBlock({ title = FINAL_CTA.title, intro = FINAL_CTA.intro, sou
               <BearMascot pose="thumbs-up" sizes="192px" className="h-auto w-full" />
             </div>
           </div>
-          <LazyEstimateForm source={source} preselect={preselect} fallbackPhone={isSet(SITE.phone) ? SITE.phone : undefined} />
+          <LeadFormCard source={source} preselect={preselect} headingLevel="h3" title="Start here" />
         </div>
       </div>
     </section>

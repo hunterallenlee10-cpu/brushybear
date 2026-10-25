@@ -1,34 +1,70 @@
-/** Small inline icons (no icon font, no extra requests). Decorative. */
+import type { Icon as PhosphorIcon } from "@phosphor-icons/react/dist/lib/types";
+import { ArrowRight } from "@phosphor-icons/react/dist/ssr/ArrowRight";
+import { ArrowsLeftRight } from "@phosphor-icons/react/dist/ssr/ArrowsLeftRight";
+import { CaretLeft } from "@phosphor-icons/react/dist/ssr/CaretLeft";
+import { CaretRight } from "@phosphor-icons/react/dist/ssr/CaretRight";
+import { GoogleLogo } from "@phosphor-icons/react/dist/ssr/GoogleLogo";
+import { Gift } from "@phosphor-icons/react/dist/ssr/Gift";
+import { House } from "@phosphor-icons/react/dist/ssr/House";
+import { Key } from "@phosphor-icons/react/dist/ssr/Key";
+import { Broom } from "@phosphor-icons/react/dist/ssr/Broom";
+import { CalendarCheck } from "@phosphor-icons/react/dist/ssr/CalendarCheck";
+import { Camera } from "@phosphor-icons/react/dist/ssr/Camera";
+import { CaretDown } from "@phosphor-icons/react/dist/ssr/CaretDown";
+import { ChatCircleDots } from "@phosphor-icons/react/dist/ssr/ChatCircleDots";
+import { Check } from "@phosphor-icons/react/dist/ssr/Check";
+import { ClockCountdown } from "@phosphor-icons/react/dist/ssr/ClockCountdown";
+import { CloudRain } from "@phosphor-icons/react/dist/ssr/CloudRain";
+import { Envelope } from "@phosphor-icons/react/dist/ssr/Envelope";
+import { HandWaving } from "@phosphor-icons/react/dist/ssr/HandWaving";
+import { List } from "@phosphor-icons/react/dist/ssr/List";
+import { MapPin } from "@phosphor-icons/react/dist/ssr/MapPin";
+import { PaintBrush } from "@phosphor-icons/react/dist/ssr/PaintBrush";
+import { PaintRoller } from "@phosphor-icons/react/dist/ssr/PaintRoller";
+import { Phone } from "@phosphor-icons/react/dist/ssr/Phone";
+import { ShieldCheck } from "@phosphor-icons/react/dist/ssr/ShieldCheck";
+import { Star } from "@phosphor-icons/react/dist/ssr/Star";
+import { UploadSimple } from "@phosphor-icons/react/dist/ssr/UploadSimple";
+import { UserCircle } from "@phosphor-icons/react/dist/ssr/UserCircle";
+import { X } from "@phosphor-icons/react/dist/ssr/X";
+
+/**
+ * One icon family (Phosphor, bold weight) for the whole site. Imported icon
+ * by icon so only what's used ships. Decorative: always aria-hidden.
+ */
 type P = { className?: string };
 
-export const PhoneIcon = ({ className = "size-5" }: P) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-    <path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" />
-  </svg>
-);
+const make = (Icon: PhosphorIcon, fallback = "size-5") => {
+  const Wrapped = ({ className = fallback }: P) => <Icon weight="bold" className={className} aria-hidden="true" focusable="false" />;
+  Wrapped.displayName = Icon.displayName;
+  return Wrapped;
+};
 
-export const TextIcon = ({ className = "size-5" }: P) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-    <path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.2-4.4A8 8 0 1 1 21 12Z" />
-    <path d="M8.5 12h.01M12 12h.01M15.5 12h.01" />
-  </svg>
-);
-
-export const BrushIcon = ({ className = "size-5" }: P) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
-    <path d="M14.5 3.5 20.5 9.5 12 18H6v-6l8.5-8.5Z" />
-    <path d="M6 18c0 1.7-1.3 3-3 3 .3-1.2 0-2 0-3" />
-  </svg>
-);
-
-export const MenuIcon = ({ className = "size-6" }: P) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" className={className} aria-hidden="true">
-    <path d="M4 7h16M4 12h16M4 17h16" />
-  </svg>
-);
-
-export const CloseIcon = ({ className = "size-6" }: P) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" className={className} aria-hidden="true">
-    <path d="M6 6l12 12M18 6 6 18" />
-  </svg>
-);
+export const PhoneIcon = make(Phone);
+export const TextIcon = make(ChatCircleDots);
+export const MailIcon = make(Envelope);
+export const BrushIcon = make(PaintBrush);
+export const RollerIcon = make(PaintRoller);
+export const MenuIcon = make(List, "size-6");
+export const CloseIcon = make(X, "size-6");
+export const CaretIcon = make(CaretDown, "size-4");
+export const ArrowIcon = make(ArrowRight);
+export const CheckIcon = make(Check);
+export const CameraIcon = make(Camera);
+export const ClockIcon = make(ClockCountdown);
+export const RainIcon = make(CloudRain);
+export const BroomIcon = make(Broom);
+export const CalendarIcon = make(CalendarCheck);
+export const ShieldIcon = make(ShieldCheck);
+export const StarIcon = make(Star);
+export const UploadIcon = make(UploadSimple);
+export const PersonIcon = make(UserCircle);
+export const PinIcon = make(MapPin);
+export const WaveIcon = make(HandWaving);
+export const SlideIcon = make(ArrowsLeftRight);
+export const PrevIcon = make(CaretLeft);
+export const NextIcon = make(CaretRight);
+export const GoogleIcon = make(GoogleLogo);
+export const GiftIcon = make(Gift);
+export const HouseIcon = make(House);
+export const KeyIcon = make(Key);

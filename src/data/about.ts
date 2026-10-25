@@ -7,7 +7,9 @@ import type { Confirmable } from "@/data/types";
 export const ABOUT = {
   title: "About Brushy Bear Painters",
   eyebrow: "Who we are",
-  h1: "Two owners, one simple idea: paint it right and treat the house like ours.",
+  h1: "Eastside house painters with two owners and one simple idea: paint it right and treat the house like ours.",
+  /** Erik and Hunter's own words go here. Until then the page shows a labeled slot. */
+  story: null as string[] | null,
   intro: [
     "Brushy Bear Painters is a new residential painting company for Bellevue, Kirkland, Redmond, Sammamish and Issaquah. We started it because hiring a painter shouldn't mean chasing people for updates or cleaning up after them.",
   ],

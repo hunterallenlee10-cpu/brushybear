@@ -3,7 +3,18 @@ import { plainText } from "@/lib/text";
 import { SITE_URL } from "@/config/env";
 import { SITE } from "@/config/site";
 import { publishedCities } from "@/data/cities";
-import { isSet } from "@/lib/placeholders";
+import { INDEXABLE } from "@/config/env";
+import { isSet, type Fillable } from "@/lib/placeholders";
+
+/**
+ * A fact for structured data: the real value, or on preview builds the
+ * "[KEY]" placeholder so every field is visibly wired. Public builds never
+ * get a placeholder (and the launch check blocks them anyway).
+ */
+function fact<T>(v: Fillable<T>): T | string | undefined {
+  if (isSet(v)) return v;
+  return INDEXABLE ? undefined : `[${v.placeholder}]`;
+}
 
 /** Stable IDs so other structured data can point at the business. */
 export const BUSINESS_ID = `${SITE_URL}/#business`;
@@ -24,8 +35,29 @@ export function businessSchema(): HousePainter {
     url: `${SITE_URL}/`,
     logo: `${SITE_URL}/brand/logo-full.png`,
     image: `${SITE_URL}/brand/logo-full.png`,
-    ...(isSet(SITE.phone) && { telephone: SITE.phone }),
-    ...(isSet(SITE.email) && { email: SITE.email }),
+    ...(fact(SITE.phone) && { telephone: fact(SITE.phone) as string }),
+    ...(fact(SITE.email) && { email: fact(SITE.email) as string }),
+    ...(isSet(SITE.address)
+      ? {
+          address: {
+            "@type": "PostalAddress" as const,
+            streetAddress: SITE.address.street,
+            addressLocality: SITE.address.city,
+            addressRegion: SITE.state,
+            postalCode: SITE.address.zip,
+            addressCountry: "US",
+          },
+        }
+      : !INDEXABLE && {
+          address: { "@type": "PostalAddress" as const, streetAddress: "[ADDRESS]", addressRegion: SITE.state, addressCountry: "US" },
+        }),
+    ...(fact(SITE.lniNumber) && {
+      hasCredential: {
+        "@type": "EducationalOccupationalCredential" as const,
+        credentialCategory: "Washington L&I contractor registration",
+        identifier: fact(SITE.lniNumber) as string,
+      },
+    }),
     ...(SITE.hours.schema.length > 0 && { openingHours: SITE.hours.schema }),
     areaServed: publishedCities().map((c) => ({
       "@type": "City" as const,

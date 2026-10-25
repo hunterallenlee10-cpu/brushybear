@@ -7,8 +7,10 @@ import "server-only";
  */
 export function leadSettings() {
   return {
-    webhookUrl: process.env.N8N_WEBHOOK_URL || "",
-    webhookSecret: process.env.N8N_WEBHOOK_SECRET || "",
+    // LEAD_WEBHOOK_* is the new name; N8N_WEBHOOK_* still works so the
+    // current Vercel settings keep sending leads.
+    webhookUrl: process.env.LEAD_WEBHOOK_URL || process.env.N8N_WEBHOOK_URL || "",
+    webhookSecret: process.env.LEAD_WEBHOOK_SECRET || process.env.N8N_WEBHOOK_SECRET || "",
     dryRun: process.env.LEADS_DRY_RUN === "true",
   };
 }

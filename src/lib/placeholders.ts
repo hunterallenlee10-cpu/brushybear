@@ -10,7 +10,10 @@ export type PlaceholderKey =
   | "HOURS"
   | "LNI_NUMBER"
   | "UBI_NUMBER"
-  | "WARRANTY_YEARS";
+  | "WARRANTY_YEARS"
+  | "ADDRESS"
+  | "GOOGLE_REVIEW_URL"
+  | "REFERRAL_REWARD";
 
 export type Placeholder = { readonly placeholder: PlaceholderKey };
 

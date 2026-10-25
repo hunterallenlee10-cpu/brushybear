@@ -1,53 +1,34 @@
 import { z } from "zod";
+import {
+  CONTACT_OPTIONS,
+  HOME_AGE_OPTIONS,
+  isEmail,
+  isPhone,
+  MAX_PHOTOS,
+  MESSAGES,
+  SERVICE_OPTIONS,
+  TIMELINE_OPTIONS,
+} from "@/lib/lead-rules";
 
-/** One set of rules, used by the form (instant errors) and the API (the real check). */
+/**
+ * The server's check of a lead (zod), built from the same constants and
+ * messages as the browser's quick check in lead-rules.ts. Only the API
+ * route imports this file, so zod never ships to the browser.
+ */
 
-export const SERVICE_OPTIONS = [
-  { value: "interior", label: "Interior", serviceSlug: "interior-painting" },
-  { value: "exterior", label: "Exterior", serviceSlug: "exterior-painting" },
-  { value: "cabinets", label: "Cabinets", serviceSlug: "cabinet-painting" },
-  { value: "deck-fence", label: "Deck or fence", serviceSlug: "deck-and-fence-staining" },
-  { value: "other", label: "Something else", serviceSlug: null },
-] as const;
+export {
+  CONTACT_OPTIONS,
+  HOME_AGE_OPTIONS,
+  MAX_PHOTO_BYTES,
+  MAX_PHOTOS,
+  PHOTO_TYPES,
+  SERVICE_OPTIONS,
+  SMS_CONSENT_TEXT,
+  TIMELINE_OPTIONS,
+} from "@/lib/lead-rules";
 
-export const TIMELINE_OPTIONS = [
-  { value: "asap", label: "As soon as possible" },
-  { value: "1-3-months", label: "In 1–3 months" },
-  { value: "3-plus-months", label: "3+ months out" },
-  { value: "planning", label: "Just planning" },
-] as const;
-
-export const HOME_AGE_OPTIONS = [
-  { value: "before-1978", label: "Before 1978" },
-  { value: "1978-or-later", label: "1978 or later" },
-  { value: "not-sure", label: "Not sure" },
-] as const;
-
-/** Saved with the lead as proof of what the person agreed to. */
-export const SMS_CONSENT_TEXT =
-  "Yes, text me about my estimate. Message and data rates may apply. Message frequency varies. Reply STOP to opt out. Consent isn't required to get an estimate.";
-
-export const MAX_PHOTOS = 6;
-export const MAX_PHOTO_BYTES = 10 * 1024 * 1024;
-export const PHOTO_TYPES = ["image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"];
-
-const digits = (v: string) => v.replace(/\D/g, "");
 const values = <T extends readonly { value: string }[]>(opts: T) =>
   opts.map((o) => o.value) as unknown as [T[number]["value"], ...T[number]["value"][]];
-
-export const contactSchema = z.object({
-  name: z.string().trim().min(2, "Please enter your name.").max(80, "That name is too long."),
-  phone: z
-    .string()
-    .trim()
-    .refine((v) => {
-      const d = digits(v);
-      return d.length === 10 || (d.length === 11 && d.startsWith("1"));
-    }, "Please enter a 10-digit phone number."),
-  email: z.string().trim().max(120).pipe(z.email("Please enter a valid email address.")),
-  location: z.string().trim().min(3, "Please enter your address or ZIP code.").max(160),
-  services: z.array(z.enum(values(SERVICE_OPTIONS))).min(1, "Pick at least one."),
-});
 
 /** Photos must be in our own Blob store; no other URLs get forwarded. */
 const photoUrl = z
@@ -57,24 +38,34 @@ const photoUrl = z
     return protocol === "https:" && hostname.endsWith(".public.blob.vercel-storage.com");
   }, "Unexpected photo link.");
 
-export const detailsSchema = z.object({
-  timeline: z.enum(values(TIMELINE_OPTIONS)).optional(),
-  homeAge: z.enum(values(HOME_AGE_OPTIONS)).optional(),
-  notes: z.string().trim().max(1000, "Please keep this under 1,000 characters.").optional(),
+export const leadSchema = z.object({
+  // Step 1
+  services: z.array(z.enum(values(SERVICE_OPTIONS))).min(1, MESSAGES.services),
+  zip: z.string().trim().regex(/^\d{5}$/, MESSAGES.zip),
+  // Step 2
+  name: z.string().trim().min(2, MESSAGES.name).max(80, MESSAGES.nameLong),
+  phone: z.string().trim().refine(isPhone, MESSAGES.phone),
+  email: z.string().trim().refine(isEmail, MESSAGES.email),
+  address: z.string().trim().min(3, MESSAGES.address).max(160),
+  contactMethod: z.enum(values(CONTACT_OPTIONS), MESSAGES.contactMethod),
   smsConsent: z.boolean(),
   photoUrls: z.array(photoUrl).max(MAX_PHOTOS),
   photoUploadFailed: z.boolean().optional(),
-});
-
-export const leadSchema = contactSchema.extend(detailsSchema.shape).extend({
-  /** Where the form sat ("home", "estimate-page", "service:exterior-painting"...). */
+  // Optional extras
+  timeline: z.enum(values(TIMELINE_OPTIONS)).optional(),
+  homeAge: z.enum(values(HOME_AGE_OPTIONS)).optional(),
+  notes: z.string().trim().max(1000, MESSAGES.notes).optional(),
+  /** From the color preview, e.g. "Forest & Cream". */
+  palette: z.string().trim().max(80).optional(),
+  /** From the price estimator, e.g. "Exterior, 2 stories, 2,500 sq ft: $9,800-$14,200". */
+  ballpark: z.string().trim().max(200).optional(),
+  // Where it came from
   source: z.string().max(80),
   page: z.string().max(300),
   referrer: z.string().max(500).optional(),
   utm: z.record(z.string().max(40), z.string().max(200)).optional(),
 });
 
-export type ContactInput = z.infer<typeof contactSchema>;
 export type Lead = z.infer<typeof leadSchema>;
 
 /** First error message per field, for inline display. */

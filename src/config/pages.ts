@@ -27,14 +27,14 @@ export const PAGES = {
   estimate: { path: "/estimate", label: "Free Estimate", live: true, indexable: true, lastModified: SITE.lastUpdated },
   ourPromise: { path: "/our-promise", label: "Our Promise", live: true, indexable: true, lastModified: SITE.lastUpdated },
   // Indexed once there are real reviews to show.
-  reviews: { path: "/reviews", label: "Reviews", live: false, indexable: REVIEWS.length > 0, lastModified: SITE.lastUpdated },
+  reviews: { path: "/reviews", label: "Reviews", live: true, indexable: REVIEWS.length > 0, lastModified: SITE.lastUpdated },
   // Indexed once there are enough real jobs to be worth a search visit.
   projects: { path: "/projects", label: "Projects", live: true, indexable: GALLERY.length >= GALLERY_INDEX_THRESHOLD, lastModified: SITE.lastUpdated },
-  refer: { path: "/refer", label: "Refer & Earn", live: false, indexable: true, lastModified: SITE.lastUpdated },
-  realtors: { path: "/realtors-property-managers", label: "Realtors & Property Managers", live: false, indexable: true, lastModified: SITE.lastUpdated },
+  refer: { path: "/refer", label: "Refer & Earn", live: true, indexable: true, lastModified: SITE.lastUpdated },
+  realtors: { path: "/realtors-property-managers", label: "Realtors & Property Managers", live: true, indexable: true, lastModified: SITE.lastUpdated },
   // Indexed once Erik and Hunter confirm the story (see CONTENT_TODO.md).
   about: { path: "/about", label: "About", live: true, indexable: false, lastModified: SITE.lastUpdated },
-  contact: { path: "/contact", label: "Contact", live: false, indexable: true, lastModified: SITE.lastUpdated },
+  contact: { path: "/contact", label: "Contact", live: true, indexable: true, lastModified: SITE.lastUpdated },
   faq: { path: "/faq", label: "FAQ", live: true, indexable: true, lastModified: SITE.lastUpdated },
   articles: { path: "/articles", label: "Articles", live: true, indexable: true, lastModified: SITE.lastUpdated },
   privacy: { path: "/privacy", label: "Privacy", live: true, indexable: true, lastModified: SITE.lastUpdated },

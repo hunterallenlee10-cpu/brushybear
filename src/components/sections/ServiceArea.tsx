@@ -3,7 +3,7 @@ import { ServiceAreaMap } from "@/components/sections/ServiceAreaMap";
 import { SectionHeading } from "@/components/sections/SectionHeading";
 import { cityPath, isLivePath } from "@/config/pages";
 import { SITE } from "@/config/site";
-import { cityList, publishedCities } from "@/data/cities";
+import { publishedCities } from "@/data/cities";
 import { SERVICE_AREA } from "@/data/home";
 
 /** The 5 Phase 1 cities, linked, with a drawn map. */
@@ -12,7 +12,7 @@ export function ServiceArea() {
     <section id="service-area" aria-labelledby="area-title" className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
       <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-20">
         <div>
-          <SectionHeading id="area-title" eyebrow={SERVICE_AREA.eyebrow} title={`Painters for ${cityList()}`} intro={<p>{SERVICE_AREA.intro}</p>} />
+          <SectionHeading id="area-title" title="Five cities, one tight service area" intro={<p>{SERVICE_AREA.intro}</p>} />
           <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
             {publishedCities().map((c) => {
               const href = cityPath(c.slug);

@@ -1,48 +1,78 @@
 import { expect, test } from "@playwright/test";
 
-test.describe("estimate form", () => {
-  test("shows inline errors and focuses the first one", async ({ page }) => {
+test.describe("lead form", () => {
+  test("step 1 shows inline errors and focuses the first one", async ({ page }) => {
     await page.goto("/estimate");
-    await page.getByRole("button", { name: "Continue" }).click();
-    await expect(page.getByText("Please enter your name.")).toBeVisible();
-    await expect(page.getByText("Pick at least one.")).toBeVisible();
-    await expect(page.getByLabel("Your name")).toBeFocused();
-    await expect(page.getByLabel("Your name")).toHaveAttribute("aria-invalid", "true");
+    const form = page.locator("[data-lead-form]").first();
+    await form.getByRole("button", { name: "Continue" }).click();
+    await expect(form.getByText("Pick at least one.")).toBeVisible();
+    await expect(form.getByText("Please enter a 5-digit ZIP code.")).toBeVisible();
+    await expect(form.getByRole("checkbox", { name: "Interior" })).toBeFocused();
   });
 
-  test("sends a request in two steps (dry run)", async ({ page }) => {
+  test("ZIP hint says whether we serve the area", async ({ page }) => {
     await page.goto("/estimate");
-    await page.getByLabel("Your name").fill("Jane Doe");
-    await page.getByLabel("Mobile phone").fill("425-555-0142");
-    await page.getByLabel("Email").fill("jane@example.com");
-    await page.getByLabel("Home address or ZIP code").fill("98033");
-    await page.getByText("Exterior", { exact: true }).click();
-    await page.getByRole("button", { name: "Continue" }).click();
+    const form = page.locator("[data-lead-form]").first();
+    await form.getByLabel("ZIP code").fill("98033");
+    await expect(form.getByText("Kirkland is in our area.")).toBeVisible();
+    await form.getByLabel("ZIP code").fill("98101");
+    await expect(form.getByText(/Outside our usual area/)).toBeVisible();
+  });
 
-    await expect(page.getByRole("heading", { name: /A few details/ })).toBeVisible();
-    await page.getByText("1978 or later").click();
-    await page.getByLabel(/Yes, text me about my estimate/).check();
+  test("sends a request in two steps to /api/lead (dry run) and shows the booking slot", async ({ page }) => {
+    await page.goto("/estimate");
+    const form = page.locator("[data-lead-form]").first();
+    await form.getByText("Exterior", { exact: true }).click();
+    await form.getByLabel("ZIP code").fill("98033");
+    await form.getByRole("button", { name: "Continue" }).click();
+
+    await form.getByLabel("Your name").fill("Dana Whitcomb");
+    await form.getByLabel("Mobile phone").fill("425-555-0142");
+    await form.getByRole("textbox", { name: "Email" }).fill("dana@example.com");
+    await form.getByLabel(/Street address/).fill("12 Market St");
+    await form.getByText("Call", { exact: true }).click();
     await page.waitForTimeout(3_200); // past the bot fill-time trap, so the real path runs
 
-    const response = page.waitForResponse("**/api/estimate");
-    await page.getByRole("button", { name: "Send my request" }).click();
-    const body = await (await response).json();
-    expect(body).toEqual({ ok: true, dryRun: true });
-    await expect(page.getByRole("heading", { name: /Got it, Jane!/ })).toBeVisible();
+    const response = page.waitForResponse("**/api/lead");
+    await form.getByRole("button", { name: "Send my request" }).click();
+    expect(await (await response).json()).toEqual({ ok: true, dryRun: true });
+    await expect(page.getByRole("heading", { name: /Got it, Dana/ })).toBeVisible();
+    await expect(page.getByText("Book your walkthrough")).toBeVisible();
+  });
+
+  test("step 2 errors stay inline", async ({ page }) => {
+    await page.goto("/estimate");
+    const form = page.locator("[data-lead-form]").first();
+    await form.getByText("Interior", { exact: true }).click();
+    await form.getByLabel("ZIP code").fill("98004");
+    await form.getByRole("button", { name: "Continue" }).click();
+    await form.getByRole("button", { name: "Send my request" }).click();
+    await expect(form.getByText("Please enter your name.")).toBeVisible();
+    await expect(form.getByLabel("Your name")).toBeFocused();
   });
 
   test("service pages pre-select their service", async ({ page }) => {
     await page.goto("/services/cabinet-painting");
-    const form = page.locator("#estimate");
-    await form.scrollIntoViewIfNeeded(); // the form's code loads when it nears the screen
-    await expect(form.getByRole("checkbox", { name: "Cabinets" })).toBeChecked();
+    await expect(page.locator("#estimate").getByRole("checkbox", { name: "Cabinets" })).toBeChecked();
   });
 
-  test("bottom-of-page form loads lazily and works after a tap", async ({ page }) => {
-    await page.goto("/");
-    // Before scrolling, only the lightweight shell is on the page.
-    await expect(page.locator("#estimate").getByRole("button", { name: "Start your free estimate" })).toBeAttached();
-    await page.locator("#estimate").scrollIntoViewIfNeeded();
-    await expect(page.locator("#estimate").getByLabel("Your name")).toBeVisible();
+  test("color preview hands its palette to the form", async ({ page }) => {
+    await page.goto("/estimate");
+    await page.locator("#colors").getByText("Harbor Navy").click();
+    await page.getByRole("button", { name: "Use this palette in my estimate" }).click();
+    const form = page.locator("[data-lead-form]").first();
+    await expect(form.getByRole("checkbox", { name: "Exterior" })).toBeChecked();
+    await form.getByLabel("ZIP code").fill("98052");
+    await form.getByRole("button", { name: "Continue" }).click();
+    await expect(form.getByText("Palette: Harbor Navy")).toBeVisible();
+  });
+
+  test("estimator hands its ballpark to the form", async ({ page }) => {
+    await page.goto("/estimate");
+    await page.locator("#ballpark").getByRole("button", { name: /Get a Free Estimate/ }).click();
+    const form = page.locator("[data-lead-form]").first();
+    await form.getByLabel("ZIP code").fill("98052");
+    await form.getByRole("button", { name: "Continue" }).click();
+    await expect(form.getByText(/Ballpark: Whole-house exterior/)).toBeVisible();
   });
 });

@@ -29,3 +29,14 @@ export const GALLERY: GalleryItem[] = [];
 
 /** The gallery appears in search once there are this many real jobs. */
 export const GALLERY_INDEX_THRESHOLD = 6;
+
+/**
+ * Labeled stand-ins shown until real jobs exist. They name the kind of job,
+ * never a city or customer, and every one says it's a placeholder.
+ */
+export const PROJECT_SLOTS = [
+  { id: "slot-exterior", service: "exterior-painting", label: "Exterior repaint: real job photos go here" },
+  { id: "slot-cabinets", service: "cabinet-painting", label: "Kitchen cabinets: real job photos go here" },
+  { id: "slot-deck", service: "deck-and-fence-staining", label: "Cedar deck restain: real job photos go here" },
+  { id: "slot-interior", service: "interior-painting", label: "Living room repaint: real job photos go here" },
+] as const;

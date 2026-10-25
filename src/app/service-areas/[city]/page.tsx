@@ -16,6 +16,8 @@ import { getCity } from "@/data/cities";
 import { cityPageList, getCityPage } from "@/data/city-pages";
 import { breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
+import { LocalNotes } from "@/components/content/LocalNotes";
+import { EstimatorSection } from "@/components/sections/ToolSections";
 
 export function generateStaticParams() {
   return cityPageList().map(({ city }) => ({ city: city.slug }));
@@ -30,7 +32,7 @@ function load(slug: string) {
 
 export async function generateMetadata({ params }: PageProps<"/service-areas/[city]">): Promise<Metadata> {
   const { page } = load((await params).city);
-  return pageMetadata({ title: page.title, description: page.metaDescription, path: cityPath(page.slug) });
+  return pageMetadata({ title: page.title, description: page.metaDescription, path: cityPath(page.slug) , ownOgImage: true });
 }
 
 export default async function CityPage({ params }: PageProps<"/service-areas/[city]">) {
@@ -62,6 +64,8 @@ export default async function CityPage({ params }: PageProps<"/service-areas/[ci
           </ButtonLink>
         </div>
       </PageHeader>
+
+      <LocalNotes slug={city.slug} cityName={city.name} />
 
       <div className="mx-auto max-w-7xl px-4 pb-16 md:px-8">
         <ContentSections sections={page.sections} className="max-w-3xl" />
@@ -115,6 +119,7 @@ export default async function CityPage({ params }: PageProps<"/service-areas/[ci
         )}
       </section>
 
+      <EstimatorSection title={`What does painting cost in ${city.name}? Get a ballpark.`} />
       <CtaBlock source={`city:${city.slug}`} title={`Get a free estimate in ${city.name}.`} />
 
       <JsonLd items={[breadcrumbSchema(crumbs), faqSchema(page.faqs)]} />

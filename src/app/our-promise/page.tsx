@@ -13,7 +13,7 @@ const TITLE = `Our Promise: ${SITE.regionName} House Painting`;
 const DESCRIPTION =
   "Our six promises: a written quote in 24 hours, one point of contact, daily photos, a clean house every evening, a rain-day promise, $250 off if we start late.";
 
-export const metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PAGES.ourPromise.path });
+export const metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PAGES.ourPromise.path , ownOgImage: true });
 
 /** The six promises, with how each works and its honest limits. */
 export default function OurPromisePage() {

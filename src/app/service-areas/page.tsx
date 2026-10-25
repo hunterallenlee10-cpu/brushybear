@@ -13,9 +13,9 @@ import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 
 const TITLE = `${SITE.regionName} Painting Service Areas`;
-const DESCRIPTION = `House painting in ${cityList()}, ${SITE.state}. See what we know about homes, rain and HOAs in each city, then get a free written estimate.`;
+const DESCRIPTION = `House painting in ${cityList()}, ${SITE.state}. What we plan around in each city: rain, shade, moss, cedar siding and HOA rules.`;
 
-export const metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PAGES.serviceAreas.path });
+export const metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PAGES.serviceAreas.path , ownOgImage: true });
 
 /** The five cities on one map, each linking to its own local page. */
 export default function ServiceAreasPage() {

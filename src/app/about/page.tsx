@@ -13,7 +13,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "About Erik & Hunter",
   description:
-    "Brushy Bear Painters is a new Eastside house painting company run by Erik and Hunter Lee: one point of contact, written steps on every job, and clean sites daily.",
+    "Brushy Bear Painters is a new Eastside house painting company run by Erik and Hunter Lee: one point of contact, written steps on every job, clean sites daily.",
   path: PAGES.about.path,
   indexable: PAGES.about.indexable,
 });
@@ -36,6 +36,28 @@ export default function AboutPage() {
           </div>
         }
       />
+
+      <section aria-labelledby="story-title" className="mx-auto max-w-7xl px-4 pb-16 md:px-8">
+        <h2 id="story-title" className="font-display text-display-md text-forest">
+          Why we started Brushy Bear
+        </h2>
+        {ABOUT.story ? (
+          <div className="mt-6 max-w-3xl space-y-4 text-lg">
+            {ABOUT.story.map((p) => (
+              <p key={p}>{p}</p>
+            ))}
+          </div>
+        ) : (
+          <div className="mt-6 max-w-3xl rounded-[1.5rem] border-2 border-dashed border-sage bg-[repeating-linear-gradient(-45deg,var(--color-cream-50)_0_14px,var(--color-cream)_14px_28px)] p-6">
+            <p className="font-extrabold text-forest">
+              <span className="placeholder-mark">[OWNER_STORY]</span> Erik and Hunter&apos;s story goes here, in their own words.
+            </p>
+            <p className="mt-2 text-charcoal-soft">
+              A few short paragraphs: how they met, why they started a painting company, and what they want every customer to say afterward.
+            </p>
+          </div>
+        )}
+      </section>
 
       <section aria-labelledby="owners-title" className="mx-auto max-w-7xl px-4 pb-16 md:px-8">
         <h2 id="owners-title" className="font-display text-display-md text-forest">

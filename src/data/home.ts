@@ -34,5 +34,5 @@ export const SERVICE_AREA = {
 export const FINAL_CTA = {
   eyebrow: "Free estimate",
   title: "Tell us what you want painted.",
-  intro: "We'll text you within a few minutes during business hours to set up a walkthrough.",
+  intro: "Two quick steps. We reach out during business hours to set up a walkthrough.",
 };

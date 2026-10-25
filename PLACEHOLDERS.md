@@ -18,6 +18,7 @@ Where to fill business facts: `src/config/site.ts`. Env vars: Vercel project set
 | `WARRANTY_YEARS` | Workmanship warranty length | Hidden until set | Both |
 | `GOOGLE_REVIEW_URL` | "Leave us a review" link from the Google Business Profile | Reviews page, reviews section | Hunter |
 | `REFERRAL_REWARD` | What a referrer gets | Refer & Earn page | Both |
+| `OWNER_STORY` | Erik and Hunter's story in their own words (`ABOUT.story` in `src/data/about.ts`) | About page | Both |
 
 ## Environment variables (Vercel project settings)
 
@@ -58,3 +59,34 @@ Every rate is a starting guess marked `// TODO: Erik confirm`. The estimator lab
 ## Color preview (`src/data/palettes.ts`)
 
 Eight palettes named by color, not by paint brand. If Erik wants real brand colors named, swap the names and hex values once he confirms which paint line we use.
+
+## Photos (real only: never stock, AI or another company's work)
+
+| Slot | Where | Who |
+|---|---|---|
+| Before/after photos of real jobs | `/projects`, home "Before and after", every service page. Add them to `src/data/gallery.ts`; the striped sliders turn into real ones. | Erik |
+| Photo of Erik, photo of Hunter | About page | Both |
+| Real job photos to replace the illustrated scenes | Service cards, articles, hero (all labeled "Illustration" until then) | Erik |
+
+## Reviews
+
+| Item | Where | Who |
+|---|---|---|
+| Real Google reviews (with permission) | `src/data/reviews.ts`. The carousel with initial avatars and "Read more" turns on by itself; until then the home page and `/reviews` say plainly that we're new. | Both |
+| Review policy ("we ask every customer, we don't filter, we don't pay") | `/reviews` | Hunter |
+
+## Copy marked "confirm" (striped tag on the preview)
+
+| Item | Where | Who |
+|---|---|---|
+| Typical job lengths and steps for each service | Service page timelines (`src/data/service-timelines.ts`) | Erik |
+| City "what we plan around" notes (HOA coverage per city) | City pages (`src/data/city-notes.ts`) | Erik |
+| Realtor and property-manager offers (lockbox access, turnovers, recurring scheduling) | `/realtors-property-managers` | Erik |
+| Referral terms (one per new customer, paid after job is paid, no limit) | `/refer` | Both |
+
+## Not on the site on purpose
+
+These were in the brief or the competitors' sites, and stay off until they're real:
+- Financing partner and financing offers.
+- Warranty length (hidden until `WARRANTY_YEARS` is set).
+- Review counts, star ratings, project counts, years in business, awards, badges, certifications.

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { BearMascot } from "@/components/brand/BearMascot";
 import { Wordmark } from "@/components/brand/Logo";
 import { Fill, PlaceholderMark } from "@/components/ui/Fill";
 import { MailIcon, PhoneIcon, PinIcon, ClockIcon } from "@/components/ui/Icons";
@@ -39,7 +38,7 @@ export function Footer() {
   const address = SITE.address;
 
   return (
-    <footer className="on-dark relative overflow-hidden bg-forest text-cream">
+    <footer className="on-dark relative overflow-hidden border-t-4 border-gold bg-forest-deep text-cream">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-16 pb-12 md:grid-cols-2 md:px-8 lg:grid-cols-[1.35fr_1fr_1fr_1.4fr]">
         <div>
           <Wordmark className="h-14 w-auto" sizes="200px" />
@@ -113,9 +112,7 @@ export function Footer() {
         <LinkList title="Company" items={companyNav()} columns={2} />
       </div>
 
-      <BearMascot pose="sleeping" sizes="176px" className="pointer-events-none absolute right-6 bottom-16 hidden h-auto w-44 opacity-90 xl:block" />
-
-      <div className="border-t border-forest-soft bg-forest-deep">
+      <div className="border-t border-forest-soft bg-[#10291e]">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-cream/90 md:flex-row md:flex-wrap md:items-center md:justify-between md:px-8">
           <p>
             © {year} {SITE.name}

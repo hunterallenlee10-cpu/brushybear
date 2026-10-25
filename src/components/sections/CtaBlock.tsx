@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { BearMascot } from "@/components/brand/BearMascot";
 import { LeadFormCard } from "@/components/lead/LeadFormCard";
 import { CheckIcon } from "@/components/ui/Icons";
+import { LazyMount } from "@/components/ui/LazyMount";
 import { phoneHref, SITE } from "@/config/site";
 import { FINAL_CTA } from "@/data/home";
 import { PROMISES } from "@/data/promises";
@@ -63,7 +64,9 @@ export function CtaBlock({ title = FINAL_CTA.title, intro = FINAL_CTA.intro, sou
           </div>
         </div>
         <div className="self-start">
-          <LeadFormCard source={source} preselect={preselect} headingLevel="h3" title="Start here" />
+          <LazyMount minHeight="31rem">
+            <LeadFormCard source={source} preselect={preselect} headingLevel="h3" title="Start here" />
+          </LazyMount>
         </div>
       </div>
     </section>

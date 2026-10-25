@@ -53,11 +53,14 @@ test.describe("lead form", () => {
 
   test("service pages pre-select their service", async ({ page }) => {
     await page.goto("/services/cabinet-painting");
+    await page.locator("#estimate").scrollIntoViewIfNeeded(); // the form mounts as it nears the screen
     await expect(page.locator("#estimate").getByRole("checkbox", { name: "Cabinets" })).toBeChecked();
   });
 
   test("color preview hands its palette to the form", async ({ page }) => {
     await page.goto("/estimate");
+    // The tools mount as they near the screen.
+    await page.locator("#colors").scrollIntoViewIfNeeded();
     await page.locator("#colors").getByText("Harbor Navy").click();
     await page.getByRole("button", { name: "Use this palette in my estimate" }).click();
     const form = page.locator("[data-lead-form]").first();
@@ -69,6 +72,7 @@ test.describe("lead form", () => {
 
   test("estimator hands its ballpark to the form", async ({ page }) => {
     await page.goto("/estimate");
+    await page.locator("#ballpark").scrollIntoViewIfNeeded();
     await page.locator("#ballpark").getByRole("button", { name: /Get a Free Estimate/ }).click();
     const form = page.locator("[data-lead-form]").first();
     await form.getByLabel("ZIP code").fill("98052");

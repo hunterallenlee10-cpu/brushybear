@@ -94,6 +94,8 @@ export function LeadForm({ source, preselect, phone, phoneHref, preview, title =
   const onFirstTouch = () => {
     if (started.current) return;
     started.current = true;
+    // In the scroll hero, keep the card's drawer open once someone starts.
+    root.current?.closest("#quote-hero")?.setAttribute("data-open", "");
     track("estimate_start", { source });
   };
 

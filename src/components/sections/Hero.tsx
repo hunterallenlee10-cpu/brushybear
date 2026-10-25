@@ -1,15 +1,11 @@
-import Image from "next/image";
-import type { ReactNode } from "react";
 import { PaintSwipe } from "@/components/brand/Brushstroke";
 import { LeadFormCard } from "@/components/lead/LeadFormCard";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { LazyMount } from "@/components/ui/LazyMount";
 import { ArrowIcon } from "@/components/ui/Icons";
-import { HERO_ASSETS } from "@/config/hero";
 import { SITE } from "@/config/site";
 import { cityList } from "@/data/cities";
 import { seasonalLine } from "@/data/season";
-
-export const HERO_H1 = `${SITE.regionName} house painting that holds up to the rain.`;
 
 /** The headline block, shared by the static hero and the scroll hero's last beat. */
 export function HeroCopy({ as: H = "h1", id }: { as?: "h1" | "p"; id?: string }) {
@@ -34,38 +30,13 @@ export function HeroCopy({ as: H = "h1", id }: { as?: "h1" | "p"; id?: string })
   );
 }
 
-/**
- * Full-bleed hero: headline on the left, the estimate card on the right
- * (desktop). On phones the card sits in its own section right below.
- * `background` lets the scroll hero swap in its canvas; by default it's the
- * sunlit still.
- */
-export function Hero({ background }: { background?: ReactNode }) {
-  return (
-    <section aria-labelledby="hero-title" className="on-dark relative isolate overflow-hidden bg-forest-deep">
-      <div className="absolute inset-0 -z-10">
-        {background ??
-          (HERO_ASSETS && (
-            <Image src={HERO_ASSETS.still} alt={HERO_ASSETS.alt} fill preload quality={60} sizes="100vw" className="object-cover object-[65%_50%]" />
-          ))}
-        <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(90deg,rgb(22_56_41/0.92)_0%,rgb(22_56_41/0.78)_38%,rgb(22_56_41/0.25)_70%,rgb(22_56_41/0.1)_100%)] max-lg:bg-[linear-gradient(180deg,rgb(22_56_41/0.55)_0%,rgb(22_56_41/0.88)_60%)]" />
-      </div>
-      <div className="mx-auto grid min-h-[min(46rem,calc(100dvh-7rem))] max-w-7xl items-center gap-10 px-4 py-14 md:px-8 lg:grid-cols-[1.1fr_1fr] lg:gap-14 lg:py-16">
-        <HeroCopy id="hero-title" />
-        <div id="quote-hero" className="hidden lg:block">
-          <LeadFormCard source="home-hero" title="Get your free estimate" />
-        </div>
-      </div>
-      <span className="absolute right-3 bottom-3 rounded-full bg-charcoal/75 px-2.5 py-0.5 text-xs font-bold text-cream">Illustration</span>
-    </section>
-  );
-}
-
 /** The phone version of the hero's form, right under the hero. */
 export function MobileQuote() {
   return (
     <section id="quote" aria-label="Free estimate" className="bg-forest-deep px-4 pt-2 pb-10 lg:hidden">
-      <LeadFormCard source="home-mobile" title="Get your free estimate" />
+      <LazyMount minHeight="31rem" media="(max-width: 63.99rem)" rootMargin="1200px 0px">
+        <LeadFormCard source="home-mobile" title="Get your free estimate" />
+      </LazyMount>
     </section>
   );
 }

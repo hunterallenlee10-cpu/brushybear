@@ -1,6 +1,7 @@
 import type { ProjectType } from "@/config/pricing";
 import { ColorPreview } from "@/components/tools/ColorPreview";
 import { PriceEstimator } from "@/components/tools/PriceEstimator";
+import { LazyMount } from "@/components/ui/LazyMount";
 
 /** Ballpark price tool with its heading. */
 export function EstimatorSection({ initialType, title = "What will it cost? Get a ballpark in 20 seconds." }: { initialType?: ProjectType; title?: string }) {
@@ -13,7 +14,9 @@ export function EstimatorSection({ initialType, title = "What will it cost? Get 
         Most painters won&apos;t say a number until they visit. Here&apos;s a range from what similar Eastside jobs run, so you know what to expect before we come out.
       </p>
       <div className="mt-10">
-        <PriceEstimator initialType={initialType} />
+        <LazyMount minHeight="38rem">
+          <PriceEstimator initialType={initialType} />
+        </LazyMount>
       </div>
     </section>
   );
@@ -31,7 +34,9 @@ export function ColorPreviewSection() {
           Eight palettes that look right under gray skies and tall firs. Pick one and it rides along with your estimate request.
         </p>
         <div className="mt-10">
-          <ColorPreview />
+          <LazyMount minHeight="34rem">
+            <ColorPreview />
+          </LazyMount>
         </div>
       </div>
     </section>

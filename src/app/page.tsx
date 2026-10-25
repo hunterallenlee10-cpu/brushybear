@@ -4,7 +4,8 @@ import { ReviewsSection } from "@/components/proof/ReviewsSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBlock } from "@/components/sections/CtaBlock";
 import { FaqAccordion } from "@/components/sections/FaqAccordion";
-import { Hero, MobileQuote } from "@/components/sections/Hero";
+import { ScrollHero } from "@/components/hero/ScrollHero";
+import { MobileQuote } from "@/components/sections/Hero";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Problem } from "@/components/sections/Problem";
 import { PromiseStack } from "@/components/sections/PromiseStack";
@@ -30,7 +31,7 @@ export default function HomePage() {
   const faqs = featuredFaqs();
   return (
     <>
-      <Hero />
+      <ScrollHero />
       <TrustStrip />
       <MobileQuote />
       <Problem />

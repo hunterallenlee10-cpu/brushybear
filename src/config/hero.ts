@@ -1,24 +1,34 @@
-import type { StaticImageData } from "next/image";
-import heroStill from "@/assets/hero/still.jpg";
+import finalTall from "@/assets/hero/scroll/final-tall.jpg";
+import finalWide from "@/assets/hero/scroll/final-wide.jpg";
+import posterTall from "@/assets/hero/scroll/poster-tall.jpg";
+import posterWide from "@/assets/hero/scroll/poster-wide.jpg";
 
 /**
- * Higgsfield hero assets (see implementation/AI_ASSETS.md). Set to null to
- * fall back to the hand-drawn illustrated scene. The still is the loop's
- * first frame, so it lines up exactly with the video that fades in over it.
+ * The painting scroll on the home page (components/hero/ScrollHero.tsx),
+ * made with Higgsfield (see implementation/AI_ASSETS.md) and cut by
+ * scripts/hero/build-frames.sh. Frames and the loop live under
+ * /public/hero/<version>/ and are cached for a year (next.config.ts), so a
+ * new cut must ship under a new version folder. The poster is the first
+ * frame; the final still is what reduced-motion visitors see.
  */
-export type HeroAssets = {
-  /** Sunlit final frame: the main image Google times, and what reduced-motion visitors see. */
-  still: StaticImageData;
-  alt: string;
-  /** Plays once: the rain stops and light comes up. */
-  intro: { mp4: string; webm: string };
-  /** Then loops: sunny, evergreens swaying. */
-  loop: { mp4: string; webm: string };
-};
+const V = "/hero/v1";
 
-export const HERO_ASSETS = {
-  still: heroStill,
-  alt: "Illustration: a freshly painted craftsman house among tall evergreens as the rain clears and warm light comes through",
-  intro: { mp4: "/media/hero/intro.mp4", webm: "/media/hero/intro.webm" },
-  loop: { mp4: "/media/hero/loop.mp4", webm: "/media/hero/loop.webm" },
-} as HeroAssets | null;
+export const SCROLL_HERO = {
+  stills: {
+    poster: {
+      wide: posterWide,
+      tall: posterTall,
+      alt: "Illustration: a two-story craftsman house in the rain, its gray paint peeling and moss on the shaded wall",
+    },
+    final: {
+      wide: finalWide,
+      tall: finalTall,
+      alt: "Illustration: the same craftsman house freshly painted deep forest green with white trim, wet pavement shining in late sun",
+    },
+  },
+  frames: {
+    desktop: { prefix: `${V}/desktop/f-`, count: 120, width: 1920, height: 1080 },
+    mobile: { prefix: `${V}/mobile/f-`, count: 96, width: 720, height: 1280 },
+  },
+  loop: `${V}/hero.mp4`,
+};

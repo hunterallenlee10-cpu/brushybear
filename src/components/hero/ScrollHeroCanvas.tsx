@@ -88,6 +88,7 @@ export function ScrollHeroCanvas({ desktop, mobile, loopSrc }: Props) {
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       drawn = -1;
+      drawnPos = -1;
     };
 
     /** Nearest loaded frame to `i`, so the scrub never shows a blank. */
@@ -99,18 +100,35 @@ export function ScrollHeroCanvas({ desktop, mobile, loopSrc }: Props) {
       return -1;
     };
 
-    const draw = (i: number) => {
-      const k = nearest(i);
-      if (k < 0 || k === drawn) return;
-      const img = frames[k]!;
+    const paint = (img: HTMLImageElement, alpha: number) => {
       const cw = canvas.width;
       const ch = canvas.height;
       // object-fit: cover, anchored right so the house stays clear of the copy.
       const s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
       const w = img.naturalWidth * s;
       const h = img.naturalHeight * s;
+      ctx.globalAlpha = alpha;
       ctx.drawImage(img, cw - w, (ch - h) / 2, w, h);
-      drawn = k;
+    };
+
+    /**
+     * Draw position `pos` (a fractional frame index). The two neighbouring
+     * frames are blended, so 120 frames scrub as smoothly as twice that.
+     */
+    let drawnPos = -1;
+    const draw = (pos: number) => {
+      const lo = Math.floor(pos);
+      const a = nearest(lo);
+      if (a < 0) return;
+      const hi = Math.min(lo + 1, set.count - 1);
+      const frac = frames[hi] && a === lo ? pos - lo : 0;
+      const key = a + Math.round(frac * 16) / 16;
+      if (key === drawnPos && drawn === a) return;
+      paint(frames[a]!, 1);
+      if (frac > 0.02) paint(frames[hi]!, frac);
+      ctx.globalAlpha = 1;
+      drawn = a;
+      drawnPos = key;
       if (!section.dataset.ready) section.dataset.ready = "1";
     };
 
@@ -120,12 +138,30 @@ export function ScrollHeroCanvas({ desktop, mobile, loopSrc }: Props) {
       return total > 0 ? clamp(-r.top / total) : 0;
     };
 
+    const smooth = (p: number, a: number, b: number) => {
+      const x = clamp((p - a) / (b - a));
+      return x * x * (3 - 2 * x);
+    };
+    let lastP = -1;
+    const paintCopy = (p: number) => {
+      if (Math.abs(p - lastP) < 0.0005) return;
+      lastP = p;
+      const st = section.style;
+      st.setProperty("--hero-p", p.toFixed(4));
+      st.setProperty("--b0", (1 - smooth(p, 0.16, 0.24)).toFixed(3));
+      st.setProperty("--b1", (smooth(p, 0.24, 0.32) * (1 - smooth(p, 0.46, 0.54))).toFixed(3));
+      st.setProperty("--b2", (smooth(p, 0.54, 0.62) * (1 - smooth(p, 0.72, 0.8))).toFixed(3));
+      st.setProperty("--b3", smooth(p, 0.8, 0.9).toFixed(3));
+      if (p > 0.8) section.dataset.final = "1";
+      else delete section.dataset.final;
+    };
+
     const tick = () => {
       const t = target();
       current += (t - current) * 0.14;
       if (Math.abs(t - current) < 0.0005) current = t;
-      section.style.setProperty("--hero-p", current.toFixed(4));
-      draw(Math.round(current * (set.count - 1)));
+      paintCopy(current);
+      draw(current * (set.count - 1));
       raf = running ? requestAnimationFrame(tick) : 0;
     };
 
@@ -145,29 +181,52 @@ export function ScrollHeroCanvas({ desktop, mobile, loopSrc }: Props) {
     ro.observe(canvas);
     resize();
 
-    // Load frames coarse-first, a few at a time, at low priority.
+    // Load frames coarse-first, a few at a time, at low priority. Only the
+    // coarse pass (every 8th frame) loads on its own, once the page is idle;
+    // the rest waits for the first sign the visitor is scrolling, so people
+    // who never scroll never download them.
     const order = loadOrder(set.count);
+    const coarse = Math.ceil(set.count / 8);
     let next = 0;
-    const loadOne = (): Promise<void> | undefined => {
-      if (cancelled || next >= order.length) return;
-      const i = order[next++];
-      return new Promise<void>((done) => {
+    let limit = coarse;
+    let active = 0;
+    const pump = () => {
+      while (!cancelled && active < 4 && next < Math.min(limit, order.length)) {
+        const i = order[next++];
+        active++;
         const img = new Image();
         img.decoding = "async";
         (img as HTMLImageElement & { fetchPriority?: string }).fetchPriority = i === 0 ? "high" : "low";
-        img.onload = () => {
-          frames[i] = img;
-          if (i === 0 || drawn < 0) drawn = -1;
-          done();
-        };
-        img.onerror = () => done();
         img.src = `${set.prefix}${pad(i + 1)}.webp`;
-      }).then(() => loadOne());
+        // decode() works off the main thread, so drawing it later is cheap.
+        img
+          .decode()
+          .then(() => {
+            if (cancelled) return;
+            frames[i] = img;
+            // Redraw only if this frame is closer than the stand-in on screen.
+            const at = Math.round(current * (set.count - 1));
+            if (Math.abs(i - at) < Math.abs(drawn - at)) drawn = -1;
+          })
+          .catch(() => {})
+          .finally(() => {
+            active--;
+            pump();
+          });
+      }
     };
-    // Start after the page's own load, so frames never compete with the poster.
-    const begin = () => {
-      for (let k = 0; k < 6; k++) loadOne();
+    const idle = (fn: () => void) =>
+      typeof window.requestIdleCallback === "function"
+        ? window.requestIdleCallback(fn, { timeout: 2500 })
+        : globalThis.setTimeout(fn, 1200);
+    const begin = () => idle(pump);
+    const intent = ["scroll", "wheel", "touchstart", "pointerdown", "keydown"] as const;
+    const full = () => {
+      intent.forEach((ev) => window.removeEventListener(ev, full));
+      limit = order.length;
+      pump();
     };
+    intent.forEach((ev) => window.addEventListener(ev, full, { passive: true, once: true }));
     if (document.readyState === "complete") begin();
     else window.addEventListener("load", begin, { once: true });
 
@@ -177,6 +236,7 @@ export function ScrollHeroCanvas({ desktop, mobile, loopSrc }: Props) {
       io.disconnect();
       ro.disconnect();
       window.removeEventListener("load", begin);
+      intent.forEach((ev) => window.removeEventListener(ev, full));
     };
   }, [desktop, mobile, loopSrc]);
 

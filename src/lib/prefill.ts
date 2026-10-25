@@ -23,14 +23,28 @@ export function sendPrefill(p: Prefill) {
   }
   window.dispatchEvent(new CustomEvent<Prefill>(PREFILL_EVENT, { detail: merged }));
 
-  // Bring the visible form into view and put the cursor in it.
-  const form = Array.from(document.querySelectorAll<HTMLElement>("[data-lead-form]")).find((el) => el.offsetParent !== null);
-  if (form) {
-    form.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
-    window.setTimeout(() => form.querySelector<HTMLElement>("input:not([type=hidden]):not([tabindex='-1'])")?.focus({ preventScroll: true }), 500);
-    return true;
-  }
-  return false;
+  // Bring the nearest form into view: a mounted form, or the closing
+  // estimate band (its form mounts as it nears the screen and reads the
+  // saved prefill then).
+  const center = window.innerHeight / 2;
+  const targets = [
+    ...Array.from(document.querySelectorAll<HTMLElement>("[data-lead-form]")),
+    ...Array.from(document.querySelectorAll<HTMLElement>("section#estimate")),
+  ].filter((el) => el.offsetParent !== null);
+  const dist = (el: HTMLElement) => {
+    const r = el.getBoundingClientRect();
+    return Math.abs(r.top + r.height / 2 - center);
+  };
+  const target = targets.sort((a, b) => dist(a) - dist(b))[0];
+  if (!target) return false;
+  target.closest<HTMLElement>("#quote-hero")?.setAttribute("data-open", "");
+  const smooth = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+  target.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "center" });
+  window.setTimeout(() => {
+    const form = target.matches("[data-lead-form]") ? target : target.querySelector<HTMLElement>("[data-lead-form]");
+    form?.querySelector<HTMLElement>("input:not([type=hidden]):not([tabindex='-1'])")?.focus({ preventScroll: true });
+  }, 700);
+  return true;
 }
 
 export function readPrefill(): Prefill {

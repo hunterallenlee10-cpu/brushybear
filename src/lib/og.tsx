@@ -19,7 +19,7 @@ export async function renderOg({ title, kicker }: { title: string; kicker: strin
     asset("fonts/Manrope-Bold.ttf"),
     dataUrl("brand/logo-wordmark.png", "image/png"),
     dataUrl("brand/bear-wave.png", "image/png"),
-    dataUrl("hero/still.jpg", "image/jpeg"),
+    dataUrl("hero/scroll/final-wide.jpg", "image/jpeg"),
   ]);
   const size = title.length > 60 ? 54 : title.length > 40 ? 62 : 72;
   return new ImageResponse(

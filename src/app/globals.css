@@ -8,6 +8,11 @@
   --color-forest: #1f4d3a;
   --color-forest-deep: #163829;
   --color-forest-soft: #2f6a50;
+  /* Brand greens from the brief. Sage fails AA for small text on cream
+     (4.05:1): use it for large text, icons and fills only. */
+  --color-sage: #5d7a69;
+  --color-mist: #9fbcab;
+  --color-pale: #cbdcd1;
   --color-cream: #f4ede1;
   --color-cream-50: #faf6ef;
   --color-cream-200: #e6dac6;
@@ -74,6 +79,12 @@
   /* Anchored sections clear the sticky header. */
   [id] {
     scroll-margin-top: 6rem;
+  }
+
+  html {
+    scrollbar-color: var(--color-sage) var(--color-cream-200);
+    accent-color: var(--color-forest);
+    caret-color: var(--color-forest);
   }
 
   ::selection {

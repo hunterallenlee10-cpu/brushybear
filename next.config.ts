@@ -24,7 +24,19 @@ const nextConfig: NextConfig = {
     qualities: [60, 75, 85],
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      // Hero frames, poster and loop. Files are versioned by folder
+      // (/hero/v1/...), so a new cut ships under a new path.
+      { source: "/hero/:path*", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
+    ];
+  },
+  async redirects() {
+    return [
+      { source: "/painters/:city", destination: "/service-areas/:city", permanent: true },
+      { source: "/painters", destination: "/service-areas", permanent: true },
+      { source: "/gallery", destination: "/projects", permanent: true },
+    ];
   },
 };
 

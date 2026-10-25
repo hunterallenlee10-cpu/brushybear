@@ -1,4 +1,4 @@
-import { isSet, type Fillable } from "@/lib/placeholders";
+import { isSet, type Fillable, type Placeholder } from "@/lib/placeholders";
 
 /**
  * Shows a business fact, or a striped "[PHONE]" badge while it's still a
@@ -6,6 +6,11 @@ import { isSet, type Fillable } from "@/lib/placeholders";
  */
 export function Fill({ value }: { value: Fillable<string | number> }) {
   if (isSet(value)) return <>{value}</>;
+  return <PlaceholderMark value={value} />;
+}
+
+/** The striped badge on its own, for facts that aren't plain text. */
+export function PlaceholderMark({ value }: { value: Placeholder }) {
   return (
     <span className="placeholder-mark" title="Placeholder: not filled in yet">
       [{value.placeholder}]

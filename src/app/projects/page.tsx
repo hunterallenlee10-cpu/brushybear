@@ -15,15 +15,15 @@ export const metadata = pageMetadata({
   title: "Painting Project Gallery",
   description:
     "Before and after photos of real Brushy Bear Painters jobs in Bellevue, Kirkland, Redmond, Sammamish and Issaquah. Filter by service and city to find yours.",
-  path: PAGES.gallery.path,
-  indexable: PAGES.gallery.indexable,
+  path: PAGES.projects.path,
+  indexable: PAGES.projects.indexable,
 });
 
 /** Real jobs only. Until there are some, a friendly empty state. */
 export default function GalleryPage() {
   const crumbs = [
     { name: "Home", path: "/" },
-    { name: "Gallery", path: PAGES.gallery.path },
+    { name: "Projects", path: PAGES.projects.path },
   ];
   return (
     <>
@@ -53,7 +53,7 @@ export default function GalleryPage() {
           </div>
         )}
       </div>
-      <CtaBlock source="gallery" />
+      <CtaBlock source="projects" />
       <JsonLd items={[breadcrumbSchema(crumbs)]} />
     </>
   );

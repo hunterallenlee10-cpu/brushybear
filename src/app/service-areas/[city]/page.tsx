@@ -10,7 +10,7 @@ import { FaqAccordion } from "@/components/sections/FaqAccordion";
 import { ServiceAreaMap } from "@/components/sections/ServiceAreaMap";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { ConfirmBadge } from "@/components/ui/ConfirmBadge";
-import { cityPath, estimateHref, isLivePath } from "@/config/pages";
+import { cityPath, estimateHref, isLivePath, PAGES } from "@/config/pages";
 import { SITE } from "@/config/site";
 import { getCity } from "@/data/cities";
 import { cityPageList, getCityPage } from "@/data/city-pages";
@@ -28,17 +28,18 @@ function load(slug: string) {
   return { city, page };
 }
 
-export async function generateMetadata({ params }: PageProps<"/painters/[city]">): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<"/service-areas/[city]">): Promise<Metadata> {
   const { page } = load((await params).city);
   return pageMetadata({ title: page.title, description: page.metaDescription, path: cityPath(page.slug) });
 }
 
-export default async function CityPage({ params }: PageProps<"/painters/[city]">) {
+export default async function CityPage({ params }: PageProps<"/service-areas/[city]">) {
   const { city, page } = load((await params).city);
   const path = cityPath(city.slug);
   const crumbs = [
     { name: "Home", path: "/" },
-    { name: `Painters in ${city.name}, ${SITE.state}`, path },
+    { name: "Service Areas", path: PAGES.serviceAreas.path },
+    { name: `${city.name}, ${SITE.state}`, path },
   ];
   const nearby = page.nearby.map((s) => getCity(s)).filter((c) => c !== undefined);
 

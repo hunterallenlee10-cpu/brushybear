@@ -1,6 +1,7 @@
 import { ARTICLES } from "@/data/articles";
 import { publishedCities } from "@/data/cities";
 import { GALLERY, GALLERY_INDEX_THRESHOLD } from "@/data/gallery";
+import { REVIEWS } from "@/data/reviews";
 import { publishedServices } from "@/data/services";
 import { SITE } from "@/config/site";
 
@@ -22,11 +23,18 @@ export type PageEntry = {
 export const PAGES = {
   home: { path: "/", label: "Home", live: true, indexable: true, lastModified: SITE.lastUpdated },
   services: { path: "/services", label: "Services", live: true, indexable: true, lastModified: SITE.lastUpdated },
+  serviceAreas: { path: "/service-areas", label: "Service Areas", live: true, indexable: true, lastModified: SITE.lastUpdated },
   estimate: { path: "/estimate", label: "Free Estimate", live: true, indexable: true, lastModified: SITE.lastUpdated },
+  ourPromise: { path: "/our-promise", label: "Our Promise", live: false, indexable: true, lastModified: SITE.lastUpdated },
+  // Indexed once there are real reviews to show.
+  reviews: { path: "/reviews", label: "Reviews", live: false, indexable: REVIEWS.length > 0, lastModified: SITE.lastUpdated },
+  // Indexed once there are enough real jobs to be worth a search visit.
+  projects: { path: "/projects", label: "Projects", live: true, indexable: GALLERY.length >= GALLERY_INDEX_THRESHOLD, lastModified: SITE.lastUpdated },
+  refer: { path: "/refer", label: "Refer & Earn", live: false, indexable: true, lastModified: SITE.lastUpdated },
+  realtors: { path: "/realtors-property-managers", label: "Realtors & Property Managers", live: false, indexable: true, lastModified: SITE.lastUpdated },
   // Indexed once Erik and Hunter confirm the story (see CONTENT_TODO.md).
   about: { path: "/about", label: "About", live: true, indexable: false, lastModified: SITE.lastUpdated },
-  // Indexed once there are enough real jobs to be worth a search visit.
-  gallery: { path: "/gallery", label: "Gallery", live: true, indexable: GALLERY.length >= GALLERY_INDEX_THRESHOLD, lastModified: SITE.lastUpdated },
+  contact: { path: "/contact", label: "Contact", live: false, indexable: true, lastModified: SITE.lastUpdated },
   faq: { path: "/faq", label: "FAQ", live: true, indexable: true, lastModified: SITE.lastUpdated },
   articles: { path: "/articles", label: "Articles", live: true, indexable: true, lastModified: SITE.lastUpdated },
   privacy: { path: "/privacy", label: "Privacy", live: true, indexable: true, lastModified: SITE.lastUpdated },
@@ -40,7 +48,7 @@ export const DYNAMIC_LIVE = {
 };
 
 export const servicePath = (slug: string) => `/services/${slug}`;
-export const cityPath = (slug: string) => `/painters/${slug}`;
+export const cityPath = (slug: string) => `/service-areas/${slug}`;
 export const articlePath = (slug: string) => `/articles/${slug}`;
 
 /** True if an internal link points at a page that exists in this build. */
@@ -51,7 +59,7 @@ export function isLivePath(href: string): boolean {
   const [, group, slug, extra] = path.split("/");
   if (!slug || extra !== undefined) return false;
   if (group === "services") return DYNAMIC_LIVE.services && publishedServices().some((s) => s.slug === slug);
-  if (group === "painters") return DYNAMIC_LIVE.cities && publishedCities().some((c) => c.slug === slug);
+  if (group === "service-areas") return DYNAMIC_LIVE.cities && publishedCities().some((c) => c.slug === slug);
   if (group === "articles") return DYNAMIC_LIVE.articles && ARTICLES.some((a) => a.slug === slug);
   return false;
 }

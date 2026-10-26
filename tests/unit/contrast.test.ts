@@ -27,14 +27,6 @@ const PAIRS: [fg: string, bg: string, min: number][] = [
   ["charcoal", "gold-deep", 4.5],
   ["gold", "forest", 4.5],
   ["gold", "forest-deep", 4.5],
-  ["forest", "pale", 4.5],
-  ["forest", "mist", 4.5],
-  ["charcoal", "pale", 4.5],
-  ["charcoal", "mist", 4.5],
-  ["white", "sage", 4.5],
-  ["cream-50", "forest-soft", 4.5],
-  // Sage text only at large sizes (3:1).
-  ["sage", "cream", 3],
   // Focus rings and outlines (non-text, 3:1).
   ["charcoal", "cream", 3],
   ["gold", "forest", 3],

@@ -1,23 +1,26 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/brand/Logo";
-import { Fill, PlaceholderMark } from "@/components/ui/Fill";
-import { MailIcon, PhoneIcon, PinIcon, ClockIcon } from "@/components/ui/Icons";
-import { cityPages, PAGES, servicePages, type PageEntry } from "@/config/pages";
+import { Fill } from "@/components/ui/Fill";
+import { cityPages, servicePages, type PageEntry } from "@/config/pages";
 import { formatDate, phoneHref, SITE } from "@/config/site";
 import { cityList } from "@/data/cities";
 import { companyNav } from "@/data/navigation";
 import { isSet } from "@/lib/placeholders";
 
-function LinkList({ title, items, columns = 1 }: { title: string; items: { label: string; href: string }[]; columns?: 1 | 2 }) {
+function LinkList({ title, items }: { title: string; items: { label: string; href: string; live: boolean }[] }) {
   return (
     <div>
-      <h2 className="font-display text-xl text-gold">{title}</h2>
-      <ul className={`mt-4 grid gap-x-8 gap-y-1 ${columns === 2 ? "sm:grid-cols-2" : ""}`}>
+      <h2 className="text-sm font-extrabold uppercase tracking-[0.12em] text-gold">{title}</h2>
+      <ul className="mt-4 space-y-2.5">
         {items.map((item) => (
           <li key={item.href}>
-            <Link href={item.href} className="inline-flex min-h-10 items-center text-cream/90 underline-offset-4 hover:text-cream hover:underline">
-              {item.label}
-            </Link>
+            {item.live ? (
+              <Link href={item.href} className="underline-offset-4 hover:underline">
+                {item.label}
+              </Link>
+            ) : (
+              <span>{item.label}</span>
+            )}
           </li>
         ))}
       </ul>
@@ -25,32 +28,27 @@ function LinkList({ title, items, columns = 1 }: { title: string; items: { label
   );
 }
 
-const asLinks = (pages: PageEntry[]) => pages.filter((p) => p.live).map((p) => ({ label: p.label, href: p.path }));
-
-const ROW = "grid grid-cols-[1.25rem_1fr] items-start gap-3";
+const asLinks = (pages: PageEntry[]) => pages.map((p) => ({ label: p.label, href: p.path, live: p.live }));
 
 /**
- * Name, phone, email, address and hours, matching the Google Business
- * Profile exactly, plus every service, city and company page.
+ * Name, phone, email, service area, hours and license numbers, matching the
+ * Google Business Profile exactly. Service-area business: no street address.
  */
 export function Footer() {
   const year = SITE.lastUpdated.slice(0, 4);
-  const address = SITE.address;
+  const company = companyNav().map((n) => ({ ...n, live: true }));
 
   return (
-    <footer className="on-dark relative overflow-hidden border-t-4 border-gold bg-forest-deep text-cream">
-      <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-16 pb-12 md:grid-cols-2 md:px-8 lg:grid-cols-[1.35fr_1fr_1fr_1.4fr]">
+    <footer className="on-dark bg-forest text-cream">
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 py-16 md:grid-cols-2 md:px-8 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           <Wordmark className="h-14 w-auto" sizes="200px" />
-          <p className="mt-5 max-w-sm text-cream/90">
-            {SITE.name}. House painting for {cityList()}, {SITE.state}.
+          <p className="mt-6 max-w-sm text-cream/90">
+            House painting for {SITE.regionName} homes. Clean, on time, and built to hold up to Northwest rain.
           </p>
           <dl className="mt-6 space-y-3">
-            <div className={ROW}>
-              <dt className="pt-0.5">
-                <PhoneIcon className="size-5 text-gold" />
-                <span className="sr-only">Phone</span>
-              </dt>
+            <div>
+              <dt className="sr-only">Phone</dt>
               <dd className="text-lg font-extrabold">
                 {isSet(SITE.phone) ? (
                   <a href={phoneHref(SITE.phone, "tel")} data-event="call_click" data-location="footer" className="hover:underline">
@@ -61,11 +59,8 @@ export function Footer() {
                 )}
               </dd>
             </div>
-            <div className={ROW}>
-              <dt className="pt-0.5">
-                <MailIcon className="size-5 text-gold" />
-                <span className="sr-only">Email</span>
-              </dt>
+            <div>
+              <dt className="sr-only">Email</dt>
               <dd>
                 {isSet(SITE.email) ? (
                   <a href={`mailto:${SITE.email}`} className="hover:underline">
@@ -76,43 +71,27 @@ export function Footer() {
                 )}
               </dd>
             </div>
-            <div className={ROW}>
-              <dt className="pt-0.5">
-                <PinIcon className="size-5 text-gold" />
-                <span className="sr-only">Address</span>
-              </dt>
-              <dd>
-                <address className="not-italic">
-                  {isSet(address) ? (
-                    <>
-                      {address.street}
-                      <br />
-                      {address.city}, {SITE.state} {address.zip}
-                    </>
-                  ) : (
-                    <PlaceholderMark value={address} />
-                  )}
-                </address>
-              </dd>
-            </div>
-            <div className={ROW}>
-              <dt className="pt-0.5">
-                <ClockIcon className="size-5 text-gold" />
-                <span className="sr-only">Hours</span>
-              </dt>
+            <div>
+              <dt className="font-bold">Hours</dt>
               <dd>
                 <Fill value={SITE.hours.display} />
+              </dd>
+            </div>
+            <div>
+              <dt className="font-bold">Service area</dt>
+              <dd>
+                {cityList()}, {SITE.state}. We come to you.
               </dd>
             </div>
           </dl>
         </div>
 
-        <LinkList title="Services" items={[...asLinks(servicePages()), { label: "All services", href: PAGES.services.path }]} />
-        <LinkList title="Service areas" items={[...asLinks(cityPages()), { label: "Area map", href: PAGES.serviceAreas.path }]} />
-        <LinkList title="Company" items={companyNav()} columns={2} />
+        <LinkList title="Services" items={asLinks(servicePages())} />
+        <LinkList title="Where we paint" items={asLinks(cityPages())} />
+        {company.length > 0 && <LinkList title="Company" items={company} />}
       </div>
 
-      <div className="border-t border-forest-soft bg-[#10291e]">
+      <div className="border-t border-forest-soft bg-forest-deep">
         <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-sm text-cream/90 md:flex-row md:flex-wrap md:items-center md:justify-between md:px-8">
           <p>
             © {year} {SITE.name}

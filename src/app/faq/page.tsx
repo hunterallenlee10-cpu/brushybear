@@ -1,4 +1,3 @@
-import { SITE } from "@/config/site";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBlock } from "@/components/sections/CtaBlock";
@@ -25,7 +24,7 @@ export default function FaqPage() {
       <PageHeader
         crumbs={crumbs}
         eyebrow="FAQ"
-        title={`${SITE.regionName} house painting questions, answered`}
+        title="Painting questions, answered"
         intro={["The questions homeowners ask us most, with the answer first. Don't see yours? Ask us when you request an estimate."]}
       />
       <div className="mx-auto max-w-7xl px-4 pb-20 md:px-8">

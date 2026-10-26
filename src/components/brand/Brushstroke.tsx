@@ -7,15 +7,12 @@ const brushGoldSmall = "/media/brush-gold-swipe.webp";
  * few words of a headline. The text is visible from the first frame; only
  * the swipe animates (CSS clip, 400 ms, instant for reduced motion).
  */
-export function PaintSwipe({ children, variant = "highlight" }: { children: ReactNode; variant?: "highlight" | "underline" }) {
-  // "underline" sits under the word (for light text on dark backgrounds);
-  // "highlight" sits behind it (for dark text on cream).
-  const pos = variant === "underline" ? "-bottom-[0.12em] h-[0.28em]" : "bottom-[0.02em] h-[0.7em]";
+export function PaintSwipe({ children }: { children: ReactNode }) {
   return (
-    <span className={`relative isolate inline-block whitespace-nowrap ${variant === "underline" ? "text-gold" : ""}`}>
+    <span className="relative isolate inline-block whitespace-nowrap">
       <span
         aria-hidden="true"
-        className={`paint-swipe-img pointer-events-none absolute -inset-x-[6%] -z-10 bg-[length:100%_100%] bg-no-repeat ${pos}`}
+        className="paint-swipe-img pointer-events-none absolute -inset-x-[8%] bottom-[0.02em] -z-10 h-[0.7em] bg-[length:100%_100%] bg-no-repeat"
         style={{ backgroundImage: `url(${brushGoldSmall})` }}
       />
       <span className="relative">{children}</span>

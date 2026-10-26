@@ -15,18 +15,6 @@ import { getService } from "@/data/services";
 import { getServicePage, servicePageList } from "@/data/service-pages";
 import { breadcrumbSchema, faqSchema, serviceSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
-import { ServiceTimeline } from "@/components/content/ServiceTimeline";
-import { ProjectsSection } from "@/components/proof/ProjectsSection";
-import { ColorPreviewSection, EstimatorSection } from "@/components/sections/ToolSections";
-import { CheckIcon } from "@/components/ui/Icons";
-import type { ProjectType } from "@/config/pricing";
-
-const ESTIMATOR_TYPE: Record<string, ProjectType> = {
-  "interior-painting": "interior",
-  "exterior-painting": "exterior",
-  "cabinet-painting": "cabinets",
-  "deck-and-fence-staining": "deck",
-};
 
 export function generateStaticParams() {
   return servicePageList().map(({ service }) => ({ slug: service.slug }));
@@ -41,7 +29,7 @@ function load(slug: string) {
 
 export async function generateMetadata({ params }: PageProps<"/services/[slug]">): Promise<Metadata> {
   const { page } = load((await params).slug);
-  return pageMetadata({ title: page.title, description: page.metaDescription, path: servicePath(page.slug) , ownOgImage: true });
+  return pageMetadata({ title: page.title, description: page.metaDescription, path: servicePath(page.slug) });
 }
 
 export default async function ServicePage({ params }: PageProps<"/services/[slug]">) {
@@ -88,9 +76,9 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             <h2 id="addons-title" className="font-display text-display-md text-forest">
               Add-ons that pair well
             </h2>
-            <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+            <ul className="mt-6 space-y-4">
               {page.addOns.map((a) => (
-                <li key={a.name} className="rounded-[var(--radius-sticker)] border-2 border-cream-200 p-5">
+                <li key={a.name} className="border-l-[6px] border-gold pl-4">
                   <p className="font-extrabold text-forest">{a.name}</p>
                   <p className="mt-1">
                     <RichText text={a.why} />
@@ -107,7 +95,9 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
             <ul className="mt-4 space-y-3">
               {page.included.map((item) => (
                 <li key={item} className="flex gap-3">
-                  <CheckIcon className="mt-1 size-5 shrink-0 text-forest" />
+                  <span aria-hidden="true" className="mt-0.5 font-extrabold text-forest">
+                    ✓
+                  </span>
                   <span>
                     <RichText text={item} />
                   </span>
@@ -123,10 +113,6 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         </aside>
       </div>
 
-      <ServiceTimeline slug={service.slug} serviceName={service.name} />
-      <EstimatorSection initialType={ESTIMATOR_TYPE[service.slug]} title={`What does ${service.name.toLowerCase()} cost? Get a ballpark.`} />
-      {service.slug === "exterior-painting" && <ColorPreviewSection />}
-
       <section aria-labelledby="service-faq-title" className="mx-auto max-w-7xl px-4 py-14 md:px-8">
         <h2 id="service-faq-title" className="font-display text-display-md text-forest">
           {service.name} questions
@@ -136,7 +122,6 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         </div>
       </section>
 
-      <ProjectsSection />
       <CityLinks serviceName={service.name} />
 
       <CtaBlock source={`service:${service.slug}`} preselect={service.slug} title={`Get a free ${service.name.toLowerCase()} estimate.`} />

@@ -19,8 +19,6 @@ type PageMeta = {
   path: string;
   /** False keeps this page out of search even after launch. */
   indexable?: boolean;
-  /** True when the route has its own opengraph-image file. */
-  ownOgImage?: boolean;
 };
 
 /**
@@ -28,7 +26,7 @@ type PageMeta = {
  * canonical, Open Graph and Twitter tags, and the robots rule. Every page
  * is noindex until SITE_INDEXABLE is on.
  */
-export function pageMetadata({ title, description, path, indexable = true, ownOgImage = false }: PageMeta): Metadata {
+export function pageMetadata({ title, description, path, indexable = true }: PageMeta): Metadata {
   const fullTitle = `${title} | ${SITE.name}`;
   const index = INDEXABLE && indexable;
   return {
@@ -55,14 +53,13 @@ export function pageMetadata({ title, description, path, indexable = true, ownOg
       title: fullTitle,
       description,
       url: path,
-      // Routes with their own opengraph-image file get it automatically;
-      // the rest point at the site-wide one generated at /opengraph-image.
-      ...(!ownOgImage && { images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: OG_IMAGE.alt }] }),
+      images: [OG_IMAGE],
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description,
+      images: [OG_IMAGE.url],
     },
   };
 }

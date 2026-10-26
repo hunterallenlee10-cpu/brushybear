@@ -4,9 +4,9 @@ import { ABOUT } from "@/data/about";
 import { ARTICLES } from "@/data/articles";
 import { CITY_PAGES } from "@/data/city-pages";
 import { FAQS } from "@/data/faq";
-import { FINAL_CTA, PROBLEMS, SERVICE_AREA } from "@/data/home";
+import { FINAL_CTA, PROBLEMS, SERVICE_AREA, SOLUTION, WHY_OTHERS_FAIL } from "@/data/home";
 import { PROCESS } from "@/data/process";
-import { PROMISE_FAQS, PROMISES } from "@/data/promises";
+import { PROMISES } from "@/data/promises";
 import { SERVICE_PAGES } from "@/data/service-pages";
 import { linksIn, plainText } from "@/lib/text";
 
@@ -21,11 +21,10 @@ const words = (v: unknown) => strings(v).map(plainText).join(" ").split(/\s+/).f
 
 const ALL_COPY = {
   promises: PROMISES,
-  promiseFaqs: PROMISE_FAQS,
   process: PROCESS,
   faq: FAQS,
   about: ABOUT,
-  home: { PROBLEMS, SERVICE_AREA, FINAL_CTA },
+  home: { PROBLEMS, WHY_OTHERS_FAIL, SOLUTION, SERVICE_AREA, FINAL_CTA },
   ...Object.fromEntries(Object.entries(SERVICE_PAGES).map(([k, v]) => [`service:${k}`, v])),
   ...Object.fromEntries(Object.entries(CITY_PAGES).map(([k, v]) => [`city:${k}`, v])),
   ...Object.fromEntries(ARTICLES.map((a) => [`article:${a.slug}`, a])),
@@ -49,8 +48,8 @@ describe("copy rules", () => {
       expect(BANNED.filter((w) => text.includes(w))).toEqual([]);
     });
 
-    it(`${name}: no prices (the promises' $250 and $0 are the only dollar figures; estimator rates live in config/pricing.ts)`, () => {
-      const dollars = strings(copy).filter((s) => /\$\s?\d/.test(s) && !/(\$250|\$0)(?!\d|,)/.test(s));
+    it(`${name}: no prices (the start-date promise is the only dollar figure)`, () => {
+      const dollars = strings(copy).filter((s) => /\$\s?\d/.test(s) && !s.includes("take $250 off"));
       expect(dollars).toEqual([]);
     });
   }

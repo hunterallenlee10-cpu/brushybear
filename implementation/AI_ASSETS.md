@@ -55,7 +55,7 @@ Two departures from the plan:
 ## How they were processed
 
 1. Originals downloaded to `assets-src/higgsfield/` (git-ignored).
-2. Hero (removed October 25, 2026; replaced by the scroll hero below): `scripts/optimize-media.sh hero` → `public/media/hero/intro|loop.mp4|webm` (WebM pair 0.8 MB, MP4 pair 0.9 MB; a browser loads one format) and `src/assets/hero/still.jpg`. Wired in `src/config/hero.ts`. The video loads only after the page has loaded, and never for reduced motion, data saver or 2G/3G.
+2. Hero: `scripts/optimize-media.sh hero` → `public/media/hero/intro|loop.mp4|webm` (WebM pair 0.8 MB, MP4 pair 0.9 MB; a browser loads one format) and `src/assets/hero/still.jpg`. Wired in `src/config/hero.ts`. The video loads only after the page has loaded, and never for reduced motion, data saver or 2G/3G.
 3. Scenes → `src/assets/media/scene-*.jpg` (2000 px max). Bears → `src/assets/brand/bear-*.png` (trimmed, 1100 px max). The gold brushstroke had a faint white halo, which was removed; a 480 px WebP copy drives the headline swipe.
 4. Every scene and the hero carry a small **"Illustration"** tag on the page.
 
@@ -67,8 +67,8 @@ All jobs ran October 24, 2026 on Higgsfield (no project folder). Prompts are the
 |---|---|---|---|
 | (video end frame), `public/og-image.jpg` | 6812b2db-f5f9-4ec9-9dd1-7cd6c10240bf | GPT Image 2.5 | 1 |
 | (video start frame) | 2899508f-bbcc-4c3e-a29a-eb4f0c64a0d2 | GPT Image 2.5 (edit of #1) | 2 |
-| (removed) `public/media/hero/intro.mp4`, `intro.webm` | 383460f9-03e1-456a-8101-b3ef4ed665ed | Kling 3.0 pro | 3 |
-| (removed) `public/media/hero/loop.mp4`, `loop.webm`, `src/assets/hero/still.jpg` | 7c9ddb81-390f-4e84-a5a4-daea5653d96e | Kling 3.0 pro | 4 |
+| `public/media/hero/intro.mp4`, `intro.webm` | 383460f9-03e1-456a-8101-b3ef4ed665ed | Kling 3.0 pro | 3 |
+| `public/media/hero/loop.mp4`, `loop.webm`, `src/assets/hero/still.jpg` | 7c9ddb81-390f-4e84-a5a4-daea5653d96e | Kling 3.0 pro | 4 |
 | `src/assets/brand/bear-wave.png` | 51234b0c-0112-4d11-ad63-905692526312 | GPT Image 2.5 (reference: bear-brush) | 5 |
 | `src/assets/brand/bear-thumbs-up.png` | 2a6f5375-ccd8-429c-9a97-873e01074a2c | GPT Image 2.5 (reference: bear-brush) | 6 |
 | `src/assets/brand/bear-ladder.png` | db5a94b5-a3d7-4ceb-9c9f-c5f1d24d4164 | GPT Image 2.5 (reference: bear-brush) | 7 |
@@ -100,35 +100,3 @@ These come from the Brushy Bear Painters Drive folder and were only cut out and 
 | `public/og-image.png` | logo files | Interim share image (`scripts/brand/make-og.py`) |
 
 The hand-drawn hero scene (`HeroScene`) and service illustrations (`ServiceArt`) are coded SVG, kept as the fallback if `HERO_ASSETS` is set to null or a scene is removed.
-
-## Scroll hero (upgrade/panda-style, October 25, 2026)
-
-A house painted as you scroll the home page: four beats of one house, locked-off camera, plus three transitions per format. No people, text, signs or house numbers. Shown labeled "Illustration".
-
-**Keyframes** (`public/hero/keyframes/`): model `nano_banana_2_1` (2k). A first set made with `gpt_image_2_5` looked too clean and was replaced after a realism test (GPT Image 2.5, FLUX 3 and Nano Banana 2.1 on the same "unretouched listing photo" prompt; Nano Banana won). Beat 1 is the reference for every other frame; feature matching (SIFT) confirms every frame sits within 1 px of beat 1 (the phone beat 4 is about 1% larger).
-
-| File | Job ID | References |
-|---|---|---|
-| `beat1-rain-worn-16x9.jpg` | 38795b51-b516-4589-871f-15c4550936e5 | none |
-| `beat2-prepped-right-16x9.jpg` | 1de60483-3c28-4daa-b32c-ff6fe4dfd4ed | beat 1 |
-| `beat3-first-stroke-16x9.jpg` | d9e5eb56-680a-491f-bec6-67326fb79002 | beat 1 |
-| `beat4-painted-to-last-16x9.jpg` | c6b9e938-48e5-4cc1-8aa1-56c49a07e0ac | beat 1 + beat 3 |
-| `beat1-rain-worn-9x16.jpg` | 48c0a745-b0e4-4103-8bfd-b8deb88e6703 | beat 1 |
-| `beat2-prepped-right-9x16.jpg` | ebe00427-daf3-466a-980f-85705a43ea97 | phone beat 1 + beat 2 |
-| `beat3-first-stroke-9x16.jpg` | 2d769e53-a714-49c3-b4ce-74d87ab8a139 | phone beat 1 + beat 3 |
-| `beat4-painted-to-last-9x16.jpg` | bf229f95-f062-4dc7-b5a3-bcccee6ada2d | phone beat 1 + beat 4 |
-
-**Transitions**: model `kling3_0`, pro mode (1928x1076 / 1076x1928, 24 fps), 5 s, no sound; start frame = beat N, end frame = beat N+1; prompts describe motion only.
-
-| Clip | Job ID | Notes |
-|---|---|---|
-| Desktop 1→2 | 197f3db2-0cae-40b6-98e7-b075b9262a79 | |
-| Desktop 2→3 | 234799ff-df7d-4b43-a1b3-7744edbe4b24 | |
-| Desktop 3→4 | 3c371cd3-b7c1-45d7-8727-b9a092262c0f | |
-| Phone 1→2 | f112ae6c-4a2c-415c-a4f0-7e5cf41002a6 | Redo; first try (a354b3d5-374f-4a7c-b055-9a08c839b7e0) grew vines over the house |
-| Phone 2→3 | 0c0adb07-5abe-4cc9-a8a8-f70773e59a58 | |
-| Phone 3→4 | 577ae317-474e-4a06-b23b-a9398f3d6566 | Redo; first try (1a4603ad-32af-494f-a75a-980780abe6fb) turned a wall yellow |
-
-**Frames**: `scripts/hero/build-frames.sh` joins the clips and writes `public/hero/v1/` (120 desktop frames at 1920 px and 120 phone frames at 720x1280, WebP; `hero.mp4` fallback loop; `poster.jpg`) and the poster/final stills in `src/assets/hero/scroll/`.
-
-**Credits** (from the Higgsfield transaction log): 121.75 in total. Kling 8 x 8.75 = 70, Nano Banana 2.1 12 x 2 = 24, GPT Image 2.5 9 x 2.75 = 24.75 (first set and the realism test), FLUX 3 1 x 3 = 3.

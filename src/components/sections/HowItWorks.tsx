@@ -7,7 +7,7 @@ export function HowItWorks() {
   return (
     <section aria-labelledby="how-title" className="bg-cream-50">
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
-        <SectionHeading id="how-title" title="How it works: four steps, no surprises." />
+        <SectionHeading id="how-title" eyebrow="How it works" title="Four steps, no surprises." />
         <ol className="relative mt-12 grid gap-10 md:grid-cols-4 md:gap-8">
           {/* The brush line connecting the steps (desktop). */}
           <span aria-hidden="true" className="absolute top-8 right-[12%] left-[12%] hidden h-1.5 rounded-full bg-gold md:block" />

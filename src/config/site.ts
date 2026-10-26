@@ -34,16 +34,6 @@ export const SITE = {
   /** Washington L&I contractor registration number. */
   lniNumber: placeholder("LNI_NUMBER") as Fillable,
   ubiNumber: placeholder("UBI_NUMBER") as Fillable,
-  /**
-   * Mailing or office address for the footer and structured data, e.g.
-   * { street: "...", city: "Bellevue", zip: "98004" }. A service-area
-   * business can use a mailing address; never a fake storefront.
-   */
-  address: placeholder("ADDRESS") as Fillable<{ street: string; city: string; zip: string }>,
-  /** "Leave us a review" link from the Google Business Profile. */
-  googleReviewUrl: placeholder("GOOGLE_REVIEW_URL") as Fillable,
-  /** What a referrer gets, e.g. "a $100 Visa gift card". Shown on /refer. */
-  referralReward: placeholder("REFERRAL_REWARD") as Fillable,
   /** Hidden everywhere until set. */
   warrantyYears: placeholder("WARRANTY_YEARS") as Fillable<number>,
 

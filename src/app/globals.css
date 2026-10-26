@@ -8,11 +8,6 @@
   --color-forest: #1f4d3a;
   --color-forest-deep: #163829;
   --color-forest-soft: #2f6a50;
-  /* Brand greens from the brief. Sage fails AA for small text on cream
-     (4.05:1): use it for large text, icons and fills only. */
-  --color-sage: #5d7a69;
-  --color-mist: #9fbcab;
-  --color-pale: #cbdcd1;
   --color-cream: #f4ede1;
   --color-cream-50: #faf6ef;
   --color-cream-200: #e6dac6;
@@ -81,12 +76,6 @@
     scroll-margin-top: 6rem;
   }
 
-  html {
-    scrollbar-color: var(--color-sage) var(--color-cream-200);
-    accent-color: var(--color-forest);
-    caret-color: var(--color-forest);
-  }
-
   ::selection {
     background: var(--color-gold);
     color: var(--color-charcoal);
@@ -148,6 +137,54 @@
   }
 }
 
+/* Hero scene: rain falls briefly, stops, and warm light comes up. */
+.hero-rain {
+  animation: rain-stop 600ms ease-out 2.2s forwards;
+  will-change: opacity;
+}
+
+.hero-rain-sheet {
+  animation: rain-fall 900ms linear 3;
+  will-change: transform;
+}
+
+.hero-glow {
+  opacity: 0.12;
+  animation: glow-in 900ms ease-out 2.4s forwards;
+}
+
+@keyframes rain-fall {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-2%, 50%, 0);
+  }
+}
+
+@keyframes rain-stop {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes glow-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rain {
+    display: none;
+  }
+
+  .hero-glow {
+    opacity: 1;
+    animation: none;
+  }
+}
+
 /* Reserve room for the fixed mobile action bar so nothing is hidden behind it. */
 @utility pb-action-bar {
   padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
@@ -155,71 +192,4 @@
   @media (min-width: 48rem) {
     padding-bottom: 0;
   }
-}
-
-/* Scroll hero: ScrollHeroCanvas writes --hero-p (0..1) and --b0..--b3
-   (one per beat) on the section; the server sets the first-frame state. */
-.scroll-hero {
-  --hero-p: 0;
-  --b0: 1;
-  --b1: 0;
-  --b2: 0;
-  --b3: 0;
-}
-
-.scroll-hero .hero-beat-0 { opacity: var(--b0); }
-.scroll-hero .hero-beat-1 { opacity: var(--b1); }
-.scroll-hero .hero-beat-2 { opacity: var(--b2); }
-.scroll-hero .hero-final { opacity: var(--b3); }
-.scroll-hero:not([data-final]) .hero-final { pointer-events: none; }
-
-.scroll-hero .hero-beat,
-.scroll-hero .hero-final {
-  will-change: opacity;
-}
-
-/* Desktop estimate card: while the house is being painted it waits as a
-   drawer at the bottom right, header showing, so it never hides the house.
-   It slides up on hover, on keyboard focus inside it, and at the last beat.
-   (The stage is 100dvh minus the 4.5rem header; 50% is half the card.) */
-@media (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
-  .scroll-hero #quote-hero {
-    transition: transform 600ms var(--ease-paint);
-  }
-
-  .scroll-hero:not([data-final]) #quote-hero:not(:hover, :focus-within, [data-open]) {
-    transform: translateY(calc(50dvh - 2.25rem + 50% - 6.75rem));
-  }
-}
-
-.scroll-hero .hero-progress {
-  transform: scaleX(var(--hero-p));
-}
-
-.scroll-hero .hero-canvas {
-  opacity: 0;
-  transition: opacity 300ms ease-out;
-}
-
-.scroll-hero[data-ready] .hero-canvas {
-  opacity: 1;
-}
-
-/* Reduced motion: a normal-height hero with the finished house. Placed
-   after the utilities so it beats the md: height classes. */
-@media (prefers-reduced-motion: reduce) {
-  .scroll-hero {
-    height: auto;
-  }
-
-  .scroll-hero .hero-stage {
-    position: relative;
-    top: 0;
-    height: auto;
-    min-height: min(46rem, calc(100dvh - 4.5rem));
-    padding-block: 3.5rem;
-  }
-
-  .scroll-hero .hero-final { opacity: 1; }
-  .scroll-hero .hero-beat { display: none; }
 }

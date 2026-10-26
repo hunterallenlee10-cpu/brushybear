@@ -23,7 +23,7 @@ test("every sitemap page: 200, one h1, canonical, noindex before launch, valid J
 });
 
 test("unknown slugs return a real 404", async ({ request }) => {
-  for (const path of ["/services/nope", "/service-areas/seattle-wa", "/articles/nope", "/nope"]) {
+  for (const path of ["/services/nope", "/painters/seattle-wa", "/articles/nope", "/nope"]) {
     expect((await request.get(path)).status(), path).toBe(404);
   }
 });

@@ -1,8 +1,7 @@
 import { BearMascot } from "@/components/brand/BearMascot";
-import { LeadFormCard } from "@/components/lead/LeadFormCard";
+import { EstimateForm } from "@/components/estimate/EstimateForm";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { ColorPreviewSection, EstimatorSection } from "@/components/sections/ToolSections";
 import { ConfirmBadge } from "@/components/ui/ConfirmBadge";
 import { PAGES } from "@/config/pages";
 import { phoneHref, SITE } from "@/config/site";
@@ -14,9 +13,8 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Free Painting Estimate",
-  description: `Free painting estimate in ${cityList()}. Two quick steps, then a walkthrough and a written quote within 24 hours.`,
+  description: `Request a free painting estimate in ${cityList()}. Two quick steps, then we text you to set up a walkthrough and send a written quote.`,
   path: PAGES.estimate.path,
-  ownOgImage: true,
 });
 
 export default function EstimatePage() {
@@ -31,9 +29,9 @@ export default function EstimatePage() {
         <div className="mt-8 grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
           <div>
             <p className="text-sm font-extrabold uppercase tracking-[0.14em] text-forest">Free, no obligation</p>
-            <h1 className="mt-3 font-display text-display-lg text-forest md:text-display-xl">Get a free {SITE.regionName} painting estimate</h1>
+            <h1 className="mt-3 font-display text-display-lg text-forest md:text-display-xl">Get a free painting estimate</h1>
             <p className="mt-6 text-lg md:text-xl">
-              Tell us what you want painted. WeWe&apos;ll text you within a few minutes during business hours to set up aapos;ll reach out within a few minutes during business hours to set up a
+              Tell us what you want painted. We&apos;ll text you within a few minutes during business hours to set up a
               walkthrough, then send a written, itemized quote.
             </p>
             {isSet(SITE.phone) && (
@@ -64,12 +62,10 @@ export default function EstimatePage() {
             </div>
           </div>
           <div className="on-dark rounded-[calc(var(--radius-sticker)+0.5rem)] bg-forest p-4 md:p-8">
-            <LeadFormCard source="estimate-page" />
+            <EstimateForm source="estimate-page" fallbackPhone={isSet(SITE.phone) ? SITE.phone : undefined} />
           </div>
         </div>
       </div>
-      <EstimatorSection title="Want a number first? Here's a ballpark." />
-      <ColorPreviewSection />
       <JsonLd items={[breadcrumbSchema(crumbs)]} />
     </>
   );

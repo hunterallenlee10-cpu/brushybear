@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { SceneImage } from "@/components/media/SceneImage";
 import { SectionHeading } from "@/components/sections/SectionHeading";
-import { ArrowIcon } from "@/components/ui/Icons";
 import { isLivePath, servicePath } from "@/config/pages";
 import { SITE } from "@/config/site";
 import { ADD_ONS } from "@/data/services";
@@ -17,6 +16,7 @@ export function ServicesGrid({ showHeading = true }: Props) {
       {showHeading && (
         <SectionHeading
           id="services-title"
+          eyebrow="Services"
           title={`What we paint on the ${SITE.regionName}`}
           intro={<p>Four things, done well, with a custom written quote for each job.</p>}
         />
@@ -40,7 +40,7 @@ export function ServicesGrid({ showHeading = true }: Props) {
               <p className="mt-2 max-w-prose">{page.cardSummary}</p>
               {live && (
                 <span aria-hidden="true" className="mt-3 font-extrabold text-forest underline decoration-gold decoration-[3px] underline-offset-[6px] group-hover:decoration-forest">
-                  See {service.shortName.toLowerCase()} <ArrowIcon className="inline size-4" />
+                  See {service.shortName.toLowerCase()} →
                 </span>
               )}
             </li>

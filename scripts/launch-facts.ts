@@ -9,7 +9,7 @@ import { isSet, type Fillable } from "@/lib/placeholders";
 export type Fact = {
   key: string;
   label: string;
-  value: Fillable<unknown>;
+  value: Fillable<string | number>;
   shows: string;
   requiredForLaunch: boolean;
 };
@@ -21,9 +21,6 @@ export const FACTS: Fact[] = [
   { key: "HOURS", label: "Business hours", value: SITE.hours.display, shows: "Footer (also fill SITE.hours.schema for structured data)", requiredForLaunch: true },
   { key: "LNI_NUMBER", label: "WA L&I contractor registration no.", value: SITE.lniNumber, shows: "Footer; turns on the \"Licensed, bonded and insured\" line", requiredForLaunch: true },
   { key: "UBI_NUMBER", label: "WA UBI number", value: SITE.ubiNumber, shows: "Footer", requiredForLaunch: true },
-  { key: "ADDRESS", label: "Business mailing/office address", value: SITE.address, shows: "Footer, contact page, structured data", requiredForLaunch: true },
-  { key: "GOOGLE_REVIEW_URL", label: "Google review link", value: SITE.googleReviewUrl, shows: "Reviews page, review section button", requiredForLaunch: true },
-  { key: "REFERRAL_REWARD", label: "Referral reward", value: SITE.referralReward, shows: "Refer & Earn page", requiredForLaunch: true },
   { key: "WARRANTY_YEARS", label: "Warranty length (years)", value: SITE.warrantyYears, shows: "Hidden until set", requiredForLaunch: false },
 ];
 

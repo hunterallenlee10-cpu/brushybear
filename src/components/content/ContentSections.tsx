@@ -20,7 +20,7 @@ function BlockView({ block }: { block: Block }) {
       );
     case "h3":
       return (
-        <h3 className="pt-2 text-xl font-extrabold text-forest md:text-2xl">
+        <h3 className="pt-2 text-xl font-extrabold text-pine md:text-2xl">
           {block.text}
           {badge}
         </h3>
@@ -29,7 +29,7 @@ function BlockView({ block }: { block: Block }) {
     case "ol": {
       const List = block.type;
       return (
-        <List className={`space-y-2 pl-6 ${block.type === "ul" ? "list-disc marker:text-gold" : "list-decimal marker:font-extrabold marker:text-forest"}`}>
+        <List className={`space-y-2 pl-6 ${block.type === "ul" ? "list-disc marker:text-gold" : "list-decimal marker:font-extrabold marker:text-pine"}`}>
           {block.items.map((item, i) => (
             <li key={i} className="pl-1">
               <RichText text={item} />
@@ -41,8 +41,8 @@ function BlockView({ block }: { block: Block }) {
     }
     case "callout":
       return (
-        <aside className="rounded-[var(--radius-sticker)] border-l-[6px] border-gold bg-cream-50 px-5 py-4">
-          {block.title && <p className="font-extrabold text-forest">{block.title}</p>}
+        <aside className="rounded-[var(--radius-card)] border-l-[6px] border-gold bg-mist px-5 py-4">
+          {block.title && <p className="font-extrabold text-pine">{block.title}</p>}
           <p className={block.title ? "mt-1" : ""}>
             <RichText text={block.text} />
             {badge}
@@ -61,7 +61,7 @@ export function ContentSections({ sections, className = "" }: { sections: Sectio
     <div className={`space-y-14 ${className}`}>
       {sections.map((s) => (
         <section key={s.heading} aria-labelledby={s.id ?? sectionId(s.heading)}>
-          <h2 id={s.id ?? sectionId(s.heading)} className="font-display text-display-md text-forest">
+          <h2 id={s.id ?? sectionId(s.heading)} className="text-display-md text-ink">
             {s.heading}
             <ConfirmBadge note={s.confirm} />
           </h2>

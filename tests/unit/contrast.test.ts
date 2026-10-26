@@ -14,22 +14,26 @@ const token = (name: string): string => {
 // Every text/background pair the design uses. 4.5 = normal text, 3 = large
 // text and UI parts (WCAG 2.2 AA).
 const PAIRS: [fg: string, bg: string, min: number][] = [
-  ["charcoal", "cream", 4.5],
-  ["charcoal", "cream-50", 4.5],
-  ["charcoal", "white", 4.5],
-  ["charcoal-soft", "cream", 4.5],
-  ["charcoal-soft", "cream-50", 4.5],
-  ["forest", "cream", 4.5],
-  ["forest", "cream-50", 4.5],
-  ["cream", "forest", 4.5],
-  ["cream", "forest-deep", 4.5],
-  ["charcoal", "gold", 4.5],
-  ["charcoal", "gold-deep", 4.5],
-  ["gold", "forest", 4.5],
-  ["gold", "forest-deep", 4.5],
+  ["ink", "white", 4.5],
+  ["ink", "mist", 4.5],
+  ["ink-soft", "white", 4.5],
+  ["ink-soft", "mist", 4.5],
+  ["pine", "white", 4.5],
+  ["pine", "mist", 4.5],
+  ["pine-bright", "white", 4.5],
+  ["pine-bright", "mist", 4.5],
+  ["white", "pine", 4.5],
+  ["white", "pine-deep", 4.5],
+  ["white", "ink", 4.5],
+  ["ink", "honey", 4.5],
+  ["ink", "honey-deep", 4.5],
+  ["honey", "ink", 4.5],
+  ["honey", "pine-deep", 4.5],
+  // Honey on pine is for large headings only (3:1 for large text).
+  ["honey", "pine", 3],
   // Focus rings and outlines (non-text, 3:1).
-  ["charcoal", "cream", 3],
-  ["gold", "forest", 3],
+  ["ink", "white", 3],
+  ["honey", "pine", 3],
 ];
 
 describe("brand color contrast", () => {
@@ -39,7 +43,7 @@ describe("brand color contrast", () => {
     });
   }
 
-  it("never uses white text on gold (fails AA)", () => {
-    expect(contrastRatio(token("white"), token("gold"))).toBeLessThan(4.5);
+  it("never uses white text on honey (fails AA)", () => {
+    expect(contrastRatio(token("white"), token("honey"))).toBeLessThan(4.5);
   });
 });

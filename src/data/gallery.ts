@@ -12,7 +12,7 @@ import type { StaticImageData } from "next/image";
 export type GalleryItem = {
   id: string;
   source: "real-job";
-  service: "interior-painting" | "exterior-painting" | "cabinet-painting" | "deck-and-fence-staining";
+  service: "interior-painting" | "exterior-painting" | "cabinet-painting" | "decks-and-fences-painting";
   /** City slug from cities.ts, e.g. "kirkland-wa". */
   city: string;
   before: StaticImageData;

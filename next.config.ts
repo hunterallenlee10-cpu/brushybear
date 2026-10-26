@@ -26,6 +26,26 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
+  // Old paths, and EA-style short paths, all land on the current pages.
+  async redirects() {
+    const services = [
+      "commercial-painting", "exterior-painting", "interior-painting", "custom-painting", "cabinet-painting",
+      "millwork-painting", "drywall-painting", "decks-and-fences-painting",
+    ];
+    return [
+      { source: "/faq", destination: "/faqs", permanent: true },
+      { source: "/gallery", destination: "/portfolio", permanent: true },
+      { source: "/articles", destination: "/blog", permanent: true },
+      { source: "/articles/:slug", destination: "/blog/:slug", permanent: true },
+      { source: "/painters", destination: "/areas-we-serve", permanent: true },
+      { source: "/painters/:city", destination: "/painting-company/:city", permanent: true },
+      { source: "/painting-company", destination: "/areas-we-serve", permanent: true },
+      { source: "/services/deck-and-fence-staining", destination: "/services/decks-and-fences-painting", permanent: true },
+      { source: "/hoa", destination: "/services/hoa-painting", permanent: true },
+      { source: "/contact", destination: "/estimate", permanent: false },
+      ...services.map((s) => ({ source: `/${s}`, destination: `/services/${s}`, permanent: true })),
+    ];
+  },
 };
 
 export default nextConfig;

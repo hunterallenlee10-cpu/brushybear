@@ -2,11 +2,17 @@ import { z } from "zod";
 
 /** One set of rules, used by the form (instant errors) and the API (the real check). */
 
+/** The lead form's "Project type" choices: the nine services plus "other". */
 export const SERVICE_OPTIONS = [
-  { value: "interior", label: "Interior", serviceSlug: "interior-painting" },
-  { value: "exterior", label: "Exterior", serviceSlug: "exterior-painting" },
-  { value: "cabinets", label: "Cabinets", serviceSlug: "cabinet-painting" },
-  { value: "deck-fence", label: "Deck or fence", serviceSlug: "deck-and-fence-staining" },
+  { value: "exterior", label: "Exterior Painting", serviceSlug: "exterior-painting" },
+  { value: "interior", label: "Interior Painting", serviceSlug: "interior-painting" },
+  { value: "cabinets", label: "Cabinet Painting", serviceSlug: "cabinet-painting" },
+  { value: "deck-fence", label: "Decks and Fences", serviceSlug: "decks-and-fences-painting" },
+  { value: "millwork", label: "Millwork Painting", serviceSlug: "millwork-painting" },
+  { value: "drywall", label: "Drywall Painting", serviceSlug: "drywall-painting" },
+  { value: "custom", label: "Custom Painting", serviceSlug: "custom-painting" },
+  { value: "commercial", label: "Commercial Painting", serviceSlug: "commercial-painting" },
+  { value: "hoa", label: "HOA Painting", serviceSlug: "hoa-painting" },
   { value: "other", label: "Something else", serviceSlug: null },
 ] as const;
 
@@ -46,7 +52,7 @@ export const contactSchema = z.object({
     }, "Please enter a 10-digit phone number."),
   email: z.string().trim().max(120).pipe(z.email("Please enter a valid email address.")),
   location: z.string().trim().min(3, "Please enter your address or ZIP code.").max(160),
-  services: z.array(z.enum(values(SERVICE_OPTIONS))).min(1, "Pick at least one."),
+  services: z.array(z.enum(values(SERVICE_OPTIONS))).min(1, "Please choose a project type."),
 });
 
 /** Photos must be in our own Blob store; no other URLs get forwarded. */

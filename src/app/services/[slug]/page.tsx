@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Sticker } from "@/components/brand/Sticker";
 import { ContentSections } from "@/components/content/ContentSections";
 import { CityLinks } from "@/components/content/RelatedLinks";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -9,6 +8,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBlock } from "@/components/sections/CtaBlock";
 import { FaqAccordion } from "@/components/sections/FaqAccordion";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { CheckIcon } from "@/components/ui/Icons";
 import { RichText } from "@/components/ui/RichText";
 import { estimateHref, PAGES, servicePath } from "@/config/pages";
 import { getService } from "@/data/services";
@@ -51,19 +51,19 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         </div>
       </PageHeader>
 
-      <div className="mx-auto grid max-w-7xl gap-14 px-4 pb-16 md:px-8 lg:grid-cols-[1fr_22rem] lg:gap-16">
+      <div className="mx-auto grid max-w-7xl gap-14 px-4 py-16 md:px-8 lg:grid-cols-[1fr_22rem] lg:gap-16">
         <div className="min-w-0">
           <ContentSections sections={page.sections} />
 
           <section aria-labelledby="cost-title" className="mt-14">
-            <h2 id="cost-title" className="font-display text-display-md text-forest">
+            <h2 id="cost-title" className="text-display-md text-ink">
               What affects the cost
             </h2>
             <p className="mt-4 text-lg">Every job gets its own written quote. These are the things that move the number:</p>
             <dl className="mt-6 grid gap-5 sm:grid-cols-2">
               {page.costFactors.map((c) => (
-                <div key={c.factor} className="rounded-[var(--radius-sticker)] bg-cream-50 p-5">
-                  <dt className="font-extrabold text-forest">{c.factor}</dt>
+                <div key={c.factor} className="rounded-[var(--radius-card)] bg-mist p-5">
+                  <dt className="font-extrabold text-pine">{c.factor}</dt>
                   <dd className="mt-1.5">
                     <RichText text={c.detail} />
                   </dd>
@@ -73,13 +73,13 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
           </section>
 
           <section aria-labelledby="addons-title" className="mt-14">
-            <h2 id="addons-title" className="font-display text-display-md text-forest">
+            <h2 id="addons-title" className="text-display-md text-ink">
               Add-ons that pair well
             </h2>
             <ul className="mt-6 space-y-4">
               {page.addOns.map((a) => (
-                <li key={a.name} className="border-l-[6px] border-gold pl-4">
-                  <p className="font-extrabold text-forest">{a.name}</p>
+                <li key={a.name} className="rounded-2xl bg-mist p-5">
+                  <p className="font-extrabold text-pine">{a.name}</p>
                   <p className="mt-1">
                     <RichText text={a.why} />
                   </p>
@@ -90,13 +90,13 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         </div>
 
         <aside className="lg:sticky lg:top-28 lg:self-start">
-          <Sticker innerClassName="bg-cream-50 p-6">
-            <h2 className="text-xl font-extrabold text-forest">What&apos;s included</h2>
+          <div className="rounded-[var(--radius-card)] bg-white p-6 shadow-card ring-1 ring-ink/5">
+            <h2 className="text-xl font-extrabold text-pine">What&apos;s included</h2>
             <ul className="mt-4 space-y-3">
               {page.included.map((item) => (
                 <li key={item} className="flex gap-3">
-                  <span aria-hidden="true" className="mt-0.5 font-extrabold text-forest">
-                    ✓
+                  <span aria-hidden="true" className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-pine text-white">
+                    <CheckIcon className="size-3.5" />
                   </span>
                   <span>
                     <RichText text={item} />
@@ -109,12 +109,12 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
                 Get a Free Estimate
               </ButtonLink>
             </div>
-          </Sticker>
+          </div>
         </aside>
       </div>
 
       <section aria-labelledby="service-faq-title" className="mx-auto max-w-7xl px-4 py-14 md:px-8">
-        <h2 id="service-faq-title" className="font-display text-display-md text-forest">
+        <h2 id="service-faq-title" className="text-display-md text-ink">
           {service.name} questions
         </h2>
         <div className="mt-8 max-w-4xl">

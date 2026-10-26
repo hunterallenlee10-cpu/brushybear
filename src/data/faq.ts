@@ -46,7 +46,7 @@ export const FAQS: (Faq & { featured?: boolean })[] = [
     question: "When is the best time of year to paint a house exterior in the Seattle area?",
     answer: [
       "June through September is the best time to paint an exterior on the Eastside, because that's when siding stays dry and temperatures stay above what paint needs to cure.",
-      "Late May and early October can work in a dry stretch, but cool nights and morning dew raise the risk. Summer dates fill up early, so most homeowners book in late winter or spring. Interiors and cabinets can be painted any time of year. More detail: [the best time to paint a house exterior on the Eastside](/articles/best-time-to-paint-house-exterior-eastside).",
+      "Late May and early October can work in a dry stretch, but cool nights and morning dew raise the risk. Summer dates fill up early, so most homeowners book in late winter or spring. Interiors and cabinets can be painted any time of year. More detail: [the best time to paint a house exterior on the Eastside](/blog/best-time-to-paint-house-exterior-eastside).",
     ],
   },
   {

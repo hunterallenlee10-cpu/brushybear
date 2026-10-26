@@ -4,7 +4,7 @@ import { INDEXABLE } from "@/config/env";
 export function PreviewBanner() {
   if (INDEXABLE) return null;
   return (
-    <div className="bg-charcoal px-4 py-1.5 text-center text-xs font-semibold tracking-wide text-cream">
+    <div className="bg-honey px-4 py-1 text-center text-xs font-semibold tracking-wide text-ink">
       Preview site: hidden from search engines. Striped items are placeholders.
     </div>
   );

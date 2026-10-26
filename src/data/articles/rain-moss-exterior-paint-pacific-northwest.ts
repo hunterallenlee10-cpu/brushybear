@@ -113,7 +113,7 @@ const article: Article = {
           items: [
             "Fix water sources: gutters, downspouts, sprinklers, wood touching soil.",
             "Kill moss and mildew, then wash gently.",
-            "Let the wood dry, usually at least a day or two of dry weather and longer on shaded walls. It's one reason [the best time to paint on the Eastside](/articles/best-time-to-paint-house-exterior-eastside) is summer.",
+            "Let the wood dry, usually at least a day or two of dry weather and longer on shaded walls. It's one reason [the best time to paint on the Eastside](/blog/best-time-to-paint-house-exterior-eastside) is summer.",
             "Scrape loose paint and sand edges smooth.",
             "Replace rotted wood and prime cut ends and bare spots.",
             "Caulk open joints with a paintable exterior caulk, but leave the bottom edge of lap siding open so water can drain.",
@@ -201,7 +201,7 @@ const article: Article = {
       body: [
         {
           type: "p",
-          text: "A well-prepped, two-coat acrylic job on wood siding often lasts somewhere around 7 to 10 years in the Northwest, but there's no single number. Fiber cement often holds paint longer. Trim, doors and walls in full afternoon sun usually need attention sooner. Deck and fence stains wear fastest, so plan on recoating every few years; see [deck and fence staining](/services/deck-and-fence-staining). Treat these as ranges, not promises: prep, the paint, sun, shade and upkeep matter more than the calendar.",
+          text: "A well-prepped, two-coat acrylic job on wood siding often lasts somewhere around 7 to 10 years in the Northwest, but there's no single number. Fiber cement often holds paint longer. Trim, doors and walls in full afternoon sun usually need attention sooner. Deck and fence stains wear fastest, so plan on recoating every few years; see [deck and fence staining](/services/decks-and-fences-painting). Treat these as ranges, not promises: prep, the paint, sun, shade and upkeep matter more than the calendar.",
         },
         {
           type: "p",

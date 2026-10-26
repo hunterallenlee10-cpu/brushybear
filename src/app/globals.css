@@ -5,35 +5,52 @@
  * which reads this file, so a color change can't quietly break contrast.
  */
 @theme {
-  --color-forest: #1f4d3a;
-  --color-forest-deep: #163829;
-  --color-forest-soft: #2f6a50;
-  --color-cream: #f4ede1;
-  --color-cream-50: #faf6ef;
-  --color-cream-200: #e6dac6;
-  --color-gold: #e9a93b;
-  --color-gold-deep: #d99628;
-  --color-charcoal: #2b2b2b;
-  --color-charcoal-soft: #55514b;
+  /*
+   * Brushy Bear palette: sharp and clean. White pages, pine green bands,
+   * honey gold calls to action (from the logo), near-black ink for the hero
+   * and footer. The older token names (forest, cream, gold, charcoal) are
+   * kept so every component reads from one set of values.
+   */
+  --color-pine: #1d5a43;
+  --color-pine-deep: #123f2e;
+  --color-pine-bright: #2c7a57;
+  --color-honey: #f4ad1f;
+  --color-honey-deep: #df970b;
+  --color-ink: #0c1a14;
+  --color-ink-soft: #46564e;
+  --color-mist: #f3f6f4;
+  --color-line: #dbe3de;
+
+  --color-forest: #1d5a43;
+  --color-forest-deep: #123f2e;
+  --color-forest-soft: #2c7a57;
+  --color-cream: #ffffff;
+  --color-cream-50: #ffffff;
+  --color-cream-200: #dbe3de;
+  --color-gold: #f4ad1f;
+  --color-gold-deep: #df970b;
+  --color-charcoal: #0c1a14;
+  --color-charcoal-soft: #46564e;
   --color-white: #ffffff;
 
-  /* Display sizes scale with the screen; 375 px phones get a bold headline
-     without awkward breaks. Lilita One only, never below 28 px. */
-  --text-display-xl: clamp(2.625rem, 1.55rem + 4.6vw, 5.5rem);
-  --text-display-xl--line-height: 0.98;
-  --text-display-lg: clamp(2rem, 1.45rem + 2.4vw, 3.5rem);
-  --text-display-lg--line-height: 1.04;
-  --text-display-md: clamp(1.75rem, 1.5rem + 1.1vw, 2.375rem);
-  --text-display-md--line-height: 1.1;
+  --text-display-xl: clamp(2.25rem, 1.5rem + 3.2vw, 3.75rem);
+  --text-display-xl--line-height: 1.05;
+  --text-display-lg: clamp(1.875rem, 1.4rem + 1.9vw, 2.75rem);
+  --text-display-lg--line-height: 1.1;
+  --text-display-md: clamp(1.5rem, 1.3rem + 0.9vw, 2rem);
+  --text-display-md--line-height: 1.15;
 
   --radius-sticker: 1.25rem;
+  --radius-card: 1.25rem;
+
+  --shadow-card: 0 1px 2px rgb(12 26 20 / 0.06), 0 12px 32px -12px rgb(12 26 20 / 0.18);
 
   --ease-paint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-lilita), var(--font-manrope), ui-rounded, system-ui, sans-serif;
+  --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -43,21 +60,27 @@
   }
 
   body {
-    background-color: var(--color-cream);
-    /* Cream paper texture (Higgsfield, recentred on the brand cream; 512 px tile). */
-    background-image: url("/media/paper.webp");
-    background-size: 512px 512px;
-    color: var(--color-charcoal);
+    background-color: var(--color-white);
+    color: var(--color-ink);
     font-family: var(--font-sans);
-    font-size: 1.0625rem;
-    line-height: 1.6;
+    font-size: 1rem;
+    line-height: 1.65;
     text-rendering: optimizeLegibility;
   }
 
   @media (min-width: 48rem) {
     body {
-      font-size: 1.125rem;
+      font-size: 1.0625rem;
     }
+  }
+
+  /* One family, heavy and tight for headings. */
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-weight: 800;
+    letter-spacing: -0.022em;
   }
 
   /* Keyboard focus is always visible: charcoal on light, gold on dark. */
@@ -122,66 +145,6 @@
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 0.85em;
     white-space: nowrap;
-  }
-}
-
-/* Headline paint swipe: paints in left to right once, 400 ms. */
-.paint-swipe-img {
-  clip-path: inset(0 100% 0 0);
-  animation: paint-in 400ms var(--ease-paint) 250ms forwards;
-}
-
-@keyframes paint-in {
-  to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-
-/* Hero scene: rain falls briefly, stops, and warm light comes up. */
-.hero-rain {
-  animation: rain-stop 600ms ease-out 2.2s forwards;
-  will-change: opacity;
-}
-
-.hero-rain-sheet {
-  animation: rain-fall 900ms linear 3;
-  will-change: transform;
-}
-
-.hero-glow {
-  opacity: 0.12;
-  animation: glow-in 900ms ease-out 2.4s forwards;
-}
-
-@keyframes rain-fall {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(-2%, 50%, 0);
-  }
-}
-
-@keyframes rain-stop {
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes glow-in {
-  to {
-    opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-rain {
-    display: none;
-  }
-
-  .hero-glow {
-    opacity: 1;
-    animation: none;
   }
 }
 

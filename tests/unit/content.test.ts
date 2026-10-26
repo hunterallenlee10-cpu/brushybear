@@ -4,7 +4,7 @@ import { ABOUT } from "@/data/about";
 import { ARTICLES } from "@/data/articles";
 import { CITY_PAGES } from "@/data/city-pages";
 import { FAQS } from "@/data/faq";
-import { FINAL_CTA, PROBLEMS, SERVICE_AREA, SOLUTION, WHY_OTHERS_FAIL } from "@/data/home";
+import * as HOME from "@/data/home";
 import { PROCESS } from "@/data/process";
 import { PROMISES } from "@/data/promises";
 import { SERVICE_PAGES } from "@/data/service-pages";
@@ -24,7 +24,7 @@ const ALL_COPY = {
   process: PROCESS,
   faq: FAQS,
   about: ABOUT,
-  home: { PROBLEMS, WHY_OTHERS_FAIL, SOLUTION, SERVICE_AREA, FINAL_CTA },
+  home: HOME,
   ...Object.fromEntries(Object.entries(SERVICE_PAGES).map(([k, v]) => [`service:${k}`, v])),
   ...Object.fromEntries(Object.entries(CITY_PAGES).map(([k, v]) => [`city:${k}`, v])),
   ...Object.fromEntries(ARTICLES.map((a) => [`article:${a.slug}`, a])),
@@ -32,7 +32,7 @@ const ALL_COPY = {
 
 const BANNED = [
   "premier", "unparalleled", "elevate", "transform your space", "top-notch", "best-in-class", "state-of-the-art",
-  "cutting-edge", "world-class", "seamless", "unmatched", "second to none", "look no further", "nestled", "boasts",
+  "cutting-edge", "world-class", "seamless", "unmatched", "second to none", "look no further", "nestled", "boasts", "—",
   "we pride ourselves", "licensed, bonded", "eapro", "ea pro",
 ];
 

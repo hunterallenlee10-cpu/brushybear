@@ -121,7 +121,7 @@ const page: CityPage = {
         },
         {
           type: "p",
-          text: "Cedar decks and fences under evergreens gray and mildew fast. [Deck and fence staining](/services/deck-and-fence-staining) with a solid or semi-transparent stain, after a full cleaning, keeps the wood sealed through the wet months.",
+          text: "Cedar decks and fences under evergreens gray and mildew fast. [Deck and fence staining](/services/decks-and-fences-painting) with a solid or semi-transparent stain, after a full cleaning, keeps the wood sealed through the wet months.",
         },
         {
           type: "p",

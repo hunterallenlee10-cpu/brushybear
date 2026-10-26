@@ -42,7 +42,7 @@ const PAIRS: [string, string, string, string][] = [
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section className="border-t border-cream-200 py-12">
-      <h2 className="font-display text-display-md text-forest">{title}</h2>
+      <h2 className="text-display-md text-ink">{title}</h2>
       <div className="mt-6">{children}</div>
     </section>
   );
@@ -54,28 +54,28 @@ export default function StyleguidePage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 md:px-8">
-      <p className="text-sm font-extrabold uppercase tracking-[0.14em] text-forest">Preview only</p>
-      <h1 className="mt-2 font-display text-display-lg text-forest">Brushy Bear style guide</h1>
-      <p className="mt-3 mb-10 max-w-2xl text-charcoal-soft">
+      <p className="text-sm font-extrabold uppercase tracking-[0.14em] text-pine">Preview only</p>
+      <h1 className="mt-2 text-display-lg text-ink">Brushy Bear style guide</h1>
+      <p className="mt-3 mb-10 max-w-2xl text-ink-soft">
         Colors, type, buttons, stickers and brand files. Hidden from search, and removed once the site goes public.
       </p>
 
       <Section title="Logo">
         <div className="grid gap-6 md:grid-cols-2">
-          <div className="flex items-center justify-center rounded-2xl bg-cream-50 p-10">
+          <div className="flex items-center justify-center rounded-2xl bg-mist p-10">
             <Image src="/brand/logo-full.png" alt="Brushy Bear Painters full logo" width={1058} height={1200} sizes="280px" className="h-auto w-56" />
           </div>
           <div className="on-dark flex items-center justify-center rounded-2xl bg-forest p-10">
             <Image src="/brand/logo-full.png" alt="Brushy Bear Painters full logo on green" width={1058} height={1200} sizes="280px" className="h-auto w-56" />
           </div>
-          <div className="flex items-center justify-center rounded-2xl bg-cream-50 p-8">
+          <div className="flex items-center justify-center rounded-2xl bg-mist p-8">
             <Image src={wordmark} alt="Wordmark" sizes="320px" className="h-auto w-80" />
           </div>
           <div className="flex items-center justify-center rounded-2xl bg-forest p-8">
             <Image src={wordmark} alt="Wordmark on green" sizes="320px" className="h-auto w-80" />
           </div>
         </div>
-        <p className="mt-4 text-sm text-charcoal-soft">
+        <p className="mt-4 text-sm text-ink-soft">
           Cut from the master logo file. The artwork is untouched; the white sticker border is rebuilt at its
           original width so it shows on any background.
         </p>
@@ -84,7 +84,7 @@ export default function StyleguidePage() {
       <Section title="Bear poses">
         <ul className="grid grid-cols-2 gap-6 md:grid-cols-3">
           {BEAR_POSES.map((pose) => (
-            <li key={pose} className="rounded-2xl bg-cream-50 p-6 text-center">
+            <li key={pose} className="rounded-2xl bg-mist p-6 text-center">
               <BearMascot pose={pose} sizes="240px" className="mx-auto h-56 w-auto" />
               <p className="mt-3 font-bold">{pose}</p>
             </li>
@@ -99,7 +99,7 @@ export default function StyleguidePage() {
               <div className="h-20 rounded-xl border border-cream-200" style={{ background: c.hex }} />
               <p className="mt-2 font-bold">{c.name}</p>
               <p className="font-mono text-sm">{c.hex}</p>
-              <p className="text-sm text-charcoal-soft">{c.use}</p>
+              <p className="text-sm text-ink-soft">{c.use}</p>
             </li>
           ))}
         </ul>
@@ -124,15 +124,15 @@ export default function StyleguidePage() {
       </Section>
 
       <Section title="Type">
-        <p className="font-display text-display-xl text-forest">Display XL · Lilita One</p>
-        <p className="mt-4 font-display text-display-lg text-forest">Display L for section titles</p>
-        <p className="mt-4 font-display text-display-md text-forest">Display M, never below 28 px</p>
+        <p className="font-display text-display-xl text-pine">Display XL · Lilita One</p>
+        <p className="mt-4 text-display-lg text-ink">Display L for section titles</p>
+        <p className="mt-4 text-display-md text-ink">Display M, never below 28 px</p>
         <p className="mt-6 text-xl font-extrabold">Manrope ExtraBold, for small headings and labels</p>
         <p className="mt-3 max-w-2xl">
           Manrope Regular for body text at 17–18 px with a 1.6 line height. Short sentences. Lead with what the
           homeowner gets: a clean job, done on time, that holds up in Northwest rain.
         </p>
-        <p className="mt-3 max-w-2xl text-charcoal-soft">Soft charcoal for secondary text and notes.</p>
+        <p className="mt-3 max-w-2xl text-ink-soft">Soft charcoal for secondary text and notes.</p>
       </Section>
 
       <Section title="Buttons">
@@ -148,7 +148,7 @@ export default function StyleguidePage() {
             Call us
           </ButtonLink>
         </div>
-        <p className="mt-4 text-sm text-charcoal-soft">Tab through these to see the focus ring (charcoal on light, gold on dark).</p>
+        <p className="mt-4 text-sm text-ink-soft">Tab through these to see the focus ring (charcoal on light, gold on dark).</p>
       </Section>
 
       <Section title="Stickers">
@@ -158,12 +158,12 @@ export default function StyleguidePage() {
             ["A photo update every day", 1.5],
             ["Clean house every evening", -1],
           ].map(([text, tilt]) => (
-            <Sticker key={text} as="li" tilt={tilt as number} innerClassName="bg-cream-50 px-6 py-8 text-center">
-              <p className="font-display text-display-md text-forest">{text}</p>
+            <Sticker key={text} as="li" tilt={tilt as number} innerClassName="bg-mist px-6 py-8 text-center">
+              <p className="text-display-md text-ink">{text}</p>
             </Sticker>
           ))}
         </ul>
-        <p className="mt-6 text-sm text-charcoal-soft">Example copy only; the real promises arrive in Phase 2 (confirm with Erik).</p>
+        <p className="mt-6 text-sm text-ink-soft">Example copy only; the real promises arrive in Phase 2 (confirm with Erik).</p>
       </Section>
 
       <Section title="Placeholders">
@@ -171,7 +171,7 @@ export default function StyleguidePage() {
           Phone: <Fill value={SITE.phone} /> · Email: <Fill value={SITE.email} /> · L&amp;I: <Fill value={SITE.lniNumber} /> · Warranty:{" "}
           <Fill value={SITE.warrantyYears} /> years
         </p>
-        <p className="mt-3 text-sm text-charcoal-soft">
+        <p className="mt-3 text-sm text-ink-soft">
           Striped badges show facts we don&apos;t have yet. A launch build fails if any would appear on a public page.
         </p>
       </Section>

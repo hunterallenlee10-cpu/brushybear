@@ -9,7 +9,7 @@ export const ABOUT = {
   eyebrow: "Who we are",
   h1: "Two owners, one simple idea: paint it right and treat the house like ours.",
   intro: [
-    "Brushy Bear Painters is a new residential painting company for Bellevue, Kirkland, Redmond, Sammamish and Issaquah. We started it because hiring a painter shouldn't mean chasing people for updates or cleaning up after them.",
+    "Brushy Bear Painters is a new painting company for homes, HOA communities and businesses across the Eastside and greater Seattle, from Bellevue and Kirkland to Bothell, Renton and Everett. We started it because hiring a painter shouldn't mean chasing people for updates or cleaning up after them.",
   ],
   owners: [
     {
@@ -30,7 +30,7 @@ export const ABOUT = {
   how: {
     heading: "How we work",
     points: [
-      { title: "A small, tight area", body: "We stay close to home so crews spend their day painting, not driving." },
+      { title: "Local crews", body: "We work around Lake Washington and north to Everett, and we plan routes so crews spend their day painting, not driving." },
       { title: "The same steps on every job", body: "Protect, prep, paint, clean up, inspect. Written down, so quality doesn't depend on who's on site." },
       { title: "Prep before paint", body: "Washing, scraping, repairs and primer are most of what makes paint last in Northwest weather." },
       { title: "You always know what's next", body: "One point of contact and a photo update at the end of every workday.", confirm: "Promise: confirm with Erik before launch" },

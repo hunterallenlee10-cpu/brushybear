@@ -1,19 +1,19 @@
-import { BearMascot } from "@/components/brand/BearMascot";
-import { EstimateForm } from "@/components/estimate/EstimateForm";
+import { QuoteCard } from "@/components/estimate/QuoteCard";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ConfirmBadge } from "@/components/ui/ConfirmBadge";
+import { Pill } from "@/components/ui/Pill";
 import { PAGES } from "@/config/pages";
 import { phoneHref, SITE } from "@/config/site";
-import { cityList } from "@/data/cities";
 import { PROCESS } from "@/data/process";
 import { isSet } from "@/lib/placeholders";
 import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "Free Painting Estimate",
-  description: `Request a free painting estimate in ${cityList()}. Two quick steps, then we text you to set up a walkthrough and send a written quote.`,
+  title: "Free Painting Estimate, Eastside & Seattle",
+  description:
+    "Request a free painting estimate anywhere on the Eastside or in greater Seattle. One short form, a walkthrough, then a written, itemized quote within 24 hours.",
   path: PAGES.estimate.path,
 });
 
@@ -22,50 +22,52 @@ export default function EstimatePage() {
     { name: "Home", path: "/" },
     { name: "Free Estimate", path: PAGES.estimate.path },
   ];
+  const phone = isSet(SITE.phone) ? SITE.phone : undefined;
   return (
     <>
-      <div className="mx-auto max-w-7xl px-4 pt-8 pb-20 md:px-8 md:pt-12">
-        <Breadcrumbs items={crumbs} />
-        <div className="mt-8 grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
-          <div>
-            <p className="text-sm font-extrabold uppercase tracking-[0.14em] text-forest">Free, no obligation</p>
-            <h1 className="mt-3 font-display text-display-lg text-forest md:text-display-xl">Get a free painting estimate</h1>
-            <p className="mt-6 text-lg md:text-xl">
-              Tell us what you want painted. We&apos;ll text you within a few minutes during business hours to set up a
-              walkthrough, then send a written, itemized quote.
-            </p>
-            {isSet(SITE.phone) && (
-              <p className="mt-4 text-lg">
-                Rather talk?{" "}
-                <a href={phoneHref(SITE.phone, "tel")} data-event="call_click" data-location="estimate-page" className="font-extrabold text-forest underline decoration-gold decoration-[3px] underline-offset-[6px]">
-                  Call or text {SITE.phone}
-                </a>
+      <section className="on-dark relative overflow-hidden bg-ink text-white">
+        <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_80%_0%,rgb(29_90_67/0.6),transparent_55%)]" />
+        <div className="relative mx-auto max-w-7xl px-4 pt-7 pb-16 md:px-8 md:pt-10 md:pb-24">
+          <Breadcrumbs items={crumbs} />
+          <div className="mt-8 grid gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+            <div>
+              <p className="text-sm font-bold tracking-[0.14em] text-honey uppercase">Free, no obligation</p>
+              <h1 className="mt-3 text-display-xl">Get a free painting estimate</h1>
+              <p className="mt-6 text-lg text-white/85 md:text-xl">
+                Tell us what you want painted. We&apos;ll reach out to set up a walkthrough, then send a written, itemized quote.
               </p>
-            )}
-            <h2 className="mt-12 text-xl font-extrabold text-forest">What happens next</h2>
-            <ol className="mt-5 space-y-5">
-              {PROCESS.map((s, i) => (
-                <li key={s.title} className="flex gap-4">
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-forest font-extrabold text-cream">{i + 1}</span>
-                  <div>
-                    <p className="font-extrabold">
-                      {s.title}
-                      <ConfirmBadge note={s.confirm} />
-                    </p>
-                    <p className="text-[1rem]">{s.body}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-            <div className="mt-10 hidden w-40 lg:block">
-              <BearMascot pose="wave" sizes="160px" className="h-auto w-full" />
+              <div className="mt-6 flex flex-wrap items-center gap-4">
+                <Pill href={PAGES.instantEstimate.path} variant="outline-white" arrow>
+                  Want a ballpark first?
+                </Pill>
+                {phone && (
+                  <a href={phoneHref(phone, "tel")} data-event="call_click" data-location="estimate-page" className="font-bold underline decoration-honey decoration-2 underline-offset-4">
+                    Or call {phone}
+                  </a>
+                )}
+              </div>
+              <h2 className="mt-12 text-xl font-extrabold">How it works</h2>
+              <ol className="mt-5 space-y-5">
+                {PROCESS.map((s, i) => (
+                  <li key={s.title} className="flex gap-4">
+                    <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-honey font-extrabold text-ink">{i + 1}</span>
+                    <div>
+                      <p className="font-bold">
+                        {s.title}
+                        <ConfirmBadge note={s.confirm} />
+                      </p>
+                      <p className="text-white/80">{s.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div className="mx-auto w-full max-w-lg lg:ml-auto">
+              <QuoteCard source="estimate-page" withNotes fallbackPhone={phone} />
             </div>
           </div>
-          <div className="on-dark rounded-[calc(var(--radius-sticker)+0.5rem)] bg-forest p-4 md:p-8">
-            <EstimateForm source="estimate-page" fallbackPhone={isSet(SITE.phone) ? SITE.phone : undefined} />
-          </div>
         </div>
-      </div>
+      </section>
       <JsonLd items={[breadcrumbSchema(crumbs)]} />
     </>
   );

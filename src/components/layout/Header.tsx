@@ -1,58 +1,69 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/brand/Logo";
+import { DesktopNav } from "@/components/layout/DesktopNav";
 import { MobileMenu } from "@/components/layout/MobileMenu";
-import { ButtonLink } from "@/components/ui/ButtonLink";
 import { PhoneIcon } from "@/components/ui/Icons";
-import { estimateHref } from "@/config/pages";
+import { PAGES } from "@/config/pages";
 import { phoneHref, SITE } from "@/config/site";
 import { mainNav } from "@/data/navigation";
 import { isSet } from "@/lib/placeholders";
 
-/** Sticky header. On desktop the estimate button is always in view. */
+/** Thin strip above the header, like Panda's: one line, centered. */
+function TopStrip() {
+  return (
+    <div className="bg-pine text-white">
+      <p className="mx-auto max-w-7xl px-4 py-2 text-center text-[0.8rem] font-semibold tracking-wide md:text-sm">
+        Free written estimates across the Eastside and greater Seattle
+        <span className="hidden sm:inline">
+          {" · "}
+          <Link href={PAGES.instantEstimate.path} className="underline decoration-honey decoration-2 underline-offset-4 hover:text-honey">
+            Get an instant price range
+          </Link>
+        </span>
+      </p>
+    </div>
+  );
+}
+
+/** Panda-style header: logo left, menu in the middle, pill buttons right. */
 export function Header() {
   const nav = mainNav();
+  const phone = isSet(SITE.phone) ? SITE.phone : null;
   return (
-    <header className="sticky top-0 z-40 border-b border-cream-200 bg-cream/95">
-      <div className="relative mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-4 px-4 md:h-20 md:px-8">
-        <Link href="/" className="shrink-0 rounded-lg">
-          <Wordmark className="h-11 w-auto md:h-[3.25rem]" />
-        </Link>
+    <>
+      <TopStrip />
+      <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
+        <div className="relative mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-4 px-4 md:h-[5.5rem] md:px-8">
+          <Link href="/" className="shrink-0 rounded-lg" aria-label={`${SITE.name} home`}>
+            <Wordmark className="h-11 w-auto md:h-14" />
+          </Link>
 
-        {nav.length > 0 && (
-          <nav aria-label="Main" className="hidden lg:block">
-            <ul className="flex items-center gap-7">
-              {nav.map((item) => (
-                <li key={item.href}>
-                  <Link href={item.href} className="font-bold text-forest underline-offset-[6px] decoration-gold decoration-[3px] hover:underline">
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
+          <DesktopNav items={nav} />
 
-        <div className="flex items-center gap-4">
-          {isSet(SITE.phone) && (
-            <a
-              href={phoneHref(SITE.phone, "tel")}
-              data-event="call_click"
+          <div className="flex items-center gap-3">
+            {phone ? (
+              <a
+                href={phoneHref(phone, "tel")}
+                data-event="call_click"
+                data-location="header"
+                className="hidden min-h-11 items-center gap-2 rounded-full bg-pine px-5 font-bold text-white transition-colors hover:bg-pine-deep xl:inline-flex"
+              >
+                <PhoneIcon className="size-4" />
+                {phone}
+              </a>
+            ) : null}
+            <Link
+              href={PAGES.estimate.path}
+              data-event="estimate_cta"
               data-location="header"
-              className="hidden items-center gap-2 font-bold text-forest xl:inline-flex"
+              className="hidden min-h-11 items-center rounded-full bg-honey px-5 font-bold text-ink transition-colors hover:bg-honey-deep md:inline-flex"
             >
-              <PhoneIcon />
-              {SITE.phone}
-            </a>
-          )}
-          {/* Phones use the bottom action bar instead. */}
-          <div className="hidden md:block">
-            <ButtonLink href={estimateHref()} event="estimate_cta" location="header">
-              Get a Free Estimate
-            </ButtonLink>
+              Free Estimate
+            </Link>
+            <MobileMenu items={nav} />
           </div>
-          {nav.length > 0 && <MobileMenu items={nav} />}
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import { Lilita_One, Manrope } from "next/font/google";
+import { Manrope } from "next/font/google";
 import { AnalyticsListener } from "@/components/layout/AnalyticsListener";
 import { Footer } from "@/components/layout/Footer";
 import { Ga4 } from "@/components/layout/Ga4";
@@ -16,7 +16,6 @@ import "./globals.css";
 
 // Self-hosted at build time: no request to Google, no layout shift.
 const manrope = Manrope({ subsets: ["latin"], display: "swap", variable: "--font-manrope" });
-const lilita = Lilita_One({ weight: "400", subsets: ["latin"], display: "swap", variable: "--font-lilita" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -33,13 +32,13 @@ export const metadata: Metadata = {
 export const ensureStatic = "navigation";
 
 export const viewport: Viewport = {
-  themeColor: "#1f4d3a",
+  themeColor: "#1d5a43",
   colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-US" data-scroll-behavior="smooth" className={`${manrope.variable} ${lilita.variable}`}>
+    <html lang="en-US" data-scroll-behavior="smooth" className={manrope.variable}>
       <body className="pb-action-bar flex min-h-dvh flex-col antialiased">
         <SkipLink />
         <PreviewBanner />

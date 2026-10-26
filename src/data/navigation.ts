@@ -1,28 +1,53 @@
-import { PAGES } from "@/config/pages";
+import { cityPath, PAGES, servicePath } from "@/config/pages";
+import { publishedCities } from "@/data/cities";
+import { publishedServices } from "@/data/services";
 
 export type NavItem = { label: string; href: string };
 
-/** Homepage sections that menu links can jump to (built in Phase 2). */
-export const HOME_SECTIONS_LIVE = {
-  serviceArea: true,
-};
+/** A top-level menu entry: a plain link, or a dropdown of links. */
+export type MenuEntry = NavItem & { children?: NavItem[]; wide?: boolean };
 
-/** Main menu, in order. Only items whose page exists in this build show up. */
-export function mainNav(): NavItem[] {
-  const items: (NavItem & { live: boolean })[] = [
-    { label: "Services", href: PAGES.services.path, live: PAGES.services.live },
-    { label: "Service area", href: "/#service-area", live: HOME_SECTIONS_LIVE.serviceArea },
-    { label: "About", href: PAGES.about.path, live: PAGES.about.live },
-    { label: "Gallery", href: PAGES.gallery.path, live: PAGES.gallery.live },
-    { label: "FAQ", href: PAGES.faq.path, live: PAGES.faq.live },
-    { label: "Articles", href: PAGES.articles.path, live: PAGES.articles.live },
+/** Main menu, same shape as EA Pro Painters': Home, About, Services, Areas We Serve, Portfolio, Blog. */
+export function mainNav(): MenuEntry[] {
+  return [
+    { label: "Home", href: "/" },
+    {
+      label: "About",
+      href: PAGES.about.path,
+      children: [
+        { label: "About Us", href: PAGES.about.path },
+        { label: "FAQs", href: PAGES.faq.path },
+        { label: "Recommended Companies", href: PAGES.recommended.path },
+      ],
+    },
+    {
+      label: "Services",
+      href: PAGES.services.path,
+      children: [
+        { label: "All Services", href: PAGES.services.path },
+        ...publishedServices().map((s) => ({ label: s.name, href: servicePath(s.slug) })),
+      ],
+    },
+    {
+      label: "Areas We Serve",
+      href: PAGES.areas.path,
+      wide: true,
+      children: publishedCities().map((c) => ({ label: c.name, href: cityPath(c.slug) })),
+    },
+    { label: PAGES.gallery.label, href: PAGES.gallery.path },
+    { label: PAGES.articles.label, href: PAGES.articles.path },
   ];
-  return items.filter((i) => i.live).map(({ label, href }) => ({ label, href }));
 }
 
-/** Footer "Company" links. */
+/** Footer "Company" links (EA's footer order). */
 export function companyNav(): NavItem[] {
-  return [PAGES.estimate, PAGES.about, PAGES.gallery, PAGES.faq, PAGES.articles, PAGES.privacy]
-    .filter((p) => p.live)
-    .map((p) => ({ label: p.label, href: p.path }));
+  return [
+    { label: "Portfolio", href: PAGES.gallery.path },
+    { label: "FAQs", href: PAGES.faq.path },
+    { label: "About", href: PAGES.about.path },
+    { label: "Home Owner Associations", href: servicePath("hoa-painting") },
+    { label: "Recommended Companies", href: PAGES.recommended.path },
+    { label: "Instant Estimate", href: PAGES.instantEstimate.path },
+    { label: "Blog", href: PAGES.articles.path },
+  ];
 }

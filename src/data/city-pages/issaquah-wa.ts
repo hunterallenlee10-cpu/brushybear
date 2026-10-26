@@ -124,7 +124,7 @@ const page: CityPage = {
         },
         {
           type: "p",
-          text: "Fences along greenbelts and decks on the shady side of a hill wear out fast here. [Deck and fence staining](/services/deck-and-fence-staining) after a thorough cleaning keeps the wood sealed through the wet season.",
+          text: "Fences along greenbelts and decks on the shady side of a hill wear out fast here. [Deck and fence staining](/services/decks-and-fences-painting) after a thorough cleaning keeps the wood sealed through the wet season.",
         },
         {
           type: "p",

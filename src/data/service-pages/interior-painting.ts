@@ -127,7 +127,7 @@ const page: ServicePage = {
         },
         {
           type: "p",
-          text: "If the outside needs work too, [exterior painting](/services/exterior-painting) runs in the dry season, roughly June through September. Here's [the best time to paint a house exterior on the Eastside](/articles/best-time-to-paint-house-exterior-eastside).",
+          text: "If the outside needs work too, [exterior painting](/services/exterior-painting) runs in the dry season, roughly June through September. Here's [the best time to paint a house exterior on the Eastside](/blog/best-time-to-paint-house-exterior-eastside).",
         },
       ],
     },

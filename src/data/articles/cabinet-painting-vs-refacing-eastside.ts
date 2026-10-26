@@ -156,7 +156,7 @@ const article: Article = {
         },
         {
           type: "p",
-          text: "Cabinets are an indoor job, so they can be done any time of year, unlike exteriors, which wait for the [dry season](/articles/best-time-to-paint-house-exterior-eastside).",
+          text: "Cabinets are an indoor job, so they can be done any time of year, unlike exteriors, which wait for the [dry season](/blog/best-time-to-paint-house-exterior-eastside).",
         },
       ],
     },
@@ -262,7 +262,7 @@ const article: Article = {
       id: "cabinets-cost-compare",
       question: "Is painting cabinets cheaper than refacing?",
       answer: [
-        "Usually, yes. Painting typically costs a fraction of refacing because you keep your doors and pay for prep, coatings and labor instead of new materials. Every kitchen gets a custom written quote. More answers are on our [FAQ page](/faq).",
+        "Usually, yes. Painting typically costs a fraction of refacing because you keep your doors and pay for prep, coatings and labor instead of new materials. Every kitchen gets a custom written quote. More answers are on our [FAQ page](/faqs).",
       ],
     },
   ],

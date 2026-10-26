@@ -2,6 +2,7 @@ import { ABOUT } from "@/data/about";
 import { ARTICLES } from "@/data/articles";
 import { CITY_PAGES } from "@/data/city-pages";
 import { FAQS } from "@/data/faq";
+import { DIFFERENCE, WHY_US } from "@/data/home";
 import { PROCESS } from "@/data/process";
 import { PROMISES } from "@/data/promises";
 import { SERVICE_PAGES } from "@/data/service-pages";
@@ -30,6 +31,8 @@ export function confirmItems(): ConfirmItem[] {
 
   walk("Homepage: promises", PROMISES, "");
   walk("Homepage: how it works", PROCESS, "");
+  walk("Homepage: what makes us different", DIFFERENCE, "");
+  walk("Homepage: why Brushy Bear", WHY_US, "");
   walk("FAQ", FAQS, "");
   walk("About", ABOUT, "");
   for (const p of Object.values(SERVICE_PAGES)) walk(`Service: ${p.slug}`, p, "");

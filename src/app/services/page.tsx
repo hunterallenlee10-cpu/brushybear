@@ -1,17 +1,16 @@
+import { ServiceCards } from "@/components/home/HomeSections";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBlock } from "@/components/sections/CtaBlock";
-import { ServicesGrid } from "@/components/sections/ServicesGrid";
 import { PAGES } from "@/config/pages";
-import { SITE } from "@/config/site";
-import { cityList } from "@/data/cities";
 import { breadcrumbSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 
-const DESCRIPTION = `Interior and exterior painting, cabinet painting, and deck and fence staining in ${cityList()}. Every job gets a custom written quote.`;
+const DESCRIPTION =
+  "Commercial, exterior, interior, custom, cabinet, millwork, drywall, deck and fence, and HOA painting across the Eastside and Seattle. Free written estimates.";
 
 export const metadata = pageMetadata({
-  title: `House Painting Services, ${SITE.regionName} ${SITE.state}`,
+  title: "Painting Services, Eastside & Seattle WA",
   description: DESCRIPTION,
   path: PAGES.services.path,
 });
@@ -26,14 +25,12 @@ export default function ServicesHub() {
       <PageHeader
         crumbs={crumbs}
         eyebrow="Services"
-        title={`House painting services on the ${SITE.regionName}`}
+        title="House painting services on the Eastside and in Seattle"
         intro={[
-          `We paint interiors, exteriors, kitchen cabinets, decks and fences for homes in ${cityList()}. Every job starts with a walkthrough and a custom written quote. No packages, no surprise line items.`,
+          "We paint homes inside and out, plus cabinets, trim and millwork, drywall, decks and fences, custom finishes, HOA communities and commercial spaces. Every job starts with a walkthrough and a written, itemized quote.",
         ]}
       />
-      <div className="-mt-16">
-        <ServicesGrid showHeading={false} />
-      </div>
+      <ServiceCards heading={false} />
       <CtaBlock source="services-hub" />
       <JsonLd items={[breadcrumbSchema(crumbs)]} />
     </>

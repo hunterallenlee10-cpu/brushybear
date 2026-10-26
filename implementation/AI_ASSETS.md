@@ -100,3 +100,19 @@ These come from the Brushy Bear Painters Drive folder and were only cut out and 
 | `public/og-image.png` | logo files | Interim share image (`scripts/brand/make-og.py`) |
 
 The hand-drawn hero scene (`HeroScene`) and service illustrations (`ServiceArt`) are coded SVG, kept as the fallback if `HERO_ASSETS` is set to null or a scene is removed.
+
+## October 26, 2026: Panda-style redesign
+
+- **Hero video and loop retired.** The home hero is now a still photo. The old `public/media/hero/*` files and `src/assets/hero/still.jpg` were removed.
+- **New hero photo:** `src/assets/hero/home-wide.jpg` (1920×1072) and `home-tall.jpg` (1080×1936). These are the finished-house frames from the scroll-hero work on the `upgrade/panda-style` branch: Nano Banana 2.1 keyframes animated with Kling 3.0. Those credits were logged on that branch.
+- **Five new service scenes:** Nano Banana 2.1, 3:2. **10 credits** (2 each).
+
+| File | Job ID | Prompt (short) | Goes on |
+|---|---|---|---|
+| scene-commercial.jpg | 237fc342-3eea-429d-83d6-6e5d0e9283ea | Two-story office and storefronts in pine green and warm white, firs, wet pavement | Commercial Painting card and page |
+| scene-custom.jpg | 5fed31bf-d779-4324-b9b4-137abb8875b2 | Home office with a two-tone green/white wall and a sage limewash alcove | Custom Painting card and page |
+| scene-millwork.jpg | 77425a78-9b43-4a89-a1d5-3aa44482e7c2 | Craftsman entry with white wainscoting, crown molding, painted stair railing | Millwork Painting card and page |
+| scene-drywall.jpg | 3acd025b-559c-42c8-86c5-ee3126d2a6f0 | Wall mid-repair: patched seams, primer spots, ladder, roller tray | Drywall Painting card and page |
+| scene-hoa.jpg | 48ae4fc1-d494-4b8d-8a68-7dc728d59193 | Row of townhomes in slate blue and warm gray, white trim | HOA Painting card and page |
+
+All five carry the "Illustration" tag and contain no people.

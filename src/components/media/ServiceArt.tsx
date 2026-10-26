@@ -124,7 +124,7 @@ const ART: Record<string, () => React.JSX.Element> = {
   "interior-painting": Interior,
   "exterior-painting": Exterior,
   "cabinet-painting": Cabinets,
-  "deck-and-fence-staining": Deck,
+  "decks-and-fences-painting": Deck,
 };
 
 export const hasServiceArt = (slug: string) => slug in ART;

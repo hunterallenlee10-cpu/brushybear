@@ -9,7 +9,7 @@ async function sitemapPaths(request: import("@playwright/test").APIRequestContex
 test("every sitemap page: 200, one h1, canonical, noindex before launch, valid JSON-LD", async ({ page, request }) => {
   test.skip(test.info().project.name !== "desktop", "runs once");
   const paths = await sitemapPaths(request);
-  expect(paths.length).toBeGreaterThanOrEqual(18);
+  expect(paths.length).toBeGreaterThanOrEqual(40);
   for (const path of paths) {
     const res = await page.goto(path);
     expect(res?.status(), path).toBe(200);
@@ -23,7 +23,7 @@ test("every sitemap page: 200, one h1, canonical, noindex before launch, valid J
 });
 
 test("unknown slugs return a real 404", async ({ request }) => {
-  for (const path of ["/services/nope", "/painters/seattle-wa", "/articles/nope", "/nope"]) {
+  for (const path of ["/services/nope", "/painting-company/tacoma-wa", "/blog/nope", "/nope"]) {
     expect((await request.get(path)).status(), path).toBe(404);
   }
 });
@@ -39,4 +39,19 @@ test("no sideways scrolling, and the right contact bar for the screen", async ({
 
 test("robots.txt blocks everything before launch", async ({ request }) => {
   expect(await (await request.get("/robots.txt")).text()).toContain("Disallow: /");
+});
+
+test("old paths redirect to the new ones", async ({ request }) => {
+  for (const [from, to] of [
+    ["/faq", "/faqs"],
+    ["/gallery", "/portfolio"],
+    ["/articles", "/blog"],
+    ["/painters/kirkland-wa", "/painting-company/kirkland-wa"],
+    ["/services/deck-and-fence-staining", "/services/decks-and-fences-painting"],
+    ["/hoa", "/services/hoa-painting"],
+  ]) {
+    const res = await request.get(from, { maxRedirects: 0 });
+    expect(res.status(), from).toBe(308);
+    expect(res.headers().location, from).toContain(to);
+  }
 });

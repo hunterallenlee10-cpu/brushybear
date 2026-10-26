@@ -127,7 +127,7 @@ const page: CityPage = {
         },
         {
           type: "p",
-          text: "Cedar fences between subdivision lots and backyard decks gray quickly in Redmond's wet winters, so [deck and fence staining](/services/deck-and-fence-staining) is a regular part of keeping a newer home looking cared for. For siding and trim, [exterior painting](/services/exterior-painting) is booked in the dry season, after your HOA approval comes through.",
+          text: "Cedar fences between subdivision lots and backyard decks gray quickly in Redmond's wet winters, so [deck and fence staining](/services/decks-and-fences-painting) is a regular part of keeping a newer home looking cared for. For siding and trim, [exterior painting](/services/exterior-painting) is booked in the dry season, after your HOA approval comes through.",
         },
         {
           type: "callout",

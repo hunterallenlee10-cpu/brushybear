@@ -4,14 +4,13 @@ import type { ReactNode } from "react";
 type Variant = "primary" | "secondary" | "secondary-on-dark";
 
 const BASE =
-  "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-extrabold leading-tight tracking-[-0.005em] transition-[transform,background-color,color,box-shadow] duration-200 ease-paint";
+  "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-bold leading-tight transition-colors duration-200";
 
 const VARIANTS: Record<Variant, string> = {
-  // Gold with charcoal text (6.9:1), charcoal outline and a white sticker ring.
-  primary:
-    "border-2 border-charcoal bg-gold text-charcoal shadow-[0_0_0_4px_#fff,0_14px_24px_-14px_rgb(43_43_43/0.7)] hover:-translate-y-0.5 hover:bg-gold-deep active:translate-y-0",
-  secondary: "border-2 border-forest text-forest hover:bg-forest hover:text-cream",
-  "secondary-on-dark": "border-2 border-cream text-cream hover:bg-cream hover:text-forest",
+  // Honey pill with ink text (9.2:1).
+  primary: "bg-honey text-ink hover:bg-honey-deep",
+  secondary: "border-2 border-pine text-pine hover:bg-pine hover:text-white",
+  "secondary-on-dark": "border-2 border-white text-white hover:bg-white hover:text-ink",
 };
 
 type Props = {

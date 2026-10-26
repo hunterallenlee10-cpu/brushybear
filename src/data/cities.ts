@@ -16,27 +16,31 @@ export type City = {
 
 const wiki = (page: string) => `https://en.wikipedia.org/wiki/${page}`;
 
+// The same 23 cities EA Pro Painters serves, A to Z.
 export const CITIES: City[] = [
-  { slug: "bellevue-wa", name: "Bellevue", phase: 1, published: true, wikipediaUrl: wiki("Bellevue,_Washington"), updatedAt: "2026-10-24" },
-  { slug: "kirkland-wa", name: "Kirkland", phase: 1, published: true, wikipediaUrl: wiki("Kirkland,_Washington"), updatedAt: "2026-10-24" },
-  { slug: "redmond-wa", name: "Redmond", phase: 1, published: true, wikipediaUrl: wiki("Redmond,_Washington"), updatedAt: "2026-10-24" },
-  { slug: "sammamish-wa", name: "Sammamish", phase: 1, published: true, wikipediaUrl: wiki("Sammamish,_Washington"), updatedAt: "2026-10-24" },
-  { slug: "issaquah-wa", name: "Issaquah", phase: 1, published: true, wikipediaUrl: wiki("Issaquah,_Washington"), updatedAt: "2026-10-24" },
-  // Phase 2
-  { slug: "bothell-wa", name: "Bothell", phase: 2, published: false, wikipediaUrl: wiki("Bothell,_Washington"), updatedAt: "2026-10-24" },
-  { slug: "woodinville-wa", name: "Woodinville", phase: 2, published: false, wikipediaUrl: wiki("Woodinville,_Washington"), updatedAt: "2026-10-24" },
-  { slug: "mercer-island-wa", name: "Mercer Island", phase: 2, published: false, wikipediaUrl: wiki("Mercer_Island,_Washington"), updatedAt: "2026-10-24" },
-  { slug: "renton-wa", name: "Renton", phase: 2, published: false, wikipediaUrl: wiki("Renton,_Washington"), updatedAt: "2026-10-24" },
-  { slug: "newcastle-wa", name: "Newcastle", phase: 2, published: false, wikipediaUrl: wiki("Newcastle,_Washington"), updatedAt: "2026-10-24" },
-  // Phase 3
-  { slug: "seattle-wa", name: "Seattle", phase: 3, published: false, wikipediaUrl: wiki("Seattle"), updatedAt: "2026-10-24" },
-  { slug: "shoreline-wa", name: "Shoreline", phase: 3, published: false, wikipediaUrl: wiki("Shoreline,_Washington"), updatedAt: "2026-10-24" },
-  { slug: "lynnwood-wa", name: "Lynnwood", phase: 3, published: false, wikipediaUrl: wiki("Lynnwood,_Washington"), updatedAt: "2026-10-24" },
-  { slug: "edmonds-wa", name: "Edmonds", phase: 3, published: false, wikipediaUrl: wiki("Edmonds,_Washington"), updatedAt: "2026-10-24" },
-  { slug: "everett-wa", name: "Everett", phase: 3, published: false, wikipediaUrl: wiki("Everett,_Washington"), updatedAt: "2026-10-24" },
-  { slug: "mill-creek-wa", name: "Mill Creek", phase: 3, published: false, wikipediaUrl: wiki("Mill_Creek,_Washington"), updatedAt: "2026-10-24" },
-  { slug: "snohomish-wa", name: "Snohomish", phase: 3, published: false, wikipediaUrl: wiki("Snohomish,_Washington"), updatedAt: "2026-10-24" },
-  { slug: "snoqualmie-wa", name: "Snoqualmie", phase: 3, published: false, wikipediaUrl: wiki("Snoqualmie,_Washington"), updatedAt: "2026-10-24" },
+  { slug: "bellevue-wa", name: "Bellevue", phase: 1, published: true, wikipediaUrl: wiki("Bellevue,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "bothell-wa", name: "Bothell", phase: 1, published: true, wikipediaUrl: wiki("Bothell,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "clyde-hill-wa", name: "Clyde Hill", phase: 1, published: true, wikipediaUrl: wiki("Clyde_Hill,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "edmonds-wa", name: "Edmonds", phase: 1, published: true, wikipediaUrl: wiki("Edmonds,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "everett-wa", name: "Everett", phase: 1, published: true, wikipediaUrl: wiki("Everett,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "issaquah-wa", name: "Issaquah", phase: 1, published: true, wikipediaUrl: wiki("Issaquah,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "juanita-wa", name: "Juanita", phase: 1, published: true, wikipediaUrl: wiki("Juanita,_Kirkland,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "kenmore-wa", name: "Kenmore", phase: 1, published: true, wikipediaUrl: wiki("Kenmore,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "kirkland-wa", name: "Kirkland", phase: 1, published: true, wikipediaUrl: wiki("Kirkland,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "lynnwood-wa", name: "Lynnwood", phase: 1, published: true, wikipediaUrl: wiki("Lynnwood,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "medina-wa", name: "Medina", phase: 1, published: true, wikipediaUrl: wiki("Medina,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "mercer-island-wa", name: "Mercer Island", phase: 1, published: true, wikipediaUrl: wiki("Mercer_Island,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "mill-creek-wa", name: "Mill Creek", phase: 1, published: true, wikipediaUrl: wiki("Mill_Creek,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "monroe-wa", name: "Monroe", phase: 1, published: true, wikipediaUrl: wiki("Monroe,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "newcastle-wa", name: "Newcastle", phase: 1, published: true, wikipediaUrl: wiki("Newcastle,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "redmond-wa", name: "Redmond", phase: 1, published: true, wikipediaUrl: wiki("Redmond,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "renton-wa", name: "Renton", phase: 1, published: true, wikipediaUrl: wiki("Renton,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "sammamish-wa", name: "Sammamish", phase: 1, published: true, wikipediaUrl: wiki("Sammamish,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "seattle-wa", name: "Seattle", phase: 1, published: true, wikipediaUrl: wiki("Seattle"), updatedAt: "2026-10-26" },
+  { slug: "shoreline-wa", name: "Shoreline", phase: 1, published: true, wikipediaUrl: wiki("Shoreline,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "snohomish-wa", name: "Snohomish", phase: 1, published: true, wikipediaUrl: wiki("Snohomish,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "snoqualmie-wa", name: "Snoqualmie", phase: 1, published: true, wikipediaUrl: wiki("Snoqualmie,_Washington"), updatedAt: "2026-10-26" },
+  { slug: "woodinville-wa", name: "Woodinville", phase: 1, published: true, wikipediaUrl: wiki("Woodinville,_Washington"), updatedAt: "2026-10-26" },
 ];
 
 export const publishedCities = () => CITIES.filter((c) => c.published);

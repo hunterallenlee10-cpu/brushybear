@@ -10,14 +10,14 @@ import type { Faq } from "@/data/types";
 export function FaqAccordion({ faqs, headingLevel = "h3" }: { faqs: Faq[]; headingLevel?: "h2" | "h3" }) {
   const H = headingLevel;
   return (
-    <div className="divide-y-2 divide-cream-200 border-y-2 border-cream-200">
+    <div className="divide-y divide-line border-y border-line">
       {faqs.map((f) => (
         <details key={f.id} id={`faq-${f.id}`} className="group">
           <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-6 py-5 [&::-webkit-details-marker]:hidden">
-            <H className="text-lg font-extrabold text-forest md:text-xl">{f.question}</H>
+            <H className="text-lg font-bold text-ink md:text-xl">{f.question}</H>
             <span
               aria-hidden="true"
-              className="flex size-9 shrink-0 items-center justify-center rounded-full border-2 border-forest text-xl font-bold text-forest transition-transform duration-200 group-open:rotate-45"
+              className="flex size-9 shrink-0 items-center justify-center rounded-full bg-pine text-xl font-bold text-white transition-transform duration-200 group-open:rotate-45"
             >
               +
             </span>

@@ -1,57 +1,65 @@
-import { JsonLd } from "@/components/seo/JsonLd";
-import { CtaBlock } from "@/components/sections/CtaBlock";
+import { HomeHero } from "@/components/home/HomeHero";
+import {
+  AboutBand,
+  AreaBand,
+  GetStarted,
+  LocalServices,
+  ProcessSteps,
+  ServiceCards,
+  Updates,
+  WhyUs,
+  WorkBand,
+} from "@/components/home/HomeSections";
+import { PromiseBand } from "@/components/home/PromiseBand";
 import { FaqAccordion } from "@/components/sections/FaqAccordion";
-import { Hero } from "@/components/sections/Hero";
-import { HowItWorks } from "@/components/sections/HowItWorks";
-import { Problem } from "@/components/sections/Problem";
-import { Promises } from "@/components/sections/Promises";
-import { Reviews } from "@/components/sections/Reviews";
-import { ServiceArea } from "@/components/sections/ServiceArea";
-import { SectionHeading } from "@/components/sections/SectionHeading";
-import { ServicesGrid } from "@/components/sections/ServicesGrid";
-import { WhyOthersFail } from "@/components/sections/WhyOthersFail";
-import { ButtonLink } from "@/components/ui/ButtonLink";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { Pill } from "@/components/ui/Pill";
+import { Title } from "@/components/ui/Title";
 import { PAGES } from "@/config/pages";
 import { SITE } from "@/config/site";
-import { cityList } from "@/data/cities";
 import { featuredFaqs } from "@/data/faq";
 import { faqSchema, webPageSchema, websiteSchema } from "@/lib/schema";
 import { pageMetadata } from "@/lib/seo";
 
-const TITLE = `House Painters on the ${SITE.regionName}, ${SITE.state}`;
-const DESCRIPTION = `Brushy Bear Painters paints interiors, exteriors, cabinets and decks in ${cityList()}, ${SITE.state}. Get a free written estimate.`;
+const TITLE = "House Painters, Eastside & Seattle WA";
+const DESCRIPTION =
+  "Interior, exterior, cabinet, millwork, drywall, deck, HOA and commercial painting in Bellevue, Kirkland, Redmond, Seattle and 19 more cities. Free estimates.";
 
 export const metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: "/" });
 
-/** Homepage, in the order from the brief. */
+/**
+ * Home page: Panda Exteriors' layout, carrying EA Pro Painters' sections and services.
+ */
 export default function HomePage() {
   const faqs = featuredFaqs();
   return (
     <>
-      <Hero />
-      <Problem />
-      <WhyOthersFail />
-      <Promises />
-      <ServicesGrid />
-      <HowItWorks />
-      <Reviews />
-      <ServiceArea />
+      <HomeHero />
+      <LocalServices />
+      <PromiseBand />
+      <ServiceCards />
+      <WorkBand />
+      <ProcessSteps />
+      <AreaBand />
+      <WhyUs />
+      <GetStarted />
+      <Updates />
 
-      <section aria-labelledby="faq-title" className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
+      <section aria-labelledby="faq-title" className="bg-mist py-16 md:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 md:px-8 lg:grid-cols-[1fr_1.6fr] lg:gap-20">
           <div>
-            <SectionHeading id="faq-title" eyebrow="Questions" title="Straight answers before you call." />
+            <Title id="faq-title" align="left" eyebrow="FAQs" title="Questions homeowners ask us" />
             <div className="mt-8">
-              <ButtonLink href={PAGES.faq.path} variant="secondary">
-                All questions
-              </ButtonLink>
+              <Pill href={PAGES.faq.path} variant="outline">
+                All FAQs
+              </Pill>
             </div>
           </div>
           <FaqAccordion faqs={faqs} />
         </div>
       </section>
 
-      <CtaBlock source="home" />
+      <AboutBand />
 
       <JsonLd
         items={[

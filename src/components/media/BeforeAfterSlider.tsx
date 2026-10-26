@@ -39,7 +39,7 @@ export function BeforeAfterSlider({ item }: { item: GalleryItem }) {
           className="absolute inset-0 h-full w-full cursor-ew-resize opacity-0"
         />
       </div>
-      <figcaption className="px-2 pt-3 pb-1 text-sm font-semibold text-charcoal-soft">{item.caption}</figcaption>
+      <figcaption className="px-2 pt-3 pb-1 text-sm font-semibold text-ink-soft">{item.caption}</figcaption>
     </figure>
   );
 }

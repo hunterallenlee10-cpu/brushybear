@@ -136,7 +136,7 @@ const article: Article = {
         {
           type: "ol",
           items: [
-            "**Kill growth and wash.** Moss and mildew need a cleaner that kills them, not just a rinse. See [how rain and moss affect exterior paint](/articles/rain-moss-exterior-paint-pacific-northwest).",
+            "**Kill growth and wash.** Moss and mildew need a cleaner that kills them, not just a rinse. See [how rain and moss affect exterior paint](/blog/rain-moss-exterior-paint-pacific-northwest).",
             "**Let the house dry.** Washed wood siding typically needs at least a day or two of dry weather, and shaded walls and cedar often longer. A moisture meter beats a guess.",
             "**Scrape and sand.** Loose paint comes off and edges get sanded smooth.",
             "**Repair rot.** Soft wood at sills, fascia and board ends gets replaced. Rot often turns up during scraping, so a good schedule leaves slack for it.",

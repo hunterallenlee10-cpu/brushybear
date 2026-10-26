@@ -17,7 +17,7 @@ export const metadata = pageMetadata({
 const EFFECTIVE = "2026-10-24";
 
 function H2({ children }: { children: React.ReactNode }) {
-  return <h2 className="mt-12 font-display text-display-md text-forest">{children}</h2>;
+  return <h2 className="mt-12 text-display-md text-ink">{children}</h2>;
 }
 
 export default function PrivacyPage() {
@@ -28,7 +28,7 @@ export default function PrivacyPage() {
   return (
     <>
       <PageHeader crumbs={crumbs} eyebrow="Privacy" title="Privacy policy">
-        <p className="mt-6 text-sm font-semibold text-charcoal-soft">
+        <p className="mt-6 text-sm font-semibold text-ink-soft">
           Effective {formatDate(EFFECTIVE)}
           <ConfirmBadge note="Hunter: have the business attorney review this policy before launch" />
         </p>

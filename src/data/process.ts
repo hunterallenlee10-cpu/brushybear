@@ -2,24 +2,26 @@ import type { Confirmable } from "@/data/types";
 
 export type Step = Confirmable & { title: string; body: string };
 
-/** How a job works, in 4 steps. */
+/** How a job works, in EA Pro Painters' four steps. */
 export const PROCESS: Step[] = [
   {
-    title: "Ask for an estimate",
-    body: "Tell us what you want painted, online, by phone or by text. We'll set up a walkthrough at a time that works for you.",
-  },
-  {
-    title: "Walkthrough and written quote",
-    body: "We visit, measure, check for repairs and talk colors. Your written, itemized quote arrives within 24 hours.",
+    title: "Request a free estimate",
+    body: "Tell us what you want painted, online or by phone. We set up a walkthrough, measure, check for repairs and send a written, itemized quote within 24 hours.",
     confirm: "Promise: confirm with Erik before launch",
   },
   {
-    title: "We paint",
-    body: "Prep comes first, then paint. You get a photo update and a cleaned-up house at the end of every day.",
+    title: "Color selection",
+    body: "We help you pick colors and sheens that suit the room or the house, with samples on the wall before anything is final.",
+    confirm: "Erik: confirm we bring or paint color samples for every job",
+  },
+  {
+    title: "Project starting",
+    body: "We start on the date we set. Prep comes first, then paint, with a photo update and a cleaned-up house at the end of every day.",
     confirm: "Promise: confirm with Erik before launch",
   },
   {
-    title: "Final walkthrough",
-    body: "We walk the finished job with you and fix any touch-ups on the spot, before we call it done.",
+    title: "Quality inspection & warranty",
+    body: "We walk the finished job with you, fix touch-ups on the spot, and hand you your written warranty.",
+    confirm: "Erik: confirm the warranty terms (length shows from WARRANTY_YEARS in site.ts)",
   },
 ];

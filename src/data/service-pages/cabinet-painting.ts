@@ -94,7 +94,7 @@ const page: ServicePage = {
         },
         {
           type: "p",
-          text: "We compare all three in more detail, including time and disruption, in [cabinet painting vs refacing on the Eastside](/articles/cabinet-painting-vs-refacing-eastside).",
+          text: "We compare all three in more detail, including time and disruption, in [cabinet painting vs refacing on the Eastside](/blog/cabinet-painting-vs-refacing-eastside).",
         },
       ],
     },

@@ -45,7 +45,7 @@ const page: ServicePage = {
         },
         {
           type: "p",
-          text: "Our article on [rain, moss and exterior paint in the Pacific Northwest](/articles/rain-moss-exterior-paint-pacific-northwest) goes deeper on why paint fails here and what to watch for between paint jobs.",
+          text: "Our article on [rain, moss and exterior paint in the Pacific Northwest](/blog/rain-moss-exterior-paint-pacific-northwest) goes deeper on why paint fails here and what to watch for between paint jobs.",
         },
       ],
     },
@@ -74,7 +74,7 @@ const page: ServicePage = {
         },
         {
           type: "p",
-          text: "For planning tips, read [the best time to paint a house exterior on the Eastside](/articles/best-time-to-paint-house-exterior-eastside).",
+          text: "For planning tips, read [the best time to paint a house exterior on the Eastside](/blog/best-time-to-paint-house-exterior-eastside).",
         },
       ],
     },
@@ -119,7 +119,7 @@ const page: ServicePage = {
         },
         {
           type: "p",
-          text: "You'll get a photo update every day, so you know where things stand even if you're at work. If your deck or fence needs attention too, [deck and fence staining](/services/deck-and-fence-staining) fits into the same dry-season visit.",
+          text: "You'll get a photo update every day, so you know where things stand even if you're at work. If your deck or fence needs attention too, [deck and fence staining](/services/decks-and-fences-painting) fits into the same dry-season visit.",
         },
         {
           type: "p",

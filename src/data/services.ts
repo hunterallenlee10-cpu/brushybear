@@ -14,16 +14,17 @@ export type Service = {
   updatedAt: string;
 };
 
+// Same services, same order as EA Pro Painters' menu.
 export const SERVICES: Service[] = [
-  { slug: "interior-painting", name: "Interior Painting", shortName: "Interiors", phase: 1, published: true, updatedAt: "2026-10-24" },
-  { slug: "exterior-painting", name: "Exterior Painting", shortName: "Exteriors", phase: 1, published: true, updatedAt: "2026-10-24" },
-  { slug: "cabinet-painting", name: "Cabinet Painting", shortName: "Cabinets", phase: 1, published: true, updatedAt: "2026-10-24" },
-  { slug: "deck-and-fence-staining", name: "Deck and Fence Staining", shortName: "Decks & fences", phase: 1, published: true, updatedAt: "2026-10-24" },
-  // Phase 2 services: data only, no pages yet.
-  { slug: "popcorn-ceiling-removal", name: "Popcorn Ceiling Removal", shortName: "Popcorn ceilings", phase: 2, published: false, updatedAt: "2026-10-24" },
-  { slug: "wallpaper-removal", name: "Wallpaper Removal", shortName: "Wallpaper removal", phase: 2, published: false, updatedAt: "2026-10-24" },
-  { slug: "limewash", name: "Limewash", shortName: "Limewash", phase: 2, published: false, updatedAt: "2026-10-24" },
-  { slug: "garage-floors", name: "Garage Floor Coatings", shortName: "Garage floors", phase: 2, published: false, updatedAt: "2026-10-24" },
+  { slug: "commercial-painting", name: "Commercial Painting", shortName: "Commercial", phase: 1, published: true, updatedAt: "2026-10-26" },
+  { slug: "exterior-painting", name: "Exterior Painting", shortName: "Exteriors", phase: 1, published: true, updatedAt: "2026-10-26" },
+  { slug: "interior-painting", name: "Interior Painting", shortName: "Interiors", phase: 1, published: true, updatedAt: "2026-10-26" },
+  { slug: "custom-painting", name: "Custom Painting", shortName: "Custom", phase: 1, published: true, updatedAt: "2026-10-26" },
+  { slug: "cabinet-painting", name: "Cabinet Painting", shortName: "Cabinets", phase: 1, published: true, updatedAt: "2026-10-26" },
+  { slug: "millwork-painting", name: "Millwork Painting", shortName: "Millwork", phase: 1, published: true, updatedAt: "2026-10-26" },
+  { slug: "drywall-painting", name: "Drywall Painting", shortName: "Drywall", phase: 1, published: true, updatedAt: "2026-10-26" },
+  { slug: "decks-and-fences-painting", name: "Decks and Fences Painting", shortName: "Decks & fences", phase: 1, published: true, updatedAt: "2026-10-26" },
+  { slug: "hoa-painting", name: "HOA Painting", shortName: "HOA", phase: 1, published: true, updatedAt: "2026-10-26" },
 ];
 
 /** Offered with any job from day one; mentioned on pages, no pages of their own. */

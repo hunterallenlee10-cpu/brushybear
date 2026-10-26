@@ -20,8 +20,8 @@ export default function NotFound() {
         <BearMascot pose="sleeping" sizes="(min-width: 768px) 320px, 224px" className="h-auto w-full" />
       </div>
       <div>
-        <p className="text-sm font-extrabold uppercase tracking-[0.14em] text-forest">Error 404</p>
-        <h1 className="mt-3 font-display text-display-lg text-forest">This page wandered off into the woods.</h1>
+        <p className="text-sm font-extrabold uppercase tracking-[0.14em] text-pine">Error 404</p>
+        <h1 className="mt-3 text-display-lg text-ink">This page wandered off into the woods.</h1>
         <p className="mt-4 max-w-md text-lg">
           The link may be old, or the page moved. Let&apos;s get you somewhere useful.
         </p>

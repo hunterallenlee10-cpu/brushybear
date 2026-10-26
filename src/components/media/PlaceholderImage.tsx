@@ -12,10 +12,10 @@ export function PlaceholderImage({ label, ratio = "4/3", className = "" }: { lab
     <div
       role="img"
       aria-label={`Placeholder: ${label}`}
-      className={`relative flex items-center justify-center overflow-hidden rounded-[var(--radius-sticker)] border-2 border-dashed border-cream-200 bg-[repeating-linear-gradient(-45deg,var(--color-cream-50)_0_14px,var(--color-cream)_14px_28px)] ${className}`}
+      className={`relative flex items-center justify-center overflow-hidden rounded-[var(--radius-card)] border-2 border-dashed border-cream-200 bg-[repeating-linear-gradient(-45deg,var(--color-cream-50)_0_14px,var(--color-cream)_14px_28px)] ${className}`}
       style={{ aspectRatio: ratio }}
     >
-      <div className="flex flex-col items-center gap-2 px-4 text-center text-charcoal-soft">
+      <div className="flex flex-col items-center gap-2 px-4 text-center text-ink-soft">
         <BrushIcon className="size-7" />
         <span className="text-xs font-extrabold uppercase tracking-[0.12em]">{label}</span>
       </div>

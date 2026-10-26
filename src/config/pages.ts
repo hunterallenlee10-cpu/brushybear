@@ -22,14 +22,18 @@ export type PageEntry = {
 export const PAGES = {
   home: { path: "/", label: "Home", live: true, indexable: true, lastModified: SITE.lastUpdated },
   services: { path: "/services", label: "Services", live: true, indexable: true, lastModified: SITE.lastUpdated },
+  areas: { path: "/areas-we-serve", label: "Areas We Serve", live: true, indexable: true, lastModified: SITE.lastUpdated },
   estimate: { path: "/estimate", label: "Free Estimate", live: true, indexable: true, lastModified: SITE.lastUpdated },
+  instantEstimate: { path: "/instant-estimate", label: "Instant Estimate", live: true, indexable: true, lastModified: SITE.lastUpdated },
   // Indexed once Erik and Hunter confirm the story (see CONTENT_TODO.md).
   about: { path: "/about", label: "About", live: true, indexable: false, lastModified: SITE.lastUpdated },
+  faq: { path: "/faqs", label: "FAQs", live: true, indexable: true, lastModified: SITE.lastUpdated },
   // Indexed once there are enough real jobs to be worth a search visit.
-  gallery: { path: "/gallery", label: "Gallery", live: true, indexable: GALLERY.length >= GALLERY_INDEX_THRESHOLD, lastModified: SITE.lastUpdated },
-  faq: { path: "/faq", label: "FAQ", live: true, indexable: true, lastModified: SITE.lastUpdated },
-  articles: { path: "/articles", label: "Articles", live: true, indexable: true, lastModified: SITE.lastUpdated },
-  privacy: { path: "/privacy", label: "Privacy", live: true, indexable: true, lastModified: SITE.lastUpdated },
+  gallery: { path: "/portfolio", label: "Portfolio", live: true, indexable: GALLERY.length >= GALLERY_INDEX_THRESHOLD, lastModified: SITE.lastUpdated },
+  articles: { path: "/blog", label: "Blog", live: true, indexable: true, lastModified: SITE.lastUpdated },
+  // Indexed once the list holds real companies.
+  recommended: { path: "/recommended-companies", label: "Recommended Companies", live: true, indexable: false, lastModified: SITE.lastUpdated },
+  privacy: { path: "/privacy", label: "Privacy & Terms", live: true, indexable: true, lastModified: SITE.lastUpdated },
 } satisfies Record<string, PageEntry>;
 
 /** Which data-driven route groups are built yet. */
@@ -40,8 +44,8 @@ export const DYNAMIC_LIVE = {
 };
 
 export const servicePath = (slug: string) => `/services/${slug}`;
-export const cityPath = (slug: string) => `/painters/${slug}`;
-export const articlePath = (slug: string) => `/articles/${slug}`;
+export const cityPath = (slug: string) => `/painting-company/${slug}`;
+export const articlePath = (slug: string) => `/blog/${slug}`;
 
 /** True if an internal link points at a page that exists in this build. */
 export function isLivePath(href: string): boolean {
@@ -51,8 +55,8 @@ export function isLivePath(href: string): boolean {
   const [, group, slug, extra] = path.split("/");
   if (!slug || extra !== undefined) return false;
   if (group === "services") return DYNAMIC_LIVE.services && publishedServices().some((s) => s.slug === slug);
-  if (group === "painters") return DYNAMIC_LIVE.cities && publishedCities().some((c) => c.slug === slug);
-  if (group === "articles") return DYNAMIC_LIVE.articles && ARTICLES.some((a) => a.slug === slug);
+  if (group === "painting-company") return DYNAMIC_LIVE.cities && publishedCities().some((c) => c.slug === slug);
+  if (group === "blog") return DYNAMIC_LIVE.articles && ARTICLES.some((a) => a.slug === slug);
   return false;
 }
 

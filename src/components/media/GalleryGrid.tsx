@@ -11,7 +11,7 @@ export function GalleryGrid({ items, services, cities }: { items: GalleryItem[];
   const [service, setService] = useState("all");
   const [city, setCity] = useState("all");
   const shown = items.filter((i) => (service === "all" || i.service === service) && (city === "all" || i.city === city));
-  const select = "min-h-12 rounded-full border-2 border-forest bg-white px-4 font-bold text-forest";
+  const select = "min-h-12 rounded-full border-2 border-pine bg-white px-4 font-bold text-pine";
   return (
     <div>
       <div className="flex flex-wrap gap-4">
@@ -38,7 +38,7 @@ export function GalleryGrid({ items, services, cities }: { items: GalleryItem[];
           </select>
         </label>
       </div>
-      <p aria-live="polite" className="mt-4 text-sm font-semibold text-charcoal-soft">
+      <p aria-live="polite" className="mt-4 text-sm font-semibold text-ink-soft">
         Showing {shown.length} of {items.length} jobs
       </p>
       <ul className="mt-6 grid gap-10 md:grid-cols-2">

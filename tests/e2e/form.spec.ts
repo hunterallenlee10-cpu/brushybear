@@ -1,48 +1,50 @@
 import { expect, test } from "@playwright/test";
 
-test.describe("estimate form", () => {
+test.describe("estimate card", () => {
   test("shows inline errors and focuses the first one", async ({ page }) => {
     await page.goto("/estimate");
-    await page.getByRole("button", { name: "Continue" }).click();
-    await expect(page.getByText("Please enter your name.")).toBeVisible();
-    await expect(page.getByText("Pick at least one.")).toBeVisible();
-    await expect(page.getByLabel("Your name")).toBeFocused();
-    await expect(page.getByLabel("Your name")).toHaveAttribute("aria-invalid", "true");
+    const card = page.locator("[data-lead-form]").first();
+    await card.getByRole("button", { name: "Get a Free Estimate" }).click();
+    await expect(card.getByText("Please enter your name.")).toBeVisible();
+    await expect(card.getByText("Please choose a project type.")).toBeVisible();
+    await expect(card.getByLabel("First name")).toBeFocused();
+    await expect(card.getByLabel("First name")).toHaveAttribute("aria-invalid", "true");
   });
 
-  test("sends a request in two steps (dry run)", async ({ page }) => {
+  test("sends a request (dry run) and shows what happens next", async ({ page }) => {
     await page.goto("/estimate");
-    await page.getByLabel("Your name").fill("Jane Doe");
-    await page.getByLabel("Mobile phone").fill("425-555-0142");
-    await page.getByLabel("Email").fill("jane@example.com");
-    await page.getByLabel("Home address or ZIP code").fill("98033");
-    await page.getByText("Exterior", { exact: true }).click();
-    await page.getByRole("button", { name: "Continue" }).click();
-
-    await expect(page.getByRole("heading", { name: /A few details/ })).toBeVisible();
-    await page.getByText("1978 or later").click();
-    await page.getByLabel(/Yes, text me about my estimate/).check();
+    const card = page.locator("[data-lead-form]").first();
+    await card.getByLabel("First name").fill("Jane");
+    await card.getByLabel("Last name").fill("Doe");
+    await card.getByLabel("Email").fill("jane@example.com");
+    await card.getByLabel("Phone").fill("425-555-0142");
+    await card.getByLabel("Address").fill("98033");
+    await card.getByLabel("Project type").selectOption({ label: "Exterior Painting" });
+    await card.getByLabel(/Yes, text me about my estimate/).check();
     await page.waitForTimeout(3_200); // past the bot fill-time trap, so the real path runs
 
     const response = page.waitForResponse("**/api/estimate");
-    await page.getByRole("button", { name: "Send my request" }).click();
-    const body = await (await response).json();
-    expect(body).toEqual({ ok: true, dryRun: true });
+    await card.getByRole("button", { name: "Get a Free Estimate" }).click();
+    expect(await (await response).json()).toEqual({ ok: true, dryRun: true });
     await expect(page.getByRole("heading", { name: /Got it, Jane!/ })).toBeVisible();
   });
 
-  test("service pages pre-select their service", async ({ page }) => {
+  test("service pages preselect their service", async ({ page }) => {
     await page.goto("/services/cabinet-painting");
-    const form = page.locator("#estimate");
-    await form.scrollIntoViewIfNeeded(); // the form's code loads when it nears the screen
-    await expect(form.getByRole("checkbox", { name: "Cabinets" })).toBeChecked();
+    const card = page.locator("#estimate [data-lead-form]");
+    await expect(card.getByLabel("Project type")).toHaveValue("cabinets");
   });
 
-  test("bottom-of-page form loads lazily and works after a tap", async ({ page }) => {
+  test("the home hero has the estimate card", async ({ page }) => {
     await page.goto("/");
-    // Before scrolling, only the lightweight shell is on the page.
-    await expect(page.locator("#estimate").getByRole("button", { name: "Start your free estimate" })).toBeAttached();
-    await page.locator("#estimate").scrollIntoViewIfNeeded();
-    await expect(page.locator("#estimate").getByLabel("Your name")).toBeVisible();
+    await expect(page.locator("#quote [data-lead-form]").getByLabel("First name")).toBeAttached();
   });
+});
+
+test("instant estimate shows a range that follows the inputs", async ({ page }) => {
+  await page.goto("/instant-estimate");
+  const range = page.getByText(/^\$[\d,]+ to \$[\d,]+$/);
+  const before = await range.textContent();
+  await page.getByText("Kitchen cabinets", { exact: true }).click();
+  await expect(range).not.toHaveText(before ?? "");
 });

@@ -15,10 +15,22 @@ export type OpenItem = {
 
 export const DECISIONS: OpenItem[] = [
   {
-    topic: "Lane versus EA Pro",
-    question: "Which lane does Brushy Bear take (area, price point, services or overflow)? Do the 5 Phase 1 cities stay as listed?",
+    topic: "Services and cities",
+    question: "The site now lists EA Pro Painters' nine services (including commercial and HOA) and all 23 of its cities. Confirm Brushy Bear takes on every one of them.",
     owner: "Both",
-    blocks: "City-page copy (build Phase 5) and whether \"Eastside\" stays the main regional search term.",
+    blocks: "Service and city pages (each also has its own confirm notes).",
+  },
+  {
+    topic: "Instant estimate prices",
+    question: "Check every rate, minimum and factor in src/config/pricing.ts (each marked TODO: Erik confirm). These ranges show on /instant-estimate.",
+    owner: "Erik",
+    blocks: "The instant estimate page going public.",
+  },
+  {
+    topic: "Recommended companies",
+    question: "Which local roofers, gutter, carpentry, pressure washing, window and flooring companies do we recommend (with their OK)? Fill src/data/recommended.ts.",
+    owner: "Both",
+    blocks: "The /recommended-companies page (kept out of search until filled).",
   },
   {
     topic: "Company name",

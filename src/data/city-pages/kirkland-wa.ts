@@ -112,7 +112,7 @@ const page: CityPage = {
       body: [
         {
           type: "p",
-          text: "Lake-view decks and cedar fences take more weather in Kirkland than almost anything else on the property and often wear out well before the siding does. [Deck and fence staining](/services/deck-and-fence-staining) starts with a thorough cleaning, then the right solid or semi-transparent stain for the wood's condition.",
+          text: "Lake-view decks and cedar fences take more weather in Kirkland than almost anything else on the property and often wear out well before the siding does. [Deck and fence staining](/services/decks-and-fences-painting) starts with a thorough cleaning, then the right solid or semi-transparent stain for the wood's condition.",
         },
         {
           type: "p",

@@ -16,6 +16,8 @@
   --color-pine-bright: #2c7a57;
   --color-honey: #f4ad1f;
   --color-honey-deep: #df970b;
+  /* Gold for small text on white (the "PAINTERS" in the logo): 4.55:1. */
+  --color-honey-text: #a36a00;
   --color-ink: #0c1a14;
   --color-ink-soft: #46564e;
   --color-mist: #f3f6f4;
@@ -51,6 +53,7 @@
 @theme inline {
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-brand: var(--font-fredoka), ui-rounded, system-ui, sans-serif;
 }
 
 @layer base {

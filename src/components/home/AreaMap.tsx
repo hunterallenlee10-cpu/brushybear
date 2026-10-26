@@ -42,7 +42,7 @@ const LABELS: Record<string, "l" | "r" | "b"> = {
   "renton-wa": "r",
   "bothell-wa": "r",
   "everett-wa": "r",
-  "edmonds-wa": "r",
+  "edmonds-wa": "b",
   "lynnwood-wa": "r",
   "monroe-wa": "l",
   "snohomish-wa": "r",

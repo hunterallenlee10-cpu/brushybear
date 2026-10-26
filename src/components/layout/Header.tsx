@@ -35,7 +35,7 @@ export function Header() {
       <header className="sticky top-0 z-40 border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
         <div className="relative mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-4 px-4 md:h-[5.5rem] md:px-8">
           <Link href="/" className="shrink-0 rounded-lg" aria-label={`${SITE.name} home`}>
-            <Wordmark className="h-11 w-auto md:h-14" />
+            <Wordmark preload />
           </Link>
 
           <DesktopNav items={nav} />

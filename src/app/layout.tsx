@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import { Manrope } from "next/font/google";
+import { Fredoka, Manrope } from "next/font/google";
 import { AnalyticsListener } from "@/components/layout/AnalyticsListener";
 import { Footer } from "@/components/layout/Footer";
 import { Ga4 } from "@/components/layout/Ga4";
@@ -16,6 +16,8 @@ import "./globals.css";
 
 // Self-hosted at build time: no request to Google, no layout shift.
 const manrope = Manrope({ subsets: ["latin"], display: "swap", variable: "--font-manrope" });
+// The brand name ("Brushy Bear Painters") is set in Fredoka: rounded like the bear, but clean.
+const fredoka = Fredoka({ subsets: ["latin"], weight: ["600", "700"], display: "swap", variable: "--font-fredoka" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -38,7 +40,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-US" data-scroll-behavior="smooth" className={manrope.variable}>
+    <html lang="en-US" data-scroll-behavior="smooth" className={`${manrope.variable} ${fredoka.variable}`}>
       <body className="pb-action-bar flex min-h-dvh flex-col antialiased">
         <SkipLink />
         <PreviewBanner />

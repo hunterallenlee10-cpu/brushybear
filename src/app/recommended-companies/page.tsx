@@ -1,3 +1,4 @@
+import { BearMascot } from "@/components/brand/BearMascot";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBlock } from "@/components/sections/CtaBlock";
@@ -28,6 +29,11 @@ export default function RecommendedPage() {
         intro={[
           "A paint job often turns up other work: a roof that needs attention, gutters that overflow, siding that needs replacing. These are the local companies we send customers to. We don't get paid for recommending them.",
         ]}
+        aside={
+          <div className="mx-auto hidden w-48 lg:block xl:w-56">
+            <BearMascot pose="thumbs-up" sizes="224px" preload className="h-auto w-full drop-shadow-[0_14px_24px_rgb(0_0_0/0.45)]" />
+          </div>
+        }
       />
       <section aria-label="Companies" className="mx-auto max-w-7xl px-4 py-14 md:px-8 md:py-20">
         <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

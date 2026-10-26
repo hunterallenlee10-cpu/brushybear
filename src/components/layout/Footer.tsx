@@ -20,7 +20,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-12 px-4 pt-16 pb-12 md:px-8 lg:grid-cols-[1.25fr_1fr_1fr_1.4fr]">
         <div>
           <Link href="/" className="inline-block rounded-lg" aria-label={`${SITE.name} home`}>
-            <Wordmark className="h-14 w-auto" sizes="200px" />
+            <Wordmark tone="dark" size="lg" />
           </Link>
           <h2 className={`${HEAD} mt-8`}>Contact</h2>
           <ul className="mt-4 space-y-3 text-white/85">

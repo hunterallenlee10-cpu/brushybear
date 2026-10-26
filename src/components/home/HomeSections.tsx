@@ -1,7 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { ComponentType } from "react";
-import bearRoller from "@/assets/brand/bear-roller-shoulder.png";
+import { BearMascot } from "@/components/brand/BearMascot";
 import { ArticleCard } from "@/components/home/ArticleCard";
 import { AreaMap } from "@/components/home/AreaMap";
 import { QuoteCard } from "@/components/estimate/QuoteCard";
@@ -73,6 +72,9 @@ export function LocalServices() {
           </div>
           <div className="relative">
             <SceneImage scene="interior-painting" ratio="4/3" sizes="(min-width: 1024px) 500px, 100vw" />
+            <div aria-hidden="true" className="absolute -bottom-10 -left-4 w-28 sm:w-36 lg:-left-12 lg:w-40">
+              <BearMascot pose="brush" sizes="160px" className="h-auto w-full drop-shadow-[0_10px_16px_rgb(12_26_20/0.35)]" />
+            </div>
           </div>
         </div>
 
@@ -211,8 +213,9 @@ export function ProcessSteps() {
             );
           })}
         </ol>
-        <div className="mt-12 text-center">
-          <Pill href={PAGES.estimate.path} variant="honey" size="lg">
+        <div className="mt-12 flex items-end justify-center gap-4">
+          <BearMascot pose="swatches" sizes="112px" className="hidden h-auto w-24 sm:block md:w-28" />
+          <Pill href={PAGES.estimate.path} variant="honey" size="lg" className="mb-6">
             Get A Free Estimate
           </Pill>
         </div>
@@ -263,7 +266,8 @@ export function WhyUs() {
   return (
     <section aria-labelledby="why-title" className="py-16 md:py-24">
       <div className={`${WRAP} grid items-center gap-12 lg:grid-cols-[1fr_1.1fr]`}>
-        <div>
+        <div className="relative">
+          <BearMascot pose="wave" sizes="(min-width: 640px) 144px, 104px" className="absolute -top-6 right-0 h-auto w-26 sm:w-36 lg:-right-4" />
           <p className="text-sm font-bold tracking-[0.16em] text-pine-bright uppercase">Why</p>
           <h2 id="why-title" className="mt-1 text-[clamp(2.5rem,1.6rem+3.5vw,4rem)] leading-none">
             {SITE.shortName.toUpperCase()}
@@ -290,7 +294,8 @@ export function WhyUs() {
       </div>
       <div className={`${WRAP} mt-16`}>
         <div className="relative overflow-hidden rounded-[2rem] bg-ink px-6 py-12 text-center text-white md:px-12">
-          <Image src={bearRoller} alt="" sizes="160px" className="absolute -bottom-2 left-6 hidden h-auto w-36 md:block lg:w-40" />
+          <BearMascot pose="roller-shoulder" sizes="176px" className="absolute -bottom-2 left-6 hidden h-auto w-40 md:block lg:w-44" />
+          <BearMascot pose="thumbs-up" sizes="160px" className="absolute right-6 -bottom-2 hidden h-auto w-36 lg:block" />
           <h2 className="text-display-lg">
             {DREAM_HOME_CTA.title}
             <span className="block text-honey">{DREAM_HOME_CTA.subtitle}</span>
@@ -337,7 +342,10 @@ export function GetStarted() {
   return (
     <section aria-labelledby="start-title" className="bg-mist py-16 md:py-24">
       <div className={WRAP}>
-        <Title id="start-title" eyebrow={GET_STARTED.eyebrow} title={GET_STARTED.title} />
+        <div className="flex items-end justify-center gap-5">
+          <BearMascot pose="clipboard" sizes="120px" className="hidden h-auto w-24 sm:block md:w-28" />
+          <Title id="start-title" eyebrow={GET_STARTED.eyebrow} title={GET_STARTED.title} className="mx-0 text-left sm:pb-4" align="left" />
+        </div>
         <ul className="mt-12 grid gap-6 md:grid-cols-3">
           {cards.map(({ icon: Icon, ...c }) => (
             <li key={c.title} className="flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-white shadow-card ring-1 ring-ink/5">

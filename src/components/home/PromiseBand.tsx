@@ -1,3 +1,4 @@
+import { BearMascot } from "@/components/brand/BearMascot";
 import { Slider } from "@/components/home/Slider";
 import { ConfirmBadge } from "@/components/ui/ConfirmBadge";
 import { StarRow } from "@/components/home/StarRow";
@@ -22,6 +23,7 @@ export function PromiseBand() {
               ? "Real reviews from homeowners we've painted for."
               : "Six things every customer gets, written into your quote. We're a new company, so these are how we earn reviews."}
           </p>
+          <BearMascot pose="thumbs-up" sizes="160px" className="mt-8 hidden h-auto w-36 lg:block xl:w-40" />
         </div>
         <Slider label={hasReviews ? "Customer reviews" : "Our promises"}>
           {hasReviews

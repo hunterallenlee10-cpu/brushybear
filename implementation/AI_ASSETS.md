@@ -116,3 +116,14 @@ The hand-drawn hero scene (`HeroScene`) and service illustrations (`ServiceArt`)
 | scene-hoa.jpg | 48ae4fc1-d494-4b8d-8a68-7dc728d59193 | Row of townhomes in slate blue and warm gray, white trim | HOA Painting card and page |
 
 All five carry the "Illustration" tag and contain no people.
+
+## October 26, 2026: logo bears from Drive, new poses
+
+- **Logo bears:** `logo-bear-brush.png`, `logo-bear-roller.png` and `logo-bear-roller-shoulder.png` are cut from the three "Keep-this-exact-logo-same-golden-yellow" files in the "Brushy Bear Painters" Drive folder. The artwork is untouched; the white background and the text were removed and the white sticker border rebuilt (`scripts` in the session scratchpad: `cutbear.py`). They replace the older cuts `bear-brush.png`, `bear-roller-up.png` and `bear-roller-shoulder.png`.
+- **Three new poses:** Nano Banana 2.1 with `logo-bear-roller` as the reference image, 2K, 1:1. **6 credits** (2 each; one failed job was not charged and was resubmitted with a simpler prompt).
+
+| File | Job ID | Pose | Goes on |
+|---|---|---|---|
+| bear-point.png | 948d1a12-1c73-45bc-99b6-1ca00d026252 | Pointing right | Home hero (points at the estimate card), estimate page |
+| bear-swatches.png | fdf3d068-7463-4a21-822a-d5451bdf3e79 | Holding a color fan deck | "How do we make it work?" |
+| bear-clipboard.png | d9b554cf-6a52-4409-b887-0151b6f7ac7d | Clipboard and thumbs up | "Three ways to get your price", instant estimate page |

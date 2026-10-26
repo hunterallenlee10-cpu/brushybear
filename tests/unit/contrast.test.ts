@@ -29,6 +29,7 @@ const PAIRS: [fg: string, bg: string, min: number][] = [
   ["ink", "honey-deep", 4.5],
   ["honey", "ink", 4.5],
   ["honey", "pine-deep", 4.5],
+  ["honey-text", "white", 4.5],
   // Honey on pine is for large headings only (3:1 for large text).
   ["honey", "pine", 3],
   // Focus rings and outlines (non-text, 3:1).

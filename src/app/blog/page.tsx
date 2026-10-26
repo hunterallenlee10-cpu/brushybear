@@ -1,3 +1,4 @@
+import { BearMascot } from "@/components/brand/BearMascot";
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -27,6 +28,11 @@ export default function ArticlesIndex() {
         eyebrow="Guides"
         title={`Painting guides for ${SITE.regionName} homes`}
         intro={["Straight answers about paint, weather and timing in the Northwest, written for homeowners, not other painters."]}
+        aside={
+          <div className="mx-auto hidden w-48 lg:block xl:w-56">
+            <BearMascot pose="brush" sizes="224px" preload className="h-auto w-full drop-shadow-[0_14px_24px_rgb(0_0_0/0.45)]" />
+          </div>
+        }
       />
       <ul className="mx-auto grid max-w-7xl gap-8 px-4 pb-20 md:grid-cols-3 md:px-8">
         {ARTICLES.map((a) => (

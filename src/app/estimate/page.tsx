@@ -1,3 +1,4 @@
+import { BearMascot } from "@/components/brand/BearMascot";
 import { QuoteCard } from "@/components/estimate/QuoteCard";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -62,7 +63,10 @@ export default function EstimatePage() {
                 ))}
               </ol>
             </div>
-            <div className="mx-auto w-full max-w-lg lg:ml-auto">
+            <div className="relative mx-auto w-full max-w-lg lg:ml-auto">
+              <div aria-hidden="true" className="pointer-events-none absolute top-1/2 -left-40 hidden w-36 -translate-y-1/2 xl:block">
+                <BearMascot pose="point" sizes="144px" className="h-auto w-full drop-shadow-[0_10px_18px_rgb(0_0_0/0.45)]" />
+              </div>
               <QuoteCard source="estimate-page" withNotes fallbackPhone={phone} />
             </div>
           </div>

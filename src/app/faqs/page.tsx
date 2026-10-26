@@ -1,3 +1,4 @@
+import { BearMascot } from "@/components/brand/BearMascot";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { CtaBlock } from "@/components/sections/CtaBlock";
@@ -26,6 +27,11 @@ export default function FaqPage() {
         eyebrow="FAQ"
         title="Painting questions, answered"
         intro={["The questions homeowners ask us most, with the answer first. Don't see yours? Ask us when you request an estimate."]}
+        aside={
+          <div className="mx-auto hidden w-48 lg:block xl:w-56">
+            <BearMascot pose="wave" sizes="224px" preload className="h-auto w-full drop-shadow-[0_14px_24px_rgb(0_0_0/0.45)]" />
+          </div>
+        }
       />
       <div className="mx-auto max-w-7xl px-4 pb-20 md:px-8">
         <div className="max-w-4xl">

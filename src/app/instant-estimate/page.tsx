@@ -1,3 +1,4 @@
+import { BearMascot } from "@/components/brand/BearMascot";
 import { QuoteCard } from "@/components/estimate/QuoteCard";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -28,6 +29,11 @@ export default function InstantEstimatePage() {
         eyebrow="Why wait?"
         title="Get an instant painting estimate"
         intro={["Answer a few questions and see a rough price range for your project in under two minutes. When you're ready, book a free walkthrough for an exact, written quote."]}
+        aside={
+          <div className="mx-auto hidden w-52 lg:block xl:w-60">
+            <BearMascot pose="clipboard" sizes="240px" preload className="h-auto w-full drop-shadow-[0_14px_24px_rgb(0_0_0/0.45)]" />
+          </div>
+        }
       />
       <section aria-label="Estimate calculator" className="mx-auto max-w-7xl px-4 py-14 md:px-8 md:py-20">
         <InstantEstimate />

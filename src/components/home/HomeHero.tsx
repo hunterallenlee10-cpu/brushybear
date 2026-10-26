@@ -1,5 +1,6 @@
 import { getImageProps } from "next/image";
 import { preload } from "react-dom";
+import { BearMascot } from "@/components/brand/BearMascot";
 import { QuoteCard } from "@/components/estimate/QuoteCard";
 import { CalendarIcon, ClipboardIcon, CameraIcon } from "@/components/ui/Icons";
 import { Pill } from "@/components/ui/Pill";
@@ -44,7 +45,7 @@ export function HomeHero() {
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgb(12_26_20/0.92)_0%,rgb(12_26_20/0.78)_45%,rgb(12_26_20/0.35)_100%)] max-md:bg-[linear-gradient(180deg,rgb(12_26_20/0.85)_0%,rgb(12_26_20/0.7)_55%,rgb(12_26_20/0.9)_100%)]" />
 
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 md:px-8 md:py-16 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:py-20">
-        <div>
+        <div className="relative">
           <h1 id="hero-title" className="text-display-xl text-white">
             {HOME_HERO.title}
           </h1>
@@ -75,6 +76,10 @@ export function HomeHero() {
                 </li>
               ))}
             </ul>
+          </div>
+          {/* The bear points at the estimate card. */}
+          <div aria-hidden="true" className="pointer-events-none absolute -right-6 -bottom-6 hidden w-40 xl:block 2xl:w-44">
+            <BearMascot pose="point" sizes="176px" className="h-auto w-full drop-shadow-[0_10px_18px_rgb(0_0_0/0.45)]" />
           </div>
         </div>
 

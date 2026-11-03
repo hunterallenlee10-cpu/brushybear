@@ -112,6 +112,12 @@ export function Footer() {
             </Link>
           </p>
         </div>
+        <p className="mx-auto max-w-7xl px-4 pb-6 text-xs text-white/70 md:px-8">
+          Website by{" "}
+          <a href="https://www.leeenterprisesunlimited.com/" target="_blank" rel="noopener" className="hover:text-white">
+            Lee Enterprises Unlimited
+          </a>
+        </p>
       </div>
     </footer>
   );
